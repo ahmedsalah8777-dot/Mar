@@ -2054,6 +2054,47 @@
         document.getElementById('set-password-input').value = pass;
     }
 
+    // ==================== دالة إرسال واتساب مع تنسيق الرقم ====================
+    function sendWhatsAppMessage(phoneNumber, message) {
+        if (!phoneNumber) {
+            showToast('⚠️ رقم الهاتف غير موجود', 'error');
+            return false;
+        }
+
+        // تنظيف الرقم من أي مسافات أو علامات زائدة
+        let cleaned = phoneNumber.replace(/[^0-9]/g, '');
+        
+        // إذا كان الرقم يبدأ بـ 0، نستبدله بـ 20 (مفتاح مصر)
+        if (cleaned.startsWith('0')) {
+            cleaned = '20' + cleaned.substring(1);
+        }
+        // إذا كان الرقم لا يبدو أنه يحتوي على مفتاح دولة (أقل من 10 أرقام) نضيف 20
+        else if (cleaned.length < 10) {
+            cleaned = '20' + cleaned;
+        }
+        // إذا كان الرقم يبدأ بـ 0020 نزيل الـ 00
+        if (cleaned.startsWith('0020')) {
+            cleaned = cleaned.substring(2);
+        }
+        // إذا كان الرقم يبدأ بـ +20 نزيل الـ +
+        if (cleaned.startsWith('20')) {
+            // نتركه كما هو
+        }
+
+        // التأكد من أن الرقم يحتوي على 10 أرقام على الأقل بعد التنظيف
+        if (cleaned.length < 10) {
+            showToast(`⚠️ رقم الهاتف غير مكتمل: ${phoneNumber}`, 'warning');
+            return false;
+        }
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${cleaned}?text=${encodedMessage}`;
+        
+        // فتح الرابط في نافذة جديدة
+        window.open(whatsappUrl, '_blank');
+        return true;
+    }
+
     function confirmSetPassword() {
         if(pendingAcceptIndex === null) return;
         const pending = getPendingUsers();
@@ -2097,23 +2138,19 @@
             renderUsersTable();
         }
 
-        // ====== إرسال بيانات الدخول عبر واتساب ======
-        const adminWhatsapp = localStorage.getItem('bakala_admin_whatsapp') || '';
+        // ====== إرسال بيانات الدخول عبر واتساب باستخدام الدالة الجديدة ======
         const buyerPhone = req.phone || '';
         const companyName = localStorage.getItem('bakala_company_name') || 'بقالة الخير';
         
         if (buyerPhone) {
             const message = `مرحباً ${req.fullname}،\nتم قبول طلب تسجيلك في تطبيق ${companyName}.\n\nبيانات الدخول الخاصة بك:\n👤 اسم المستخدم: ${username}\n🔑 كلمة السر: ${password}\n\nيمكنك الآن تسجيل الدخول من خلال التطبيق.\n\nشكراً لثقتك بنا.`;
-            const encodedMessage = encodeURIComponent(message);
             
-            // محاولة إرسال عبر واتساب
-            let whatsappUrl = `https://wa.me/${buyerPhone}?text=${encodedMessage}`;
-            
-            // إذا كان هناك رقم واتساب للمدير، نضيفه كمرجع (اختياري)
-            // ولكننا نرسل للمشتري مباشرة
-            window.open(whatsappUrl, '_blank');
-            
-            showToast(`✅ تم إرسال بيانات الدخول إلى واتساب المشتري (${buyerPhone})`, 'success');
+            const sent = sendWhatsAppMessage(buyerPhone, message);
+            if (sent) {
+                showToast(`✅ تم إرسال بيانات الدخول إلى واتساب المشتري (${buyerPhone})`, 'success');
+            } else {
+                showToast(`⚠️ لم نتمكن من إرسال الرسالة، تأكد من رقم الهاتف: ${buyerPhone}`, 'warning');
+            }
         } else {
             showToast('⚠️ رقم هاتف المشتري غير موجود لإرسال الرسالة', 'warning');
         }
