@@ -651,10 +651,10 @@
 
     <div class="modal-overlay" id="set-password-modal">
         <div class="modal-box">
-            <div class="modal-header"><h3>🔑 تعيين كلمة السر</h3><button class="modal-close" onclick="closeModal('set-password-modal')">×</button></div>
+            <div class="modal-header"><h3>🔑 تعيين كلمة السر للطلب المقبول</h3><button class="modal-close" onclick="closeModal('set-password-modal')">×</button></div>
             <div class="form-group"><label>👤 المستخدم: <span id="set-password-username"></span></label></div>
             <div class="form-group"><label>🔑 كلمة السر الجديدة</label><input type="text" id="set-password-input"><button class="btn btn-sm btn-outline" style="margin-top:6px;" onclick="generateRandomPassword()">🔀 توليد عشوائي</button></div>
-            <div class="btn-group"><button class="btn btn-success" onclick="confirmSetPassword()">✅ تأكيد</button><button class="btn btn-outline" onclick="closeModal('set-password-modal')">إلغاء</button></div>
+            <div class="btn-group"><button class="btn btn-success" onclick="confirmSetPassword()">✅ تأكيد القبُول</button><button class="btn btn-outline" onclick="closeModal('set-password-modal')">إلغاء</button></div>
         </div>
     </div>
 
@@ -1018,6 +1018,37 @@
         showScreen('login');
         document.getElementById('login-password').value = '';
         showToast('👋 تم تسجيل الخروج بنجاح','success');
+    }
+
+    // ==================== REGISTER REQUESTS ====================
+    function requestRegistration() {
+        const fullname = document.getElementById('reg-fullname').value.trim();
+        const phone = document.getElementById('reg-phone').value.trim();
+        const resultDiv = document.getElementById('register-result');
+
+        if (!fullname || !phone) {
+            return showToast('⚠️ يرجى إدخال الاسم ورقم الهاتف', 'error');
+        }
+
+        const pending = getPendingUsers();
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('ar-EG') + ' ' + now.toLocaleTimeString('ar-EG');
+
+        pending.push({
+            fullname: fullname,
+            phone: phone,
+            date: dateStr
+        });
+
+        savePendingUsers(pending);
+        document.getElementById('reg-fullname').value = '';
+        document.getElementById('reg-phone').value = '';
+
+        if (resultDiv) {
+            resultDiv.textContent = '✅ تم إرسال طلبك بنجاح! سيتم مراجعته من قبل المدير.';
+        }
+        showToast('✅ تم إرسال طلب التسجيل بنجاح', 'success');
+        updatePendingBadge();
     }
 
     // ==================== CATEGORIES & PRODUCTS (MAIN SCREEN) ====================
@@ -1969,55 +2000,81 @@
         `).join('');
     }
 
-    function acceptPendingRequest(index) {
-        pendingAcceptIndex = index;
+    function acceptPendingRequest(idx) {
         const pending = getPendingUsers();
-        const req = pending[index];
+        if(idx < 0 || idx >= pending.length) return;
+        
+        pendingAcceptIndex = idx;
+        const req = pending[idx];
+        
         document.getElementById('set-password-username').textContent = req.fullname;
-        document.getElementById('set-password-input').value = '';
+        document.getElementById('set-password-input').value = 'user' + Math.floor(1000 + Math.random() * 9000);
         document.getElementById('set-password-modal').classList.add('show');
     }
 
+    function generateRandomPassword() {
+        const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        let pass = '';
+        for(let i = 0; i < 6; i++) {
+            pass += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        document.getElementById('set-password-input').value = pass;
+    }
+
     function confirmSetPassword() {
-        const password = document.getElementById('set-password-input').value.trim();
-        if(!password) return showToast('⚠️ أدخل كلمة سر','error');
+        if(pendingAcceptIndex === null) return;
         const pending = getPendingUsers();
         const req = pending[pendingAcceptIndex];
+        if(!req) return;
+
+        const password = document.getElementById('set-password-input').value.trim();
+        if(!password) {
+            return showToast('⚠️ يرجى إدخال كلمة السر', 'error');
+        }
+
         const data = loadData();
-        data.users.push({ username: req.phone, password, type: 'مشتري', fullname: req.fullname, phone: req.phone });
+        let username = req.phone ? 'user_' + req.phone.slice(-4) : 'user_' + Date.now().toString().slice(-4);
+        
+        let counter = 1;
+        let baseUsername = username;
+        while(data.users.find(u => u.username === username)) {
+            username = baseUsername + counter;
+            counter++;
+        }
+
+        data.users.push({
+            username: username,
+            password: password,
+            type: 'مشتري',
+            fullname: req.fullname,
+            phone: req.phone
+        });
+
         saveUsers(data.users);
+
         pending.splice(pendingAcceptIndex, 1);
         savePendingUsers(pending);
-        renderPendingRequests();
-        updatePendingBadge();
+
+        pendingAcceptIndex = null;
         closeModal('set-password-modal');
-        showToast(`✅ تم إنشاء حساب للمستخدم ${req.fullname}`,'success');
+        renderPendingRequests();
+        updatePendingBadge();
+        
+        if(document.getElementById('settings-screen').classList.contains('active')) {
+            renderUsersTable();
+        }
+
+        showToast(`✅ تم إكمال التسجيل بنجاح! اسم المستخدم: ${username}`, 'success');
     }
 
-    function generateRandomPassword() {
-        document.getElementById('set-password-input').value = Math.floor(100000 + Math.random() * 900000);
-    }
-
-    function rejectPendingRequest(index) {
+    function rejectPendingRequest(idx) {
+        if(!confirm('هل أنت تأكد من رفض هذا الطلب؟')) return;
         const pending = getPendingUsers();
-        pending.splice(index, 1);
+        pending.splice(idx, 1);
         savePendingUsers(pending);
         renderPendingRequests();
         updatePendingBadge();
-        showToast('🗑️ تم رفض الطلب','success');
-    }
-
-    function requestRegistration() {
-        const fullname = document.getElementById('reg-fullname').value.trim();
-        const phone = document.getElementById('reg-phone').value.trim();
-        if(!fullname||!phone) return showToast('⚠️ يرجى ملء الحقول','error');
-        const pending = getPendingUsers();
-        pending.push({ fullname, phone, date: new Date().toLocaleDateString('ar-EG'), status: 'pending' });
-        savePendingUsers(pending);
-        document.getElementById('reg-fullname').value = '';
-        document.getElementById('reg-phone').value = '';
-        showToast('✅ تم إرسال طلبك بنجاح للمدير','success');
-        showScreen('login');
+        showToast('🗑️ تم رفض الطلب', 'success');
     }
 </script>
 </body>
