@@ -70,6 +70,8 @@
         .btn-sm { padding:4px 10px; font-size:11px; border-radius:4px; }
         .btn-gold { background:var(--gold); color:white; }
         .btn-gold:hover { background:#b8860b; }
+        .btn-info { background:#17a2b8; color:white; }
+        .btn-info:hover { background:#138496; }
 
         .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--gray-800); color:white; padding:12px 24px; border-radius:30px; font-weight:600; font-size:14px; z-index:9999; animation:slideUp 0.3s ease; box-shadow:var(--shadow-lg); white-space:nowrap; }
 
@@ -413,6 +415,10 @@
         .pending-item .info strong { display:block; font-size:14px; }
         .pending-item .info small { color:var(--gray-500); font-size:12px; }
         .pending-item .actions { display:flex; gap:6px; }
+
+        .username-suggestion { font-size:12px; color:var(--gray-500); margin-top:4px; padding:4px 8px; background:var(--gray-50); border-radius:4px; display:inline-block; }
+        .username-available { color:var(--primary); font-weight:bold; }
+        .username-taken { color:var(--red); font-weight:bold; }
     </style>
 </head>
 <body>
@@ -651,12 +657,31 @@
         </div>
     </div>
 
+    <!-- SET PASSWORD MODAL (مع إضافة حقل اسم المستخدم) -->
     <div class="modal-overlay" id="set-password-modal">
         <div class="modal-box">
-            <div class="modal-header"><h3>🔑 تعيين كلمة السر للطلب المقبول</h3><button class="modal-close" onclick="closeModal('set-password-modal')">×</button></div>
-            <div class="form-group"><label>👤 المستخدم: <span id="set-password-username"></span></label></div>
-            <div class="form-group"><label>🔑 كلمة السر الجديدة</label><input type="text" id="set-password-input"><button class="btn btn-sm btn-outline" style="margin-top:6px;" onclick="generateRandomPassword()">🔀 توليد عشوائي</button></div>
-            <div class="btn-group"><button class="btn btn-success" onclick="confirmSetPassword()">✅ تأكيد القبُول</button><button class="btn btn-outline" onclick="closeModal('set-password-modal')">إلغاء</button></div>
+            <div class="modal-header">
+                <h3>🔑 قبول طلب التسجيل</h3>
+                <button class="modal-close" onclick="closeModal('set-password-modal')">×</button>
+            </div>
+            <div class="form-group">
+                <label>👤 المستخدم: <span id="set-password-username"></span></label>
+            </div>
+            <div class="form-group">
+                <label>👤 اسم المستخدم الجديد *</label>
+                <input type="text" id="set-username-input" placeholder="أدخل اسم المستخدم" style="direction:ltr; text-align:left;">
+                <div id="username-suggestion" class="username-suggestion"></div>
+            </div>
+            <div class="form-group">
+                <label>🔑 كلمة السر الجديدة *</label>
+                <input type="text" id="set-password-input" placeholder="أدخل كلمة السر" style="direction:ltr; text-align:left;">
+                <button class="btn btn-sm btn-info" style="margin-top:6px;" onclick="generateRandomPassword()">🔀 توليد كلمة سر عشوائية</button>
+                <button class="btn btn-sm btn-outline" style="margin-top:6px; margin-right:6px;" onclick="suggestUsername()">💡 اقتراح اسم مستخدم</button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="confirmSetPassword()">✅ تأكيد القبُول</button>
+                <button class="btn btn-outline" onclick="closeModal('set-password-modal')">إلغاء</button>
+            </div>
         </div>
     </div>
 
@@ -886,6 +911,11 @@
 
         renderOrdersList();
         renderArchiveList();
+
+        // إضافة مستمع للتحقق من اسم المستخدم في نافذة القبول
+        document.getElementById('set-username-input').addEventListener('input', function() {
+            checkUsernameAvailability(this.value);
+        });
     };
 
     function showScreen(id) {
@@ -2041,17 +2071,75 @@
         const req = pending[idx];
         
         document.getElementById('set-password-username').textContent = req.fullname;
-        document.getElementById('set-password-input').value = 'user' + Math.floor(1000 + Math.random() * 9000);
+        document.getElementById('set-password-input').value = '';
+        document.getElementById('set-username-input').value = '';
         document.getElementById('set-password-modal').classList.add('show');
+        
+        // اقتراح اسم مستخدم تلقائي
+        setTimeout(() => suggestUsername(), 300);
     }
 
     function generateRandomPassword() {
         const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
         let pass = '';
-        for(let i = 0; i < 6; i++) {
+        for(let i = 0; i < 8; i++) {
             pass += chars.charAt(Math.floor(Math.random() * chars.length));
         }
         document.getElementById('set-password-input').value = pass;
+    }
+
+    function suggestUsername() {
+        const pending = getPendingUsers();
+        if (pendingAcceptIndex === null || pendingAcceptIndex >= pending.length) return;
+        const req = pending[pendingAcceptIndex];
+        if (!req) return;
+
+        // اقتراح اسم من الاسم الثلاثي أو رقم الهاتف
+        let baseName = '';
+        if (req.fullname) {
+            // أخذ أول كلمة من الاسم الثلاثي
+            const parts = req.fullname.trim().split(' ');
+            if (parts.length > 0) {
+                baseName = parts[0].toLowerCase();
+            }
+        }
+        if (!baseName && req.phone) {
+            baseName = 'user' + req.phone.slice(-4);
+        }
+        if (!baseName) {
+            baseName = 'user' + Date.now().toString().slice(-4);
+        }
+
+        // إضافة أرقام إذا كان الاسم موجوداً
+        let username = baseName;
+        const data = loadData();
+        let counter = 1;
+        while (data.users.find(u => u.username === username)) {
+            username = baseName + counter;
+            counter++;
+        }
+
+        document.getElementById('set-username-input').value = username;
+        checkUsernameAvailability(username);
+    }
+
+    function checkUsernameAvailability(username) {
+        const suggestionDiv = document.getElementById('username-suggestion');
+        if (!username) {
+            suggestionDiv.innerHTML = '';
+            suggestionDiv.className = 'username-suggestion';
+            return;
+        }
+
+        const data = loadData();
+        const exists = data.users.find(u => u.username === username);
+        if (exists) {
+            suggestionDiv.innerHTML = `❌ اسم المستخدم <strong>${username}</strong> غير متاح (مستخدم من قبل)`;
+            suggestionDiv.className = 'username-suggestion username-taken';
+        } else {
+            suggestionDiv.innerHTML = `✅ اسم المستخدم <strong>${username}</strong> متاح`;
+            suggestionDiv.className = 'username-suggestion username-available';
+        }
     }
 
     // ==================== دالة إرسال واتساب مع تنسيق الرقم ====================
@@ -2076,10 +2164,6 @@
         if (cleaned.startsWith('0020')) {
             cleaned = cleaned.substring(2);
         }
-        // إذا كان الرقم يبدأ بـ +20 نزيل الـ +
-        if (cleaned.startsWith('20')) {
-            // نتركه كما هو
-        }
 
         // التأكد من أن الرقم يحتوي على 10 أرقام على الأقل بعد التنظيف
         if (cleaned.length < 10) {
@@ -2101,19 +2185,21 @@
         const req = pending[pendingAcceptIndex];
         if(!req) return;
 
+        const username = document.getElementById('set-username-input').value.trim();
         const password = document.getElementById('set-password-input').value.trim();
+
+        if(!username) {
+            return showToast('⚠️ يرجى إدخال اسم المستخدم', 'error');
+        }
         if(!password) {
             return showToast('⚠️ يرجى إدخال كلمة السر', 'error');
         }
 
         const data = loadData();
-        let username = req.phone ? 'user_' + req.phone.slice(-4) : 'user_' + Date.now().toString().slice(-4);
-        
-        let counter = 1;
-        let baseUsername = username;
-        while(data.users.find(u => u.username === username)) {
-            username = baseUsername + counter;
-            counter++;
+        // التحقق من عدم وجود اسم المستخدم مكرر
+        if(data.users.find(u => u.username === username)) {
+            showToast('⚠️ اسم المستخدم موجود بالفعل، اختر اسم آخر', 'error');
+            return;
         }
 
         data.users.push({
@@ -2138,7 +2224,7 @@
             renderUsersTable();
         }
 
-        // ====== إرسال بيانات الدخول عبر واتساب باستخدام الدالة الجديدة ======
+        // ====== إرسال بيانات الدخول عبر واتساب ======
         const buyerPhone = req.phone || '';
         const companyName = localStorage.getItem('bakala_company_name') || 'بقالة الخير';
         
