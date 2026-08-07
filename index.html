@@ -2097,6 +2097,27 @@
             renderUsersTable();
         }
 
+        // ====== إرسال بيانات الدخول عبر واتساب ======
+        const adminWhatsapp = localStorage.getItem('bakala_admin_whatsapp') || '';
+        const buyerPhone = req.phone || '';
+        const companyName = localStorage.getItem('bakala_company_name') || 'بقالة الخير';
+        
+        if (buyerPhone) {
+            const message = `مرحباً ${req.fullname}،\nتم قبول طلب تسجيلك في تطبيق ${companyName}.\n\nبيانات الدخول الخاصة بك:\n👤 اسم المستخدم: ${username}\n🔑 كلمة السر: ${password}\n\nيمكنك الآن تسجيل الدخول من خلال التطبيق.\n\nشكراً لثقتك بنا.`;
+            const encodedMessage = encodeURIComponent(message);
+            
+            // محاولة إرسال عبر واتساب
+            let whatsappUrl = `https://wa.me/${buyerPhone}?text=${encodedMessage}`;
+            
+            // إذا كان هناك رقم واتساب للمدير، نضيفه كمرجع (اختياري)
+            // ولكننا نرسل للمشتري مباشرة
+            window.open(whatsappUrl, '_blank');
+            
+            showToast(`✅ تم إرسال بيانات الدخول إلى واتساب المشتري (${buyerPhone})`, 'success');
+        } else {
+            showToast('⚠️ رقم هاتف المشتري غير موجود لإرسال الرسالة', 'warning');
+        }
+
         showToast(`✅ تم إكمال التسجيل بنجاح! اسم المستخدم: ${username}`, 'success');
     }
 
