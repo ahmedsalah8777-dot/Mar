@@ -140,6 +140,16 @@
         .header-info h3 { font-size:16px; font-weight:700; line-height:1.2; margin:0; }
         .header-info span { font-size:11px; opacity:0.85; font-weight:500; }
         .header-right { display:flex; align-items:center; gap:6px; position:relative; }
+        .header-center {
+            display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+            background:rgba(255,255,255,0.15); padding:6px 16px; border-radius:var(--radius-sm);
+            backdrop-filter:blur(4px); flex-shrink:0;
+        }
+        .header-clock { font-weight:800; font-size:15px; letter-spacing:0.5px; white-space:nowrap; }
+        .header-hours { font-size:10.5px; font-weight:600; opacity:0.95; white-space:nowrap; }
+        @media (max-width:640px) {
+            .header-center { order:3; width:100%; flex-direction:row; justify-content:center; gap:10px; padding:6px 10px; }
+        }
         .header-btn {
             width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.2);
             border:none; color:white; font-size:20px; cursor:pointer; display:flex;
@@ -191,17 +201,14 @@
         .floating-menu button:hover { background:var(--gray-50); color:var(--primary); }
         .floating-menu .divider { height:1px; background:var(--gray-200); }
 
-        /* PRODUCTS OVERLAY */
-        .products-overlay {
-            position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6);
-            z-index:300; display:none; flex-direction:column; animation:fadeIn 0.3s ease;
-            backdrop-filter:blur(2px);
+        /* PRODUCTS SCREEN */
+        #products-screen { flex-direction:column; background:var(--gray-50); }
+        .products-screen-header {
+            padding:14px 20px; background:var(--primary); color:white; display:flex;
+            align-items:center; gap:14px; box-shadow:var(--shadow-lg);
         }
-        .products-overlay.show { display:flex; }
-        .products-panel { background:white; margin:20px; border-radius:var(--radius-xl); flex:1; display:flex; flex-direction:column; overflow:hidden; box-shadow:var(--shadow-xl); animation:slideUp 0.4s ease; }
-        .products-panel-header { padding:16px 20px; background:var(--primary); color:white; display:flex; align-items:center; justify-content:space-between; gap:12px; }
-        .products-panel-header h3 { font-size:18px; display:flex; align-items:center; gap:8px; }
-        .products-panel-body { flex:1; overflow-y:auto; padding:16px; }
+        .products-screen-header h3 { font-size:18px; display:flex; align-items:center; gap:8px; }
+        .products-screen-body { flex:1; overflow-y:auto; padding:16px; max-width:1000px; margin:0 auto; width:100%; }
         .products-table { width:100%; border-collapse:collapse; font-size:14px; }
         .products-table th { background:var(--gray-100); padding:12px 10px; text-align:center; font-weight:700; color:var(--gray-700); position:sticky; top:0; z-index:1; border-bottom:2px solid var(--gray-200); }
         .products-table td { padding:10px; text-align:center; border-bottom:1px solid var(--gray-100); vertical-align:middle; }
@@ -265,7 +272,7 @@
 
         /* ORDERS SCREEN */
         #orders-screen { flex-direction:column; background:var(--gray-50); }
-        .orders-header { background:var(--gray-800); color:white; padding:14px 20px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow-lg); position:sticky; top:0; z-index:50; }
+        .orders-header { background:var(--gray-800); color:white; padding:14px 20px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow-lg); }
         .orders-body { flex:1; padding:16px; max-width:1000px; margin:0 auto; width:100%; }
         .order-card {
             background:white; border-radius:var(--radius-lg); padding:16px; margin-bottom:16px;
@@ -310,7 +317,7 @@
 
         /* ARCHIVE SCREEN */
         #archive-screen, #buyer-archive-screen { flex-direction:column; background:var(--gray-50); }
-        .archive-header { background:var(--gray-800); color:white; padding:10px 20px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow-lg); position:sticky; top:0; z-index:50; }
+        .archive-header { background:var(--gray-800); color:white; padding:10px 20px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow-lg); }
         .archive-body { flex:1; padding:12px; max-width:1200px; margin:0 auto; width:100%; }
         .archive-card {
             background:white; border-radius:var(--radius); padding:12px 16px; margin-bottom:8px;
@@ -331,7 +338,7 @@
 
         /* SETTINGS SCREEN */
         #settings-screen { flex-direction:column; background:var(--gray-50); }
-        .settings-header { background:var(--gray-800); color:white; padding:14px 20px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow-lg); position:sticky; top:0; z-index:50; }
+        .settings-header { background:var(--gray-800); color:white; padding:14px 20px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow-lg); }
         .settings-body { flex:1; padding:20px; max-width:1000px; margin:0 auto; width:100%; }
         .settings-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; background:white; padding:8px; border-radius:var(--radius); box-shadow:var(--shadow); }
         .settings-tab { padding:10px 18px; border-radius:var(--radius-sm); cursor:pointer; font-weight:600; font-size:13px; border:none; background:transparent; color:var(--gray-600); transition:var(--transition); font-family:inherit; }
@@ -463,23 +470,29 @@
         </div>
     </div>
 
+    <!-- PERSISTENT APP HEADER (ثابت في جميع الشاشات ما عدا شاشة تسجيل الدخول) -->
+    <header class="header" id="app-header" style="display:none;">
+        <div class="header-left">
+            <div class="header-logo" id="header-logo">🛒</div>
+            <div class="header-info">
+                <h3 id="header-company-name">بقالة الخير</h3>
+                <span id="header-user-info">مدير | admin</span>
+            </div>
+        </div>
+        <div class="header-center" id="header-center">
+            <div class="header-clock" id="header-clock">🕐 --:--</div>
+            <div class="header-hours" id="header-hours">⏰ مواعيد العمل: --</div>
+        </div>
+        <div class="header-right">
+            <button class="header-btn" id="header-btn-orders" onclick="toggleOrdersPopup()" title="طلبات المشتريات">📦<span class="badge gold" id="orders-header-badge" style="display:none;">0</span></button>
+            <button class="header-btn" id="header-btn-cart" onclick="toggleCart()" title="سلة المشتريات">🛒<span class="badge" id="cart-badge" style="display:none;">0</span></button>
+            <button class="header-btn" id="header-btn-pending" onclick="openPendingRequests()" title="طلبات التسجيل" style="position:relative;">🔔<span class="badge gold" id="pending-header-badge" style="display:none;">0</span></button>
+            <button class="header-btn" id="menu-btn" title="القائمة" onclick="toggleFloatingMenu()">☰</button>
+        </div>
+    </header>
+
     <!-- MAIN SCREEN -->
     <div class="screen" id="main-screen">
-        <header class="header">
-            <div class="header-left">
-                <div class="header-logo" id="header-logo">🛒</div>
-                <div class="header-info">
-                    <h3 id="header-company-name">بقالة الخير</h3>
-                    <span id="header-user-info">مدير | admin</span>
-                </div>
-            </div>
-            <div class="header-right">
-                <button class="header-btn" id="header-btn-orders" onclick="toggleOrdersPopup()" title="طلبات المشتريات">📦<span class="badge gold" id="orders-header-badge" style="display:none;">0</span></button>
-                <button class="header-btn" id="header-btn-cart" onclick="toggleCart()" title="سلة المشتريات">🛒<span class="badge" id="cart-badge" style="display:none;">0</span></button>
-                <button class="header-btn" id="header-btn-pending" onclick="openPendingRequests()" title="طلبات التسجيل" style="position:relative;">🔔<span class="badge gold" id="pending-header-badge" style="display:none;">0</span></button>
-                <button class="header-btn" id="menu-btn" title="القائمة" onclick="toggleFloatingMenu()">☰</button>
-            </div>
-        </header>
         <div class="main-content">
             <h2 class="section-title">📦 الأقسام</h2>
             <div class="categories-grid" id="categories-grid"></div>
@@ -490,15 +503,13 @@
     <div class="floating-overlay" id="floating-overlay" onclick="closeFloatingMenu()"></div>
     <div class="floating-menu" id="floating-menu"></div>
 
-    <!-- PRODUCTS OVERLAY -->
-    <div class="products-overlay" id="products-overlay">
-        <div class="products-panel">
-            <div class="products-panel-header">
-                <h3 id="products-overlay-title">📦 المنتجات</h3>
-                <button class="btn btn-sm" style="background:rgba(255,255,255,0.25);color:white;" onclick="closeProductsOverlay()">✕ إغلاق</button>
-            </div>
-            <div class="products-panel-body" id="products-overlay-body"></div>
+    <!-- PRODUCTS SCREEN (شاشة عرض منتجات القسم) -->
+    <div class="screen" id="products-screen">
+        <div class="products-screen-header">
+            <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">⬅️ رجوع</button>
+            <h3 id="products-screen-title">📦 المنتجات</h3>
         </div>
+        <div class="products-screen-body" id="products-screen-body"></div>
     </div>
 
     <!-- CART OVERLAY -->
@@ -585,19 +596,21 @@
             <div class="table-wrapper">
                 <table>
                     <thead>
-                        <tr>
+                        <tr id="archive-modal-thead-row">
                             <th>📦 اسم المنتج</th>
                             <th>💰 السعر</th>
                             <th>📝 المطلوب</th>
                             <th>🚚 ما تم شحنه</th>
-                            <th>💵 الإجمالي</th>
+                            <th>🔄 مرتجع</th>
+                            <th>💵 الصافي</th>
                         </tr>
                     </thead>
                     <tbody id="archive-modal-tbody"></tbody>
                 </table>
             </div>
             <div id="archive-modal-summary" style="margin-top:14px; padding:10px; background:var(--primary-light); border-radius:var(--radius-sm); font-weight:bold; font-size:13px; color:var(--primary-dark);"></div>
-            <div style="margin-top:16px; text-align:center;">
+            <div id="archive-modal-footer" style="margin-top:16px; text-align:center; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+                <button class="btn btn-warning" onclick="startReturnsEdit()">🔄 تعديل مرتجعات</button>
                 <button class="btn btn-primary" onclick="closeModal('archive-detail-modal')">إغلاق</button>
             </div>
         </div>
@@ -735,6 +748,10 @@
                     <div class="input-group"><label>🖼️ لوجو الشركة (Emoji)</label><input type="text" id="company-logo-input"></div>
                     <div class="input-group"><label>📱 رقم واتساب المدير</label><input type="tel" id="admin-whatsapp-input" placeholder="مثال: 01001234567"></div>
                     <div class="input-group"><label>📱 رقم التحويل (محفظة/إنستاباي)</label><input type="tel" id="company-payment-number" placeholder="رقم التحويل"></div>
+                    <div class="form-row">
+                        <div class="input-group"><label>🕐 مواعيد العمل - من الساعة</label><input type="time" id="work-hours-from-input"></div>
+                        <div class="input-group"><label>🕙 مواعيد العمل - إلى الساعة</label><input type="time" id="work-hours-to-input"></div>
+                    </div>
                     <button class="btn btn-primary" onclick="saveCompanySettings()" style="margin-top:12px;">💾 حفظ الإعدادات</button>
                 </div>
             </div>
@@ -802,6 +819,8 @@
         let companyLogo = localStorage.getItem('bakala_company_logo');
         let adminWhatsapp = localStorage.getItem('bakala_admin_whatsapp');
         let paymentNumber = localStorage.getItem('bakala_payment_number');
+        let workHoursFrom = localStorage.getItem('bakala_work_hours_from');
+        let workHoursTo = localStorage.getItem('bakala_work_hours_to');
         let cart = localStorage.getItem('bakala_cart');
         let rememberedUser = localStorage.getItem('bakala_remembered_user');
         let pending = localStorage.getItem('bakala_pending_users');
@@ -814,6 +833,8 @@
         if (!companyLogo) localStorage.setItem('bakala_company_logo', '🛒');
         if (!adminWhatsapp) localStorage.setItem('bakala_admin_whatsapp', '');
         if (!paymentNumber) localStorage.setItem('bakala_payment_number', '');
+        if (!workHoursFrom) { localStorage.setItem('bakala_work_hours_from', '09:00'); workHoursFrom = '09:00'; }
+        if (!workHoursTo) { localStorage.setItem('bakala_work_hours_to', '22:00'); workHoursTo = '22:00'; }
         if (!cart) localStorage.setItem('bakala_cart', JSON.stringify([]));
         if (!pending) localStorage.setItem('bakala_pending_users', JSON.stringify([]));
         if (!orders) localStorage.setItem('bakala_orders', JSON.stringify([]));
@@ -823,6 +844,7 @@
             users: JSON.parse(users),
             categories: JSON.parse(categories),
             companyName, companyLogo, adminWhatsapp, paymentNumber,
+            workHoursFrom, workHoursTo,
             cart: JSON.parse(cart || '[]'),
             rememberedUser: rememberedUser || '',
             pending: JSON.parse(pending),
@@ -847,6 +869,7 @@
     let pendingAcceptIndex = null;
     let editingCategoryId = null;
     let activeCategoryForProducts = null;
+    let currentProductsCategoryId = null;
 
     function showToast(msg, type='info') {
         const container = document.getElementById('toast-container');
@@ -882,6 +905,8 @@
         document.getElementById('company-logo-input').value = data.companyLogo;
         document.getElementById('admin-whatsapp-input').value = data.adminWhatsapp || '';
         document.getElementById('company-payment-number').value = data.paymentNumber || '';
+        document.getElementById('work-hours-from-input').value = data.workHoursFrom;
+        document.getElementById('work-hours-to-input').value = data.workHoursTo;
         
         if (data.rememberedUser) {
             document.getElementById('login-username').value = data.rememberedUser;
@@ -892,6 +917,11 @@
         updateCartBadge();
         updatePendingBadge();
         updateOrdersBadge();
+        updateHeaderInfo();
+
+        // تشغيل ساعة الهيدر الحية ومواعيد العمل وتحديثها كل ثانية
+        updateHeaderClock();
+        setInterval(updateHeaderClock, 1000);
 
         document.getElementById('toggle-password').addEventListener('click', function(){
             const pw = document.getElementById('login-password');
@@ -918,6 +948,48 @@
         });
     };
 
+    // ==================== ساعة الهيدر ومواعيد العمل ====================
+    function getWorkHours() {
+        return {
+            from: localStorage.getItem('bakala_work_hours_from') || '09:00',
+            to: localStorage.getItem('bakala_work_hours_to') || '22:00'
+        };
+    }
+
+    function formatHourLabel(hhmm) {
+        const parts = (hhmm || '00:00').split(':');
+        const h = parseInt(parts[0], 10) || 0;
+        const m = parseInt(parts[1], 10) || 0;
+        const period = h >= 12 ? 'م' : 'ص';
+        let h12 = h % 12;
+        if (h12 === 0) h12 = 12;
+        return `${h12}:${String(m).padStart(2,'0')} ${period}`;
+    }
+
+    function isWithinWorkHours(now, from, to) {
+        const [fh, fm] = from.split(':').map(Number);
+        const [th, tm] = to.split(':').map(Number);
+        const fromMinutes = fh * 60 + fm;
+        const toMinutes = th * 60 + tm;
+        const nowMinutes = now.getHours() * 60 + now.getMinutes();
+        if (fromMinutes === toMinutes) return true;
+        if (fromMinutes < toMinutes) return nowMinutes >= fromMinutes && nowMinutes < toMinutes;
+        return nowMinutes >= fromMinutes || nowMinutes < toMinutes;
+    }
+
+    function updateHeaderClock() {
+        const clockEl = document.getElementById('header-clock');
+        const hoursEl = document.getElementById('header-hours');
+        if (!clockEl || !hoursEl) return;
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true });
+        clockEl.textContent = `🕐 ${timeStr}`;
+
+        const { from, to } = getWorkHours();
+        const open = isWithinWorkHours(now, from, to);
+        hoursEl.innerHTML = `⏰ ${formatHourLabel(from)} - ${formatHourLabel(to)} <strong style="color:${open ? '#c8ffd4' : '#ffd9a0'};">(${open ? 'مفتوح الآن' : 'مغلق الآن'})</strong>`;
+    }
+
     function showScreen(id) {
         if (!currentUser && id !== 'login' && id !== 'register') {
             id = 'login';
@@ -943,8 +1015,11 @@
         const targetScreen = document.getElementById(id + '-screen');
         if (targetScreen) targetScreen.classList.add('active');
 
+        // الهيدر ثابت وظاهر في كل الشاشات ما عدا شاشة تسجيل الدخول
+        const appHeader = document.getElementById('app-header');
+        if (appHeader) appHeader.style.display = (id === 'login') ? 'none' : 'flex';
+
         closeFloatingMenu();
-        document.getElementById('products-overlay').classList.remove('show');
         document.getElementById('cart-overlay').classList.remove('show');
 
         if(id === 'orders') renderOrdersList();
@@ -962,14 +1037,19 @@
     }
 
     function updateHeaderInfo() {
-        if(currentUser) {
-            document.getElementById('header-user-info').textContent = `${currentUser.type} | ${currentUser.username}`;
-            document.getElementById('header-company-name').textContent = localStorage.getItem('bakala_company_name')||'بقالة الخير';
-            document.getElementById('header-logo').textContent = localStorage.getItem('bakala_company_logo')||'🛒';
+        document.getElementById('header-company-name').textContent = localStorage.getItem('bakala_company_name')||'بقالة الخير';
+        document.getElementById('header-logo').textContent = localStorage.getItem('bakala_company_logo')||'🛒';
 
-            const ordersBtn = document.getElementById('header-btn-orders');
-            const cartBtn = document.getElementById('header-btn-cart');
-            const pendingBtn = document.getElementById('header-btn-pending');
+        const ordersBtn = document.getElementById('header-btn-orders');
+        const cartBtn = document.getElementById('header-btn-cart');
+        const pendingBtn = document.getElementById('header-btn-pending');
+        const menuBtn = document.getElementById('menu-btn');
+        const userInfoEl = document.getElementById('header-user-info');
+
+        if(currentUser) {
+            userInfoEl.style.display = '';
+            userInfoEl.textContent = `${currentUser.type} | ${currentUser.username}`;
+            if (menuBtn) menuBtn.style.display = 'flex';
 
             // ضبط رؤية الأزرار العلوية حسب الصلاحية
             if (currentUser.type === 'مدير') {
@@ -986,6 +1066,13 @@
                 if (pendingBtn) pendingBtn.style.display = 'none';
             }
             renderFloatingMenu();
+        } else {
+            // شاشة تسجيل جديد (قبل الدخول): إخفاء عناصر تتطلب مستخدم مسجل
+            userInfoEl.style.display = 'none';
+            if (ordersBtn) ordersBtn.style.display = 'none';
+            if (cartBtn) cartBtn.style.display = 'none';
+            if (pendingBtn) pendingBtn.style.display = 'none';
+            if (menuBtn) menuBtn.style.display = 'none';
         }
     }
 
@@ -1093,8 +1180,9 @@
         const data = loadData();
         const cat = data.categories.find(c=>c.id===catId);
         if(!cat) return;
-        document.getElementById('products-overlay-title').innerHTML = `${cat.icon} ${cat.name}`;
-        const body = document.getElementById('products-overlay-body');
+        currentProductsCategoryId = catId;
+        document.getElementById('products-screen-title').innerHTML = `${cat.icon} ${cat.name}`;
+        const body = document.getElementById('products-screen-body');
         if(cat.products && cat.products.length) {
             body.innerHTML = `
             <table class="products-table"><thead><tr><th>🖼️ صورة</th><th>📝 اسم المنتج</th><th>💰 السعر</th><th>📦 المتاح</th><th>الوحدة</th><th>⚡ الإجراءات</th></tr></thead>
@@ -1111,10 +1199,8 @@
                 </tr>`;
             }).join('')}</tbody></table>`;
         } else { body.innerHTML = '<div style="text-align:center;padding:30px;">📭 لا توجد منتجات في هذا القسم</div>'; }
-        document.getElementById('products-overlay').classList.add('show');
+        showScreen('products');
     }
-
-    function closeProductsOverlay() { document.getElementById('products-overlay').classList.remove('show'); }
 
     // ==================== QUANTITY POPUP ====================
     function openQtyPopup(categoryId, productId) {
@@ -1176,7 +1262,7 @@
         updateCartBadge();
         closeQtyPopup();
         showToast(`✅ تمت إضافة ${qty} قطعة إلى السلة`,'success');
-        if(document.getElementById('products-overlay').classList.contains('show')) openCategoryProducts(qtyPopupData.categoryId);
+        if(document.getElementById('products-screen').classList.contains('active')) openCategoryProducts(qtyPopupData.categoryId);
     }
 
     // ==================== CART ====================
@@ -1503,6 +1589,41 @@
         renderArchiveList();
         updateOrdersBadge();
         showToast(`✅ تم تجهيز الطلب ونقله للأرشيف`, 'success');
+
+        // ====== إرسال رسالة واتساب للمشتري بتفاصيل ما تم تجهيزه ======
+        sendOrderPreparedWhatsApp(archiveEntry, shippedTotal);
+    }
+
+    // ==================== إرسال تفاصيل التجهيز عبر واتساب ====================
+    function sendOrderPreparedWhatsApp(order, shippedTotal) {
+        const companyName = localStorage.getItem('bakala_company_name') || 'بقالة الخير';
+        const remaining = order.total - shippedTotal;
+
+        const itemsText = (order.items || []).map(item => {
+            const requested = item.quantity;
+            const shipped = item.shipped || 0;
+            const shortfall = requested - shipped;
+            const unit = item.unit || 'عدد';
+            const itemTotal = shipped * item.price;
+            let line = `• ${item.name}: المطلوب ${requested} ${unit} - تم تجهيز ${shipped} ${unit} = ${itemTotal} ج.م`;
+            if (shortfall > 0) {
+                line += ` ⚠️ (ناقص ${shortfall} ${unit})`;
+            }
+            return line;
+        }).join('\n');
+
+        const message = `مرحباً ${order.username} 👋\nتم تجهيز طلبك بنجاح ✅\n\n📦 تفاصيل الأصناف التي تم تجهيزها:\n${itemsText}\n\n💰 إجمالي قيمة الطلب: ${order.total} ج.م\n✅ إجمالي المبلغ المجهز: ${shippedTotal} ج.م\n⏳ المبلغ المتبقي: ${remaining} ج.م\n\nشكراً لتعاملكم مع ${companyName} 🌿`;
+
+        if (order.phone) {
+            const sent = sendWhatsAppMessage(order.phone, message);
+            if (sent) {
+                showToast(`📲 تم إرسال تفاصيل التجهيز إلى واتساب المشتري (${order.phone})`, 'success');
+            } else {
+                showToast(`⚠️ لم نتمكن من إرسال رسالة الواتساب، تأكد من رقم الهاتف: ${order.phone}`, 'warning');
+            }
+        } else {
+            showToast('⚠️ رقم هاتف المشتري غير موجود لإرسال رسالة الواتساب', 'warning');
+        }
     }
 
     function deleteOrder(orderId) {
@@ -1519,8 +1640,8 @@
     function renderBuyerArchive() {
         if (!currentUser) return;
         const container = document.getElementById('buyer-archive-list-container');
-        const orders = getOrders().filter(o => o.username === currentUser.username);
-        const archive = getArchive().filter(o => o.username === currentUser.username);
+        const orders = getOrders().filter(o => o.username === currentUser.username).map(o => ({ ...o, _archived: false }));
+        const archive = getArchive().filter(o => o.username === currentUser.username).map(o => ({ ...o, _archived: true }));
         const allUserOrders = [...orders, ...archive];
 
         if (allUserOrders.length === 0) {
@@ -1537,8 +1658,12 @@
                     <tr>
                         <th style="width:70px;">الصورة</th>
                         <th style="text-align:right;">اسم المنتج</th>
-                        <th>الكمية</th>
+                        <th>المطلوب</th>
+                        <th>تم التسليم</th>
+                        <th>مرتجع</th>
+                        <th>الصافي</th>
                         <th>الوحدة</th>
+                        <th>الحالة</th>
                         <th>التاريخ</th>
                     </tr>
                 </thead>
@@ -1549,12 +1674,42 @@
             const dateStr = order.date || order.archivedDate || '';
             (order.items || []).forEach(item => {
                 const unit = item.unit || 'عدد';
+                const requested = item.quantity;
+
+                let shippedDisplay = '—';
+                let returnedDisplay = 0;
+                let netDisplay = requested;
+                let netColor = 'var(--primary-dark)';
+                let statusText = 'قيد التجهيز';
+                let statusColor = 'var(--gray-500)';
+
+                if (order._archived) {
+                    const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
+                    const returned = item.returned || 0;
+                    const net = shipped - returned;
+                    shippedDisplay = shipped;
+                    returnedDisplay = returned;
+                    netDisplay = net;
+                    if (returned > 0) {
+                        statusText = 'تم إرجاع جزء';
+                        statusColor = 'var(--red)';
+                        netColor = 'var(--red)';
+                    } else {
+                        statusText = 'مكتمل';
+                        statusColor = 'var(--primary)';
+                    }
+                }
+
                 html += `
                     <tr>
                         <td style="font-size:24px; text-align:center;">${item.img || '📦'}</td>
                         <td style="text-align:right; font-weight:bold;">${item.name}</td>
-                        <td style="text-align:center; font-weight:bold; color:var(--primary-dark);">${item.quantity}</td>
+                        <td style="text-align:center; color:var(--gray-600);">${requested}</td>
+                        <td style="text-align:center; color:var(--primary);">${shippedDisplay}</td>
+                        <td style="text-align:center; color:${returnedDisplay > 0 ? 'var(--red)' : 'var(--gray-400)'}; font-weight:${returnedDisplay > 0 ? 'bold' : 'normal'};">${returnedDisplay}</td>
+                        <td style="text-align:center; font-weight:bold; color:${netColor};">${netDisplay}</td>
                         <td style="text-align:center; color:var(--gray-600);">${unit}</td>
+                        <td style="text-align:center; font-size:11px; color:${statusColor}; font-weight:bold;">${statusText}</td>
                         <td style="text-align:center; color:var(--gray-600); font-size:12px;">${dateStr}</td>
                     </tr>
                 `;
@@ -1586,11 +1741,13 @@
             </div>
         `;
         archive.forEach(o => {
+            const returnedTotal = o.returnedTotal || 0;
+            const netTotal = o.total - returnedTotal;
             html += `
                 <div class="archive-card" onclick="openArchiveDetail('${o.id}')" style="cursor:pointer;" title="اضغط لعرض تفاصيل الطلب">
                     <div class="col-user">${o.username}</div>
                     <div class="col-phone">${o.phone}</div>
-                    <div class="col-total">${o.total} ج.م</div>
+                    <div class="col-total">${netTotal} ج.م${returnedTotal > 0 ? `<div style="font-size:10px; color:var(--red); font-weight:normal;">🔄 مرتجع: ${returnedTotal} ج.م</div>` : ''}</div>
                     <div class="col-remaining">${o.remainingTotal || 0} ج.م</div>
                     <div class="col-method">${o.paymentMethod}</div>
                     <div class="col-date">${o.archivedDate || o.date}</div>
@@ -1600,9 +1757,19 @@
         container.innerHTML = html;
     }
 
+    let currentArchiveOrderId = null;
+    let archiveModalEditMode = false;
+
     function openArchiveDetail(orderId) {
+        currentArchiveOrderId = orderId;
+        archiveModalEditMode = false;
+        renderArchiveDetailModal();
+        document.getElementById('archive-detail-modal').classList.add('show');
+    }
+
+    function renderArchiveDetailModal() {
         const archive = getArchive();
-        const order = archive.find(o => o.id === orderId);
+        const order = archive.find(o => o.id === currentArchiveOrderId);
         if(!order) return;
 
         document.getElementById('archive-modal-title').textContent = `📄 تفاصيل الطلب: ${order.username}`;
@@ -1616,34 +1783,156 @@
             </div>
         `;
 
+        const theadRow = document.getElementById('archive-modal-thead-row');
         const tbody = document.getElementById('archive-modal-tbody');
         let totalShippedAmount = 0;
+        let totalReturnedAmount = 0;
 
-        tbody.innerHTML = (order.items || []).map(item => {
-            const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
-            const itemShippedTotal = shipped * item.price;
-            totalShippedAmount += itemShippedTotal;
-            const unit = item.unit || 'عدد';
-            return `<tr>
-                <td style="text-align:right; font-weight:bold;">${item.name}</td>
-                <td>${item.price} ج.م</td>
-                <td>${item.quantity} (${unit})</td>
-                <td style="color:var(--primary); font-weight:bold;">${shipped} (${unit})</td>
-                <td>${itemShippedTotal} ج.م</td>
-            </tr>`;
-        }).join('');
+        if (archiveModalEditMode) {
+            theadRow.innerHTML = `
+                <th>📦 اسم المنتج</th>
+                <th>💰 السعر</th>
+                <th>🚚 تم تسليمه</th>
+                <th>🔄 مرتجع سابقاً</th>
+                <th>➕ إرجاع جديد</th>
+            `;
+            tbody.innerHTML = (order.items || []).map((item, idx) => {
+                const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
+                const alreadyReturned = item.returned || 0;
+                const available = Math.max(0, shipped - alreadyReturned);
+                const unit = item.unit || 'عدد';
+                return `<tr>
+                    <td style="text-align:right; font-weight:bold;">${item.name}</td>
+                    <td>${item.price} ج.م</td>
+                    <td>${shipped} (${unit})</td>
+                    <td style="color:var(--red);">${alreadyReturned} (${unit})</td>
+                    <td>
+                        <input type="number" id="return-qty-${idx}" min="0" max="${available}" value="0" style="width:70px; text-align:center; padding:6px; border:1px solid var(--gray-300); border-radius:6px;">
+                        <div style="font-size:10px; color:var(--gray-500);">المتاح للإرجاع: ${available}</div>
+                    </td>
+                </tr>`;
+            }).join('');
+        } else {
+            theadRow.innerHTML = `
+                <th>📦 اسم المنتج</th>
+                <th>💰 السعر</th>
+                <th>📝 المطلوب</th>
+                <th>🚚 ما تم شحنه</th>
+                <th>🔄 مرتجع</th>
+                <th>💵 الصافي</th>
+            `;
+            tbody.innerHTML = (order.items || []).map(item => {
+                const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
+                const returned = item.returned || 0;
+                const net = shipped - returned;
+                const netItemTotal = net * item.price;
+                totalShippedAmount += netItemTotal;
+                totalReturnedAmount += returned * item.price;
+                const unit = item.unit || 'عدد';
+                return `<tr>
+                    <td style="text-align:right; font-weight:bold;">${item.name}</td>
+                    <td>${item.price} ج.م</td>
+                    <td>${item.quantity} (${unit})</td>
+                    <td style="color:var(--primary); font-weight:bold;">${shipped} (${unit})</td>
+                    <td style="color:${returned > 0 ? 'var(--red)' : 'var(--gray-400)'}; font-weight:bold;">${returned} (${unit})</td>
+                    <td>${netItemTotal} ج.م</td>
+                </tr>`;
+            }).join('');
+        }
 
+        const netOrderTotal = order.total - totalReturnedAmount;
         const remainingAmount = order.remainingTotal !== undefined ? order.remainingTotal : Math.max(0, order.total - totalShippedAmount);
 
-        document.getElementById('archive-modal-summary').innerHTML = `
+        document.getElementById('archive-modal-summary').innerHTML = archiveModalEditMode ? `
+            <div style="text-align:center; color:var(--gray-600); font-size:12px;">أدخل الكمية المرتجعة الجديدة لكل صنف ثم اضغط "حفظ المرتجعات"</div>
+        ` : `
             <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-                <span>💰 المجموع المطلوب: <strong>${order.total} ج.م</strong></span>
-                <span style="color:var(--primary-dark);">🚚 إجمالي المشحون: <strong>${totalShippedAmount} ج.م</strong></span>
-                <span style="color:var(--red);">⏳ المتبقي: <strong>${remainingAmount} ج.م</strong></span>
+                <span>💰 المجموع الأصلي: <strong>${order.total} ج.م</strong></span>
+                ${totalReturnedAmount > 0 ? `<span style="color:var(--red);">🔄 قيمة المرتجعات: <strong>${totalReturnedAmount} ج.م</strong></span>` : ''}
+                <span style="color:var(--primary-dark);">✅ الصافي المستحق: <strong>${netOrderTotal} ج.م</strong></span>
+                <span style="color:var(--red);">⏳ المتبقي (غير مشحون): <strong>${remainingAmount} ج.م</strong></span>
             </div>
         `;
 
-        document.getElementById('archive-detail-modal').classList.add('show');
+        const footer = document.getElementById('archive-modal-footer');
+        footer.innerHTML = archiveModalEditMode ? `
+            <button class="btn btn-success" onclick="saveReturns()">💾 حفظ المرتجعات</button>
+            <button class="btn btn-outline" onclick="cancelReturnsEdit()">✖️ إلغاء</button>
+        ` : `
+            <button class="btn btn-warning" onclick="startReturnsEdit()">🔄 تعديل مرتجعات</button>
+            <button class="btn btn-primary" onclick="closeModal('archive-detail-modal')">إغلاق</button>
+        `;
+    }
+
+    function startReturnsEdit() {
+        archiveModalEditMode = true;
+        renderArchiveDetailModal();
+    }
+
+    function cancelReturnsEdit() {
+        archiveModalEditMode = false;
+        renderArchiveDetailModal();
+    }
+
+    function saveReturns() {
+        const archive = getArchive();
+        const order = archive.find(o => o.id === currentArchiveOrderId);
+        if(!order) return;
+
+        const items = order.items || [];
+        const updates = items.map((item, idx) => {
+            const input = document.getElementById(`return-qty-${idx}`);
+            const val = input ? parseInt(input.value, 10) : 0;
+            return isNaN(val) ? 0 : val;
+        });
+
+        // التحقق من صحة القيم المدخلة
+        for (let idx = 0; idx < items.length; idx++) {
+            const item = items[idx];
+            const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
+            const alreadyReturned = item.returned || 0;
+            const available = Math.max(0, shipped - alreadyReturned);
+            if (updates[idx] < 0) {
+                showToast(`⚠️ قيمة غير صحيحة لصنف "${item.name}"`, 'error');
+                return;
+            }
+            if (updates[idx] > available) {
+                showToast(`⚠️ لا يمكن إرجاع أكثر من ${available} لصنف "${item.name}"`, 'error');
+                return;
+            }
+        }
+
+        const anyChange = updates.some(v => v > 0);
+        if (!anyChange) {
+            showToast('⚠️ لم يتم إدخال أي كمية مرتجعة', 'warning');
+            return;
+        }
+
+        // تطبيق المرتجعات على الأصناف (تعديل الأعداد)
+        items.forEach((item, idx) => {
+            if (updates[idx] > 0) {
+                item.returned = (item.returned || 0) + updates[idx];
+            }
+        });
+
+        // إعادة احتساب إجمالي المرتجعات وصافي المبلغ المشحون (تعديل المدفوعات)
+        let totalReturnedAmount = 0;
+        let totalNetShipped = 0;
+        items.forEach(item => {
+            const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
+            const returned = item.returned || 0;
+            totalReturnedAmount += returned * item.price;
+            totalNetShipped += (shipped - returned) * item.price;
+        });
+        order.returnedTotal = totalReturnedAmount;
+        order.shippedTotal = totalNetShipped;
+
+        saveArchive(archive);
+
+        archiveModalEditMode = false;
+        renderArchiveDetailModal();
+        renderArchiveList();
+        showToast('✅ تم تحديث المرتجعات والمبالغ بنجاح', 'success');
     }
 
     // ==================== FLOATING MENU & SETTINGS ====================
@@ -1669,6 +1958,8 @@
         document.getElementById('company-logo-input').value = data.companyLogo;
         document.getElementById('admin-whatsapp-input').value = data.adminWhatsapp || '';
         document.getElementById('company-payment-number').value = data.paymentNumber || '';
+        document.getElementById('work-hours-from-input').value = data.workHoursFrom;
+        document.getElementById('work-hours-to-input').value = data.workHoursTo;
         switchSettingsTab('users');
     }
 
@@ -1974,14 +2265,20 @@
         const logo = document.getElementById('company-logo-input').value.trim();
         const whatsapp = document.getElementById('admin-whatsapp-input').value.trim();
         const paymentNum = document.getElementById('company-payment-number').value.trim();
+        const workFrom = document.getElementById('work-hours-from-input').value;
+        const workTo = document.getElementById('work-hours-to-input').value;
         if(!name) return showToast('⚠️ يرجى إدخال اسم الشركة', 'error');
+        if(!workFrom || !workTo) return showToast('⚠️ يرجى تحديد مواعيد العمل (من - إلى)', 'error');
 
         localStorage.setItem('bakala_company_name', name);
         localStorage.setItem('bakala_company_logo', logo || '🛒');
         localStorage.setItem('bakala_admin_whatsapp', whatsapp);
         localStorage.setItem('bakala_payment_number', paymentNum);
+        localStorage.setItem('bakala_work_hours_from', workFrom);
+        localStorage.setItem('bakala_work_hours_to', workTo);
 
         updateHeaderInfo();
+        updateHeaderClock();
         showToast('✅ تم حفظ إعدادات الشركة بنجاح', 'success');
     }
 
