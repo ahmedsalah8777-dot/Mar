@@ -2968,9 +2968,11 @@
         // ============================================================
         //  16. ORDERS LIST (with shipping controls)
         // ============================================================
+        let ordersCache = []; // نسخة محلية من الطلبات لتفادي إعادة القراءة من قاعدة البيانات مع كل ضغطة
+
         async function changeShipQty(orderId, itemIdx, delta) {
-            const orders = await getOrders();
-            const order = orders.find(o => o.id === orderId);
+            // نستخدم النسخة المخزّنة محليًا بدل قراءة كل الطلبات من جديد في كل ضغطة
+            const order = ordersCache.find(o => o.id === orderId);
             if (!order) return;
             const item = order.items[itemIdx];
             if (!item) return;
@@ -2984,19 +2986,22 @@
             }
             item.shipped = newShipped;
 
-            showLoading(true);
+            // تحديث الواجهة فورًا من الذاكرة المحلية بدون أي اتصال بقاعدة البيانات (بدون تحميل)
+            await renderOrdersList(orderId, ordersCache);
+
+            // حفظ التغيير في الخلفية دون تعطيل الواجهة أو إظهار شاشة تحميل
             try {
-                // تحديث مستند هذا الطلب فقط بدلاً من حذف/إعادة كتابة كل الطلبات في كل ضغطة
                 await updateOrder(order.docId, { items: order.items });
-                await renderOrdersList(orderId);
-            } finally {
-                showLoading(false);
+            } catch (err) {
+                showToast('❌ فشل حفظ التحديث، تحقق من الاتصال: ' + err.message, 'error');
             }
         }
 
-        async function renderOrdersList(highlightId) {
+        async function renderOrdersList(highlightId, preloadedOrders) {
             const container = document.getElementById('orders-list-container');
-            const orders = await getOrders();
+            // استخدام النسخة الممرّرة مباشرة إن وُجدت لتفادي قراءة كل الطلبات من جديد
+            const orders = preloadedOrders || await getOrders();
+            ordersCache = orders; // تحديث النسخة المخزّنة محليًا لتبقى متزامنة
             if (orders.length === 0) {
                 container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--gray-500);">📭 لا توجد طلبات مشتريات حتى الآن</div>';
                 return;
