@@ -884,6 +884,41 @@
         { username: 'buyer', password: 'buyer123', type: 'مشتري', fullname: 'مشتري تجريبي', phone: '' }
     ];
 
+    const API_URL = 'http://localhost:3000/api';
+
+    function syncToDB(key, data) {
+        fetch(`${API_URL}/data/${key}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }).catch(e => console.error('Sync failed', e));
+    }
+
+    async function fetchInitialData() {
+        try {
+            const res = await fetch(`${API_URL}/data`);
+            if (res.ok) {
+                const dbData = await res.json();
+                if (dbData.users && dbData.users.length) localStorage.setItem('bakala_users', JSON.stringify(dbData.users));
+                if (dbData.categories && dbData.categories.length) localStorage.setItem('bakala_categories', JSON.stringify(dbData.categories));
+                if (dbData.orders) localStorage.setItem('bakala_orders', JSON.stringify(dbData.orders));
+                if (dbData.archive) localStorage.setItem('bakala_sales_archive', JSON.stringify(dbData.archive));
+                if (dbData.pending) localStorage.setItem('bakala_pending_users', JSON.stringify(dbData.pending));
+                if (dbData.settings && Object.keys(dbData.settings).length) {
+                    const s = dbData.settings;
+                    if(s.companyName) localStorage.setItem('bakala_company_name', s.companyName);
+                    if(s.companyLogo) localStorage.setItem('bakala_company_logo', s.companyLogo);
+                    if(s.adminWhatsapp !== undefined) localStorage.setItem('bakala_admin_whatsapp', s.adminWhatsapp);
+                    if(s.paymentNumber !== undefined) localStorage.setItem('bakala_payment_number', s.paymentNumber);
+                    if(s.workHoursFrom) localStorage.setItem('bakala_work_hours_from', s.workHoursFrom);
+                    if(s.workHoursTo) localStorage.setItem('bakala_work_hours_to', s.workHoursTo);
+                }
+            }
+        } catch (e) {
+            console.error('Failed to sync from DB, using local storage.', e);
+        }
+    }
+
     function loadData() {
         let users = localStorage.getItem('bakala_users');
         let categories = localStorage.getItem('bakala_categories');
@@ -925,16 +960,16 @@
         };
     }
 
-    function saveUsers(u) { localStorage.setItem('bakala_users', JSON.stringify(u)); }
-    function saveCategories(c) { localStorage.setItem('bakala_categories', JSON.stringify(c)); }
+    function saveUsers(u) { localStorage.setItem('bakala_users', JSON.stringify(u)); syncToDB('users', u); }
+    function saveCategories(c) { localStorage.setItem('bakala_categories', JSON.stringify(c)); syncToDB('categories', c); }
     function saveCart(c) { localStorage.setItem('bakala_cart', JSON.stringify(c)); }
     function getCart() { return JSON.parse(localStorage.getItem('bakala_cart') || '[]'); }
-    function savePendingUsers(p) { localStorage.setItem('bakala_pending_users', JSON.stringify(p)); }
+    function savePendingUsers(p) { localStorage.setItem('bakala_pending_users', JSON.stringify(p)); syncToDB('pending', p); }
     function getPendingUsers() { return JSON.parse(localStorage.getItem('bakala_pending_users') || '[]'); }
     function getOrders() { return JSON.parse(localStorage.getItem('bakala_orders') || '[]'); }
-    function saveOrders(o) { localStorage.setItem('bakala_orders', JSON.stringify(o)); }
+    function saveOrders(o) { localStorage.setItem('bakala_orders', JSON.stringify(o)); syncToDB('orders', o); }
     function getArchive() { return JSON.parse(localStorage.getItem('bakala_sales_archive') || '[]'); }
-    function saveArchive(a) { localStorage.setItem('bakala_sales_archive', JSON.stringify(a)); }
+    function saveArchive(a) { localStorage.setItem('bakala_sales_archive', JSON.stringify(a)); syncToDB('archive', a); }
 
     let currentUser = null;
     let qtyPopupData = null;
@@ -964,7 +999,11 @@
     }
 
     // ==================== INIT ====================
-    window.onload = function() {
+    window.onload = async function() {
+        document.body.insertAdjacentHTML('afterbegin', '<div id="loading-overlay" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;color:var(--primary);">جاري التحميل من قاعدة البيانات...</div>');
+        await fetchInitialData();
+        const overlay = document.getElementById('loading-overlay');
+        if (overlay) overlay.remove();
         init();
     };
 
@@ -2590,6 +2629,15 @@ ${companyName}`;
         localStorage.setItem('bakala_payment_number', paymentNum);
         localStorage.setItem('bakala_work_hours_from', workFrom);
         localStorage.setItem('bakala_work_hours_to', workTo);
+
+        syncToDB('settings', {
+            companyName: name,
+            companyLogo: logo || '🛒',
+            adminWhatsapp: whatsapp,
+            paymentNumber: paymentNum,
+            workHoursFrom: workFrom,
+            workHoursTo: workTo
+        });
 
         updateHeaderInfo();
         updateHeaderClock();
