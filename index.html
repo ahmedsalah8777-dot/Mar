@@ -322,7 +322,7 @@
         .archive-card {
             background:white; border-radius:var(--radius); padding:12px 16px; margin-bottom:8px;
             box-shadow:var(--shadow-sm); border-right:4px solid var(--gold);
-            display:grid; grid-template-columns:1.2fr 0.8fr 0.8fr 0.8fr 0.8fr 0.6fr; gap:8px; align-items:center;
+            display:grid; grid-template-columns:1.2fr 0.6fr 0.8fr 0.8fr 0.8fr 0.7fr 0.6fr; gap:8px; align-items:center;
             font-size:13px; transition: var(--transition);
         }
         .archive-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); background: #fffdf5; }
@@ -426,6 +426,40 @@
         .username-suggestion { font-size:12px; color:var(--gray-500); margin-top:4px; padding:4px 8px; background:var(--gray-50); border-radius:4px; display:inline-block; }
         .username-available { color:var(--primary); font-weight:bold; }
         .username-taken { color:var(--red); font-weight:bold; }
+
+        /* === شاشة الإحصائيات === */
+        #stats-screen { flex-direction:column; background:var(--gray-50); }
+        .stats-header { background:linear-gradient(135deg,var(--primary-dark),var(--primary)); color:white; padding:12px 20px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow-lg); flex-wrap:wrap; }
+        .stats-body { flex:1; padding:16px; max-width:1200px; margin:0 auto; width:100%; overflow-y:auto; }
+        .stats-filter { background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius-lg); padding:14px; box-shadow:var(--shadow-sm); margin-bottom:16px; }
+        .stats-filter-row { display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; }
+        .stats-filter .fld { display:flex; flex-direction:column; gap:4px; font-size:12px; font-weight:bold; color:var(--gray-700); }
+        .stats-filter input[type=date] { padding:8px 10px; border:1px solid var(--gray-300); border-radius:var(--radius-sm); font-family:inherit; }
+        .stats-presets { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+        .stats-presets button { padding:6px 12px; border:1px solid var(--gray-300); background:var(--white); border-radius:20px; font-size:12px; cursor:pointer; font-family:inherit; transition:var(--transition); }
+        .stats-presets button:hover, .stats-presets button.active { background:var(--primary); color:white; border-color:var(--primary); }
+        .stats-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-bottom:18px; }
+        .stat-card { background:var(--white); border-radius:var(--radius-lg); padding:14px; box-shadow:var(--shadow); border-top:4px solid var(--primary); display:flex; flex-direction:column; gap:4px; animation:popIn .3s ease; }
+        .stat-card.gold { border-top-color:var(--gold); }
+        .stat-card.red { border-top-color:var(--red); }
+        .stat-card.dark { border-top-color:var(--gray-700); }
+        .stat-card .lbl { font-size:12px; color:var(--gray-500); font-weight:600; }
+        .stat-card .val { font-size:22px; font-weight:bold; color:var(--gray-900); }
+        .stat-card .sub { font-size:11px; color:var(--gray-400); }
+        .stats-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+        .stats-tabs button { flex:1; min-width:130px; padding:10px; border:none; background:var(--gray-200); color:var(--gray-700); border-radius:var(--radius-sm); font-weight:bold; font-size:13px; cursor:pointer; font-family:inherit; transition:var(--transition); }
+        .stats-tabs button.active { background:var(--primary); color:white; box-shadow:var(--shadow-md); }
+        .stats-panel { display:none; background:var(--white); border-radius:var(--radius-lg); padding:14px; box-shadow:var(--shadow-sm); border:1px solid var(--gray-200); }
+        .stats-panel.active { display:block; animation:fadeIn .25s ease; }
+        .stats-table { width:100%; border-collapse:collapse; font-size:13px; }
+        .stats-table th { background:var(--gray-100); padding:8px; font-size:12px; color:var(--gray-700); position:sticky; top:0; }
+        .stats-table td { padding:8px; border-bottom:1px solid var(--gray-100); text-align:center; }
+        .stats-table tr:hover td { background:var(--gray-50); }
+        .stats-table td.name { text-align:right; font-weight:bold; }
+        .bar-wrap { background:var(--gray-100); border-radius:20px; height:8px; overflow:hidden; min-width:60px; }
+        .bar { height:100%; background:linear-gradient(90deg,var(--primary),var(--gold)); border-radius:20px; }
+        .stats-empty { text-align:center; padding:36px; color:var(--gray-500); }
+        .stats-scroll { max-height:60vh; overflow-y:auto; }
     </style>
 </head>
 <body>
@@ -586,6 +620,44 @@
     </div>
 
     <!-- ARCHIVE DETAIL MODAL -->
+
+    <!-- شاشة الإحصائيات (للمدير فقط) -->
+    <div class="screen" id="stats-screen">
+        <div class="stats-header">
+            <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">⬅️ رجوع</button>
+            <h3>📊 الإحصائيات</h3>
+            <span id="stats-range-label" style="font-size:12px;opacity:.9;"></span>
+        </div>
+        <div class="stats-body">
+            <div class="stats-filter">
+                <div class="stats-filter-row">
+                    <div class="fld"><label>📅 من تاريخ</label><input type="date" id="stats-from" onchange="renderStats()"></div>
+                    <div class="fld"><label>📅 إلى تاريخ</label><input type="date" id="stats-to" onchange="renderStats()"></div>
+                    <button class="btn btn-primary btn-sm" onclick="renderStats()">🔍 عرض</button>
+                </div>
+                <div class="stats-presets" id="stats-presets">
+                    <button onclick="setStatsPreset(0,this)">اليوم</button>
+                    <button onclick="setStatsPreset(6,this)">آخر 7 أيام</button>
+                    <button onclick="setStatsPreset(29,this)">آخر 30 يوم</button>
+                    <button onclick="setStatsPreset('month',this)">هذا الشهر</button>
+                    <button onclick="setStatsPreset('all',this)">كل الفترات</button>
+                </div>
+            </div>
+
+            <div class="stats-cards" id="stats-cards"></div>
+
+            <div class="stats-tabs">
+                <button id="stats-tab-btn-products" class="active" onclick="switchStatsTab('products')">🛍️ المنتجات المباعة</button>
+                <button id="stats-tab-btn-revenue" onclick="switchStatsTab('revenue')">💰 عائد البيع</button>
+                <button id="stats-tab-btn-users" onclick="switchStatsTab('users')">👥 مشتريات المستخدمين</button>
+            </div>
+
+            <div class="stats-panel active" id="stats-panel-products"></div>
+            <div class="stats-panel" id="stats-panel-revenue"></div>
+            <div class="stats-panel" id="stats-panel-users"></div>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="archive-detail-modal" onclick="closeModalOutside(event, 'archive-detail-modal')">
         <div class="modal-box" style="max-width:650px;" onclick="event.stopPropagation()">
             <div class="modal-header">
@@ -1002,6 +1074,10 @@
                 showToast('⚠️ غير مصرح لك بدخول طلبات المشتريات', 'error');
                 return;
             }
+            if (id === 'stats' && currentUser.type !== 'مدير') {
+                showToast('⚠️ شاشة الإحصائيات متاحة للمدير فقط', 'error');
+                return;
+            }
             if (id === 'archive' && currentUser.type === 'مشتري') {
                 showToast('⚠️ غير مصرح لك بدخول أرشيف حركة البيع', 'error');
                 return;
@@ -1021,6 +1097,7 @@
         if(id === 'orders') renderOrdersList();
         if(id === 'archive') renderArchiveList();
         if(id === 'buyer-archive') renderBuyerArchive();
+        if(id === 'stats') initStatsScreen();
     }
 
     function backToMain() { 
@@ -1070,6 +1147,210 @@
         }
     }
 
+
+    // ==================== شاشة الإحصائيات (المدير فقط) ====================
+    let statsActiveTab = 'products';
+    let statsInitialized = false;
+
+    function initStatsScreen() {
+        if (!currentUser || currentUser.type !== 'مدير') return;
+        if (!statsInitialized) {
+            statsInitialized = true;
+            const presets = document.getElementById('stats-presets');
+            setStatsPreset(29, presets ? presets.children[2] : null);
+        } else {
+            renderStats();
+        }
+    }
+
+    function toDateInput(d) {
+        const p = n => String(n).padStart(2, '0');
+        return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+    }
+
+    function setStatsPreset(kind, btn) {
+        const today = new Date();
+        let from, to = today;
+        if (kind === 'all') {
+            document.getElementById('stats-from').value = '';
+            document.getElementById('stats-to').value = '';
+        } else if (kind === 'month') {
+            from = new Date(today.getFullYear(), today.getMonth(), 1);
+            document.getElementById('stats-from').value = toDateInput(from);
+            document.getElementById('stats-to').value = toDateInput(to);
+        } else {
+            from = new Date(today.getTime() - kind * 86400000);
+            document.getElementById('stats-from').value = toDateInput(from);
+            document.getElementById('stats-to').value = toDateInput(to);
+        }
+        document.querySelectorAll('#stats-presets button').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        renderStats();
+    }
+
+    function switchStatsTab(tab) {
+        statsActiveTab = tab;
+        ['products', 'revenue', 'users'].forEach(t => {
+            document.getElementById('stats-panel-' + t).classList.toggle('active', t === tab);
+            document.getElementById('stats-tab-btn-' + t).classList.toggle('active', t === tab);
+        });
+    }
+
+    function getStatsOrderDate(o) {
+        if (o.timestamp) { const d = new Date(o.timestamp); if (!isNaN(d)) return d; }
+        return null;
+    }
+
+    function getStatsData() {
+        const fromVal = document.getElementById('stats-from').value;
+        const toVal = document.getElementById('stats-to').value;
+        const from = fromVal ? new Date(fromVal + 'T00:00:00') : null;
+        const to = toVal ? new Date(toVal + 'T23:59:59') : null;
+
+        return getArchive().filter(o => {
+            const d = getStatsOrderDate(o);
+            if (!d) return !from && !to;
+            if (from && d < from) return false;
+            if (to && d > to) return false;
+            return true;
+        });
+    }
+
+    function fmtMoney(n) { return (Math.round(n * 100) / 100).toLocaleString('ar-EG') + ' ج.م'; }
+
+    function renderStats() {
+        if (!currentUser || currentUser.type !== 'مدير') return;
+        const orders = getStatsData();
+        const fromVal = document.getElementById('stats-from').value;
+        const toVal = document.getElementById('stats-to').value;
+        document.getElementById('stats-range-label').textContent =
+            (fromVal || toVal) ? `الفترة: ${fromVal || '...'} ← ${toVal || '...'}` : 'كل الفترات';
+
+        let netRevenue = 0, returnedValue = 0, unshipped = 0, soldUnits = 0;
+        const products = {};
+        const users = {};
+        const daily = {};
+        const payments = {};
+
+        orders.forEach(o => {
+            let orderNet = 0, orderReturned = 0;
+            (o.items || []).forEach(item => {
+                const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
+                const returned = item.returned || 0;
+                const net = Math.max(0, shipped - returned);
+                const value = net * item.price;
+                orderNet += value;
+                orderReturned += returned * item.price;
+                soldUnits += net;
+                const key = item.name;
+                if (!products[key]) products[key] = { name: key, unit: item.unit || 'عدد', qty: 0, returned: 0, value: 0, orders: 0 };
+                products[key].qty += net;
+                products[key].returned += returned;
+                products[key].value += value;
+                products[key].orders += 1;
+            });
+            netRevenue += orderNet;
+            returnedValue += orderReturned;
+            unshipped += (o.remainingTotal || 0);
+
+            const u = o.username || 'غير معروف';
+            if (!users[u]) users[u] = { username: u, phone: o.phone || '-', orders: 0, units: 0, value: 0, last: null };
+            users[u].orders += 1;
+            users[u].value += orderNet;
+            (o.items || []).forEach(i => { users[u].units += Math.max(0, (i.shipped !== undefined ? i.shipped : i.quantity) - (i.returned || 0)); });
+            const d = getStatsOrderDate(o);
+            if (d && (!users[u].last || d > users[u].last)) users[u].last = d;
+
+            if (d) {
+                const k = toDateInput(d);
+                daily[k] = (daily[k] || 0) + orderNet;
+            }
+            const pm = o.paymentMethod || 'غير محدد';
+            payments[pm] = (payments[pm] || 0) + orderNet;
+        });
+
+        const avgOrder = orders.length ? netRevenue / orders.length : 0;
+
+        document.getElementById('stats-cards').innerHTML = `
+            <div class="stat-card"><span class="lbl">💰 صافي عائد البيع</span><span class="val">${fmtMoney(netRevenue)}</span><span class="sub">خلال الفترة المحددة</span></div>
+            <div class="stat-card gold"><span class="lbl">🧾 عدد الطلبات</span><span class="val">${orders.length}</span><span class="sub">متوسط الطلب: ${fmtMoney(avgOrder)}</span></div>
+            <div class="stat-card dark"><span class="lbl">🛍️ الوحدات المباعة</span><span class="val">${soldUnits}</span><span class="sub">${Object.keys(products).length} صنف مختلف</span></div>
+            <div class="stat-card red"><span class="lbl">🔄 قيمة المرتجعات</span><span class="val">${fmtMoney(returnedValue)}</span><span class="sub">غير مشحون: ${fmtMoney(unshipped)}</span></div>
+            <div class="stat-card"><span class="lbl">👥 عدد المشترين</span><span class="val">${Object.keys(users).length}</span><span class="sub">مستخدم نشط</span></div>
+        `;
+
+        // --- المنتجات المباعة ---
+        const prodList = Object.values(products).sort((a, b) => b.value - a.value);
+        const maxVal = prodList.length ? prodList[0].value : 1;
+        document.getElementById('stats-panel-products').innerHTML = prodList.length === 0
+            ? '<div class="stats-empty">📭 لا توجد مبيعات خلال الفترة المحددة</div>'
+            : `<div class="stats-scroll"><table class="stats-table">
+                <thead><tr><th>#</th><th>المنتج</th><th>الكمية المباعة</th><th>المرتجع</th><th>إجمالي القيمة</th><th>النسبة</th></tr></thead>
+                <tbody>${prodList.map((p, i) => `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td class="name">${p.name}</td>
+                        <td><strong>${p.qty}</strong> <span style="color:var(--gray-400);font-size:11px;">${p.unit}</span></td>
+                        <td style="color:${p.returned ? 'var(--red)' : 'var(--gray-400)'};">${p.returned}</td>
+                        <td style="color:var(--primary-dark);font-weight:bold;">${fmtMoney(p.value)}</td>
+                        <td><div class="bar-wrap"><div class="bar" style="width:${Math.max(4, (p.value / maxVal) * 100)}%;"></div></div>
+                            <span style="font-size:10px;color:var(--gray-500);">${netRevenue ? Math.round((p.value / netRevenue) * 100) : 0}%</span></td>
+                    </tr>`).join('')}</tbody>
+              </table></div>`;
+
+        // --- عائد البيع ---
+        const days = Object.keys(daily).sort();
+        const maxDay = days.length ? Math.max(...days.map(d => daily[d])) : 1;
+        const payList = Object.entries(payments).sort((a, b) => b[1] - a[1]);
+        document.getElementById('stats-panel-revenue').innerHTML = days.length === 0
+            ? '<div class="stats-empty">📭 لا يوجد عائد خلال الفترة المحددة</div>'
+            : `
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+              <div>
+                <h4 style="margin-bottom:8px;font-size:14px;color:var(--gray-700);">📈 العائد اليومي</h4>
+                <div class="stats-scroll"><table class="stats-table">
+                  <thead><tr><th>التاريخ</th><th>العائد</th><th></th></tr></thead>
+                  <tbody>${days.map(d => `
+                    <tr><td>${d}</td><td style="font-weight:bold;color:var(--primary-dark);">${fmtMoney(daily[d])}</td>
+                    <td><div class="bar-wrap"><div class="bar" style="width:${Math.max(4, (daily[d] / maxDay) * 100)}%;"></div></div></td></tr>`).join('')}</tbody>
+                </table></div>
+              </div>
+              <div>
+                <h4 style="margin-bottom:8px;font-size:14px;color:var(--gray-700);">💳 العائد حسب طريقة الدفع</h4>
+                <table class="stats-table">
+                  <thead><tr><th>الطريقة</th><th>العائد</th><th>النسبة</th></tr></thead>
+                  <tbody>${payList.map(([k, v]) => `
+                    <tr><td class="name">${k}</td><td style="font-weight:bold;">${fmtMoney(v)}</td>
+                    <td>${netRevenue ? Math.round((v / netRevenue) * 100) : 0}%</td></tr>`).join('')}</tbody>
+                </table>
+                <div style="margin-top:14px;background:var(--primary-light);padding:12px;border-radius:var(--radius-sm);font-weight:bold;color:var(--primary-dark);">
+                    ✅ إجمالي صافي العائد: ${fmtMoney(netRevenue)}<br>
+                    <span style="color:var(--red);font-weight:normal;font-size:12px;">🔄 مرتجعات: ${fmtMoney(returnedValue)} | ⏳ غير مشحون: ${fmtMoney(unshipped)}</span>
+                </div>
+              </div>
+            </div>`;
+
+        // --- مشتريات المستخدمين ---
+        const userList = Object.values(users).sort((a, b) => b.value - a.value);
+        const maxUser = userList.length ? userList[0].value : 1;
+        document.getElementById('stats-panel-users').innerHTML = userList.length === 0
+            ? '<div class="stats-empty">📭 لا توجد مشتريات خلال الفترة المحددة</div>'
+            : `<div class="stats-scroll"><table class="stats-table">
+                <thead><tr><th>#</th><th>المستخدم</th><th>الهاتف</th><th>الطلبات</th><th>الوحدات</th><th>إجمالي المشتريات</th><th>آخر شراء</th><th>النسبة</th></tr></thead>
+                <tbody>${userList.map((u, i) => `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td class="name">${u.username}</td>
+                        <td style="font-size:11px;color:var(--gray-500);">${u.phone}</td>
+                        <td>${u.orders}</td>
+                        <td>${u.units}</td>
+                        <td style="color:var(--primary-dark);font-weight:bold;">${fmtMoney(u.value)}</td>
+                        <td style="font-size:11px;color:var(--gray-500);">${u.last ? toDateInput(u.last) : '-'}</td>
+                        <td><div class="bar-wrap"><div class="bar" style="width:${Math.max(4, (u.value / maxUser) * 100)}%;"></div></div></td>
+                    </tr>`).join('')}</tbody>
+              </table></div>`;
+    }
+
     // ==================== FLOATING MENU BY ROLE ====================
     function renderFloatingMenu() {
         const menu = document.getElementById('floating-menu');
@@ -1082,6 +1363,7 @@
                 <button onclick="openPendingRequests()">📩 طلبات التسجيل</button>
                 <button onclick="showScreen('orders')">📦 كل الطلبات</button>
                 <button onclick="showScreen('archive')">📦 أرشيف حركة البيع</button>
+                <button onclick="showScreen('stats')">📊 الإحصائيات</button>
                 <div class="divider"></div>
                 <button onclick="handleLogout()">🚪 تسجيل الخروج</button>
             `;
@@ -1740,24 +2022,34 @@ ${companyName}`;
         archive.sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
         
         let html = `
-            <div class="archive-header-row" style="display:grid;grid-template-columns:1.2fr 0.8fr 0.8fr 0.8fr 0.8fr 0.6fr;gap:8px;padding:6px 10px;background:var(--gray-100);border-radius:var(--radius-sm);margin-bottom:6px;font-weight:bold;font-size:12px;">
+            <div class="archive-header-row" style="display:grid;grid-template-columns:1.2fr 0.6fr 0.8fr 0.8fr 0.8fr 0.7fr 0.6fr;gap:8px;padding:6px 10px;background:var(--gray-100);border-radius:var(--radius-sm);margin-bottom:6px;font-weight:bold;font-size:12px;">
                 <div>المستخدم</div>
                 <div>الهاتف</div>
-                <div>الإجمالي</div>
+                <div>تكلفة الطلب</div>
+                <div>تم شحنه</div>
                 <div>المتبقي</div>
                 <div>طريقة الدفع</div>
                 <div>التاريخ</div>
             </div>
         `;
         archive.forEach(o => {
-            const returnedTotal = o.returnedTotal || 0;
-            const netTotal = o.total - returnedTotal;
+            // تكلفة الطلب الأصلية (إجمالي الطلب)
+            const orderTotal = o.total || 0;
+            // تكلفة ما تم شحنه (الصافي) = (shipped - returned) × price
+            const netShippedTotal = (o.items || []).reduce((sum, item) => {
+                const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
+                const returned = item.returned || 0;
+                return sum + (shipped - returned) * item.price;
+            }, 0);
+            // المتبقي = تكلفة الطلب - تم الشحن (يشمل غير مشحون + مرتجع)
+            const remainingTotal = orderTotal - netShippedTotal;
             html += `
                 <div class="archive-card" onclick="openArchiveDetail('${o.id}')" style="cursor:pointer;" title="اضغط لعرض تفاصيل الطلب">
                     <div class="col-user">${o.username}</div>
                     <div class="col-phone">${o.phone}</div>
-                    <div class="col-total">${netTotal} ج.م${returnedTotal > 0 ? `<div style="font-size:10px; color:var(--red); font-weight:normal;">🔄 مرتجع: ${returnedTotal} ج.م</div>` : ''}</div>
-                    <div class="col-remaining">${o.remainingTotal || 0} ج.م</div>
+                    <div class="col-total">${orderTotal} ج.م</div>
+                    <div style="font-weight:bold; color:var(--primary);">${netShippedTotal} ج.م</div>
+                    <div class="col-remaining">${remainingTotal > 0 ? remainingTotal : 0} ج.م</div>
                     <div class="col-method">${o.paymentMethod}</div>
                     <div class="col-date">${o.archivedDate || o.date}</div>
                 </div>
@@ -1824,17 +2116,17 @@ ${companyName}`;
         } else {
             theadRow.innerHTML = `
                 <th>📦 اسم المنتج</th>
-                <th>💰 السعر</th>
+                <th>💰 سعر الوحدة</th>
                 <th>📝 المطلوب</th>
-                <th>🚚 ما تم شحنه</th>
+                <th>🚚 تم شحنه</th>
                 <th>🔄 مرتجع</th>
-                <th>💵 الصافي</th>
+                <th>✅ تم الشحن (صافي)</th>
             `;
             tbody.innerHTML = (order.items || []).map(item => {
                 const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
                 const returned = item.returned || 0;
-                const net = shipped - returned;
-                const netItemTotal = net * item.price;
+                // صافي تم الشحن = (shipped - returned) × price
+                const netItemTotal = (shipped - returned) * item.price;
                 totalShippedAmount += netItemTotal;
                 totalReturnedAmount += returned * item.price;
                 const unit = item.unit || 'عدد';
@@ -1843,23 +2135,39 @@ ${companyName}`;
                     <td>${item.price} ج.م</td>
                     <td>${item.quantity} (${unit})</td>
                     <td style="color:var(--primary); font-weight:bold;">${shipped} (${unit})</td>
-                    <td style="color:${returned > 0 ? 'var(--red)' : 'var(--gray-400)'}; font-weight:bold;">${returned} (${unit})</td>
-                    <td>${netItemTotal} ج.م</td>
+                    <td style="color:${returned > 0 ? 'var(--red)' : 'var(--gray-400)'}; font-weight:bold;">${returned > 0 ? returned + ' (' + unit + ')' : '—'}</td>
+                    <td style="font-weight:bold; color:var(--primary-dark);">${netItemTotal} ج.م</td>
                 </tr>`;
             }).join('');
         }
 
-        const netOrderTotal = order.total - totalReturnedAmount;
-        const remainingAmount = order.remainingTotal !== undefined ? order.remainingTotal : Math.max(0, order.total - totalShippedAmount);
+        // صافي تم الشحن = مجموع (shipped - returned) × price لكل بند
+        const netShippedTotal = totalShippedAmount;
+        // قيمة المرتجعات فقط للعرض
+        const returnedGrossTotal = totalReturnedAmount;
+        // تكلفة الطلب الأصلية
+        const orderCostTotal = order.total;
+        // المتبقي = تكلفة الطلب - صافي تم الشحن (يشمل غير مشحون + مرتجع)
+        const remainingAmount = Math.max(0, orderCostTotal - netShippedTotal);
 
         document.getElementById('archive-modal-summary').innerHTML = archiveModalEditMode ? `
             <div style="text-align:center; color:var(--gray-600); font-size:12px;">أدخل الكمية المرتجعة الجديدة لكل صنف ثم اضغط "حفظ المرتجعات"</div>
         ` : `
-            <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-                <span>💰 المجموع الأصلي: <strong>${order.total} ج.م</strong></span>
-                ${totalReturnedAmount > 0 ? `<span style="color:var(--red);">🔄 قيمة المرتجعات: <strong>${totalReturnedAmount} ج.م</strong></span>` : ''}
-                <span style="color:var(--primary-dark);">✅ الصافي المستحق: <strong>${netOrderTotal} ج.م</strong></span>
-                <span style="color:var(--red);">⏳ المتبقي (غير مشحون): <strong>${remainingAmount} ج.م</strong></span>
+            <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:10px; padding:8px; background:var(--gray-50); border-radius:var(--radius-sm);">
+                <div style="text-align:center;">
+                    <div style="font-size:11px; color:var(--gray-500); margin-bottom:2px;">📋 تكلفة الطلب</div>
+                    <div style="font-size:16px; font-weight:bold; color:var(--gray-800);">${orderCostTotal} ج.م</div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-size:11px; color:var(--gray-500); margin-bottom:2px;">✅ تم الشحن (صافي)</div>
+                    <div style="font-size:16px; font-weight:bold; color:var(--primary);">${netShippedTotal} ج.م</div>
+                    ${returnedGrossTotal > 0 ? `<div style="font-size:10px; color:var(--red);">🔄 مرتجع مُحتسب: ${returnedGrossTotal} ج.م</div>` : ''}
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-size:11px; color:var(--gray-500); margin-bottom:2px;">⏳ المتبقي</div>
+                    <div style="font-size:16px; font-weight:bold; color:${remainingAmount > 0 ? 'var(--red)' : 'var(--primary)'}">${remainingAmount} ج.م</div>
+                    <div style="font-size:10px; color:var(--gray-500);">(غير مشحون + مرتجع)</div>
+                </div>
             </div>
         `;
 
