@@ -470,7 +470,7 @@
         </div>
     </div>
 
-    <!-- PERSISTENT APP HEADER (ثابت في جميع الشاشات ما عدا شاشة تسجيل الدخول) -->
+    <!-- PERSISTENT APP HEADER -->
     <header class="header" id="app-header" style="display:none;">
         <div class="header-left">
             <div class="header-logo" id="header-logo">🛒</div>
@@ -503,7 +503,7 @@
     <div class="floating-overlay" id="floating-overlay" onclick="closeFloatingMenu()"></div>
     <div class="floating-menu" id="floating-menu"></div>
 
-    <!-- PRODUCTS SCREEN (شاشة عرض منتجات القسم) -->
+    <!-- PRODUCTS SCREEN -->
     <div class="screen" id="products-screen">
         <div class="products-screen-header">
             <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">⬅️ رجوع</button>
@@ -549,7 +549,7 @@
         </div>
     </div>
 
-    <!-- ORDERS POPUP (قائمة سريعة) -->
+    <!-- ORDERS POPUP -->
     <div class="orders-popup" id="orders-popup">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
             <h4 style="margin:0;">📦 الطلبات الجديدة</h4>
@@ -576,7 +576,7 @@
         <div class="archive-body" id="archive-list-container"></div>
     </div>
 
-    <!-- BUYER ARCHIVE SCREEN (أرشيف المشتريات للمشتري نفسه) -->
+    <!-- BUYER ARCHIVE SCREEN -->
     <div class="screen" id="buyer-archive-screen">
         <div class="archive-header">
             <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">⬅️ رجوع</button>
@@ -616,7 +616,7 @@
         </div>
     </div>
 
-    <!-- PENDING REQUESTS MODAL (نافذة طلبات التسجيل) -->
+    <!-- PENDING REQUESTS MODAL -->
     <div class="modal-overlay" id="pending-requests-modal" onclick="closeModalOutside(event, 'pending-requests-modal')">
         <div class="modal-box" onclick="event.stopPropagation()">
             <div class="modal-header">
@@ -670,7 +670,7 @@
         </div>
     </div>
 
-    <!-- SET PASSWORD MODAL (مع إضافة حقل اسم المستخدم) -->
+    <!-- SET PASSWORD MODAL -->
     <div class="modal-overlay" id="set-password-modal">
         <div class="modal-box">
             <div class="modal-header">
@@ -919,7 +919,6 @@
         updateOrdersBadge();
         updateHeaderInfo();
 
-        // تشغيل ساعة الهيدر الحية ومواعيد العمل وتحديثها كل ثانية
         updateHeaderClock();
         setInterval(updateHeaderClock, 1000);
 
@@ -942,13 +941,12 @@
         renderOrdersList();
         renderArchiveList();
 
-        // إضافة مستمع للتحقق من اسم المستخدم في نافذة القبول
         document.getElementById('set-username-input').addEventListener('input', function() {
             checkUsernameAvailability(this.value);
         });
     };
 
-    // ==================== ساعة الهيدر ومواعيد العمل ====================
+    // ==================== HEADER CLOCK ====================
     function getWorkHours() {
         return {
             from: localStorage.getItem('bakala_work_hours_from') || '09:00',
@@ -995,7 +993,6 @@
             id = 'login';
         }
 
-        // الحماية حسب الصلاحيات
         if (currentUser) {
             if (id === 'settings' && currentUser.type !== 'مدير') {
                 showToast('⚠️ غير مصرح لك بدخول الإعدادات', 'error');
@@ -1015,7 +1012,6 @@
         const targetScreen = document.getElementById(id + '-screen');
         if (targetScreen) targetScreen.classList.add('active');
 
-        // الهيدر ثابت وظاهر في كل الشاشات ما عدا شاشة تسجيل الدخول
         const appHeader = document.getElementById('app-header');
         if (appHeader) appHeader.style.display = (id === 'login') ? 'none' : 'flex';
 
@@ -1051,7 +1047,6 @@
             userInfoEl.textContent = `${currentUser.type} | ${currentUser.username}`;
             if (menuBtn) menuBtn.style.display = 'flex';
 
-            // ضبط رؤية الأزرار العلوية حسب الصلاحية
             if (currentUser.type === 'مدير') {
                 if (ordersBtn) ordersBtn.style.display = 'flex';
                 if (cartBtn) cartBtn.style.display = 'flex';
@@ -1067,7 +1062,6 @@
             }
             renderFloatingMenu();
         } else {
-            // شاشة تسجيل جديد (قبل الدخول): إخفاء عناصر تتطلب مستخدم مسجل
             userInfoEl.style.display = 'none';
             if (ordersBtn) ordersBtn.style.display = 'none';
             if (cartBtn) cartBtn.style.display = 'none';
@@ -1590,29 +1584,44 @@
         updateOrdersBadge();
         showToast(`✅ تم تجهيز الطلب ونقله للأرشيف`, 'success');
 
-        // ====== إرسال رسالة واتساب للمشتري بتفاصيل ما تم تجهيزه ======
+        // إرسال رسالة واتساب محسّنة
         sendOrderPreparedWhatsApp(archiveEntry, shippedTotal);
     }
 
-    // ==================== إرسال تفاصيل التجهيز عبر واتساب ====================
+    // ==================== إرسال تفاصيل التجهيز عبر واتساب (محسّن) ====================
     function sendOrderPreparedWhatsApp(order, shippedTotal) {
         const companyName = localStorage.getItem('bakala_company_name') || 'بقالة الخير';
         const remaining = order.total - shippedTotal;
 
+        // بناء قائمة الأصناف بشكل عمودي بدون علامات استفهام
         const itemsText = (order.items || []).map(item => {
             const requested = item.quantity;
             const shipped = item.shipped || 0;
-            const shortfall = requested - shipped;
             const unit = item.unit || 'عدد';
             const itemTotal = shipped * item.price;
-            let line = `• ${item.name}: المطلوب ${requested} ${unit} - تم تجهيز ${shipped} ${unit} = ${itemTotal} ج.م`;
-            if (shortfall > 0) {
-                line += ` ⚠️ (ناقص ${shortfall} ${unit})`;
-            }
-            return line;
+            return `• ${item.name} : ${shipped} من ${requested} ${unit} (${itemTotal} ج.م)`;
         }).join('\n');
 
-        const message = `مرحباً ${order.username} 👋\nتم تجهيز طلبك بنجاح ✅\n\n📦 تفاصيل الأصناف التي تم تجهيزها:\n${itemsText}\n\n💰 إجمالي قيمة الطلب: ${order.total} ج.م\n✅ إجمالي المبلغ المجهز: ${shippedTotal} ج.م\n⏳ المبلغ المتبقي: ${remaining} ج.م\n\nشكراً لتعاملكم مع ${companyName} 🌿`;
+        // رسالة نهائية بدون رقم الطلب وبدون علامات استفهام
+        const message = `- تحديث حالة طلبك من ${companyName} -
+
+مرحباً ${order.username}
+
+تم تجهيز طلبك بنجاح ✓
+
+* التاريخ: ${order.date || order.archivedDate || ''}
+* طريقة الدفع: ${order.paymentMethod || 'غير محددة'}
+* عنوان التوصيل: ${order.deliveryAddress || 'غير محدد'}
+
+* تفاصيل الأصناف المجهزة:
+${itemsText}
+
+* إجمالي قيمة الطلب: ${order.total} ج.م
+* تكلفه ما تم شحنه: ${shippedTotal} ج.م
+* المبلغ المتبقي: ${remaining} ج.م
+
+شكراً لثقتك بنا
+${companyName}`;
 
         if (order.phone) {
             const sent = sendWhatsAppMessage(order.phone, message);
@@ -1636,7 +1645,7 @@
         showToast('🗑️ تم حذف الطلب', 'success');
     }
 
-    // ==================== BUYER ARCHIVE (أرشيف المشتريات للمشتري نفسه) ====================
+    // ==================== BUYER ARCHIVE ====================
     function renderBuyerArchive() {
         if (!currentUser) return;
         const container = document.getElementById('buyer-archive-list-container');
@@ -1886,7 +1895,6 @@
             return isNaN(val) ? 0 : val;
         });
 
-        // التحقق من صحة القيم المدخلة
         for (let idx = 0; idx < items.length; idx++) {
             const item = items[idx];
             const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
@@ -1908,14 +1916,12 @@
             return;
         }
 
-        // تطبيق المرتجعات على الأصناف (تعديل الأعداد)
         items.forEach((item, idx) => {
             if (updates[idx] > 0) {
                 item.returned = (item.returned || 0) + updates[idx];
             }
         });
 
-        // إعادة احتساب إجمالي المرتجعات وصافي المبلغ المشحون (تعديل المدفوعات)
         let totalReturnedAmount = 0;
         let totalNetShipped = 0;
         items.forEach(item => {
@@ -2372,7 +2378,6 @@
         document.getElementById('set-username-input').value = '';
         document.getElementById('set-password-modal').classList.add('show');
         
-        // اقتراح اسم مستخدم تلقائي
         setTimeout(() => suggestUsername(), 300);
     }
 
@@ -2391,10 +2396,8 @@
         const req = pending[pendingAcceptIndex];
         if (!req) return;
 
-        // اقتراح اسم من الاسم الثلاثي أو رقم الهاتف
         let baseName = '';
         if (req.fullname) {
-            // أخذ أول كلمة من الاسم الثلاثي
             const parts = req.fullname.trim().split(' ');
             if (parts.length > 0) {
                 baseName = parts[0].toLowerCase();
@@ -2407,7 +2410,6 @@
             baseName = 'user' + Date.now().toString().slice(-4);
         }
 
-        // إضافة أرقام إذا كان الاسم موجوداً
         let username = baseName;
         const data = loadData();
         let counter = 1;
@@ -2446,23 +2448,18 @@
             return false;
         }
 
-        // تنظيف الرقم من أي مسافات أو علامات زائدة
         let cleaned = phoneNumber.replace(/[^0-9]/g, '');
         
-        // إذا كان الرقم يبدأ بـ 0، نستبدله بـ 20 (مفتاح مصر)
         if (cleaned.startsWith('0')) {
             cleaned = '20' + cleaned.substring(1);
         }
-        // إذا كان الرقم لا يبدو أنه يحتوي على مفتاح دولة (أقل من 10 أرقام) نضيف 20
         else if (cleaned.length < 10) {
             cleaned = '20' + cleaned;
         }
-        // إذا كان الرقم يبدأ بـ 0020 نزيل الـ 00
         if (cleaned.startsWith('0020')) {
             cleaned = cleaned.substring(2);
         }
 
-        // التأكد من أن الرقم يحتوي على 10 أرقام على الأقل بعد التنظيف
         if (cleaned.length < 10) {
             showToast(`⚠️ رقم الهاتف غير مكتمل: ${phoneNumber}`, 'warning');
             return false;
@@ -2471,30 +2468,29 @@
         const encodedMessage = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/${cleaned}?text=${encodedMessage}`;
         
-        // فتح الرابط في نافذة جديدة
         window.open(whatsappUrl, '_blank');
         return true;
     }
 
+    // ==================== تأكيد قبول طلب التسجيل (محسّن) ====================
     function confirmSetPassword() {
-        if(pendingAcceptIndex === null) return;
+        if (pendingAcceptIndex === null) return;
         const pending = getPendingUsers();
         const req = pending[pendingAcceptIndex];
-        if(!req) return;
+        if (!req) return;
 
         const username = document.getElementById('set-username-input').value.trim();
         const password = document.getElementById('set-password-input').value.trim();
 
-        if(!username) {
+        if (!username) {
             return showToast('⚠️ يرجى إدخال اسم المستخدم', 'error');
         }
-        if(!password) {
+        if (!password) {
             return showToast('⚠️ يرجى إدخال كلمة السر', 'error');
         }
 
         const data = loadData();
-        // التحقق من عدم وجود اسم المستخدم مكرر
-        if(data.users.find(u => u.username === username)) {
+        if (data.users.find(u => u.username === username)) {
             showToast('⚠️ اسم المستخدم موجود بالفعل، اختر اسم آخر', 'error');
             return;
         }
@@ -2516,18 +2512,28 @@
         closeModal('set-password-modal');
         renderPendingRequests();
         updatePendingBadge();
-        
-        if(document.getElementById('settings-screen').classList.contains('active')) {
+
+        if (document.getElementById('settings-screen').classList.contains('active')) {
             renderUsersTable();
         }
 
-        // ====== إرسال بيانات الدخول عبر واتساب ======
         const buyerPhone = req.phone || '';
         const companyName = localStorage.getItem('bakala_company_name') || 'بقالة الخير';
-        
+
         if (buyerPhone) {
-            const message = `مرحباً ${req.fullname}،\nتم قبول طلب تسجيلك في تطبيق ${companyName}.\n\nبيانات الدخول الخاصة بك:\n👤 اسم المستخدم: ${username}\n🔑 كلمة السر: ${password}\n\nيمكنك الآن تسجيل الدخول من خلال التطبيق.\n\nشكراً لثقتك بنا.`;
-            
+            const message = `🎉 *مرحباً ${req.fullname}* 🎉
+
+تم قبول طلب تسجيلك في تطبيق *${companyName}* بنجاح ✅
+
+بيانات الدخول الخاصة بك:
+👤 *اسم المستخدم:* ${username}
+🔑 *كلمة السر:* ${password}
+
+يمكنك الآن تسجيل الدخول من خلال التطبيق والبدء في الطلب.
+
+نتمنى لك تجربة تسوق ممتعة 🌿
+${companyName}`;
+
             const sent = sendWhatsAppMessage(buyerPhone, message);
             if (sent) {
                 showToast(`✅ تم إرسال بيانات الدخول إلى واتساب المشتري (${buyerPhone})`, 'success');
