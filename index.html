@@ -12,7 +12,7 @@
     </script>
 
     <style>
-        /* === الأنماط الأساسية === */
+        /* === الأنماط الأساسية (نفس النسخة الأصلية) === */
         :root {
             --primary: #1a7a2e;
             --primary-dark: #145a22;
@@ -131,6 +131,11 @@
             transition: var(--transition);
             font-family: inherit;
             text-decoration: none;
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
         }
         .btn-primary {
             background: var(--primary);
@@ -1045,6 +1050,7 @@
             min-width: 80px;
         }
 
+        /* أزرار تحديد الكمية المشحونة +- */
         .ship-btn {
             width: 26px;
             height: 26px;
@@ -1710,6 +1716,7 @@
             overflow-y: auto;
         }
 
+        /* loading overlay */
         .loading-overlay {
             position: fixed;
             inset: 0;
@@ -1875,7 +1882,7 @@
                             💡 (يتم رفع صورة التحويل محفظة أو انستاباي إلى رقم <span id="company-transfer-number" style="font-weight:bold; color:var(--primary-dark);">غير محدد</span>)
                         </div>
                     </div>
-                    <button class="btn btn-primary" onclick="submitOrder()">📨 إرسال طلب مشتريات</button>
+                    <button id="submit-order-btn" class="btn btn-primary" onclick="submitOrder()">📨 إرسال طلب مشتريات</button>
                 </div>
             </div>
         </div>
@@ -2137,14 +2144,14 @@
         //  1.  FIREBASE CONFIG (استبدل بالقيم الخاصة بك)
         // ============================================================
         const firebaseConfig = {
-            apiKey: "AIzasyBH-p_fj6XpG0umkHl_04vETUOM91A1_cg",
-            authDomain: "market-889d1.firebaseapp.com",
-            projectId: "market-889d1",
-            storageBucket: "market-889d1.firebasestorage.app",
-            messagingSenderId: "268615106725",
-            appId: "1:268615106725:web:89886301c1a418d7b8cd4c",
-            measurementId: "G-4PPBCKEMT4"
-        };
+  apiKey: "AIzasyBH-p_fj6XpG0umkHl_04vETUOM91A1_cg",
+  authDomain: "market-889d1.firebaseapp.com",
+  projectId: "market-889d1",
+  storageBucket: "market-889d1.firebasestorage.app",
+  messagingSenderId: "268615106725",
+  appId: "1:268615106725:web:89886301c1a418d7b8cd4c",
+  measurementId: "G-4PPBCKEMT4"
+};
 
         // ============================================================
         //  2.  INIT FIREBASE
@@ -2165,76 +2172,7 @@
         let statsActiveTab = 'products';
 
         // ============================================================
-        //  4.  DEFAULT DATA (للتعبئة التلقائية)
-        // ============================================================
-        function getDefaultCategories() {
-            return [{
-                id: 'dairy',
-                name: 'قسم الجبن ومنتجات الألبان',
-                icon: '🧀',
-                products: [
-                    { id: 'd1', name: 'جبنة بيضاء طازجة', price: 45, img: '🧀', quantity: 10, unit: 'كيلو جرام' },
-                    { id: 'd2', name: 'جبنة شيدر', price: 80, img: '🧀', quantity: 8, unit: 'كيلو جرام' },
-                    { id: 'd3', name: 'زبدة طبيعية', price: 60, img: '🧈', quantity: 15, unit: 'كيلو جرام' },
-                    { id: 'd4', name: 'لبن رايب', price: 15, img: '🥛', quantity: 20, unit: 'لتر' },
-                    { id: 'd5', name: 'قشطة بلدي', price: 35, img: '🥛', quantity: 12, unit: 'لتر' }
-                ]
-            }, {
-                id: 'juices',
-                name: 'قسم العصائر والمربات',
-                icon: '🧃',
-                products: [
-                    { id: 'j1', name: 'عصير برتقال طازج', price: 20, img: '🧃', quantity: 25, unit: 'لتر' },
-                    { id: 'j2', name: 'عصير مانجو', price: 25, img: '🥭', quantity: 18, unit: 'لتر' },
-                    { id: 'j3', name: 'مربى فراولة', price: 40, img: '🍓', quantity: 10, unit: 'جرام' },
-                    { id: 'j4', name: 'مربى تين', price: 50, img: '🫙', quantity: 7, unit: 'جرام' }
-                ]
-            }, {
-                id: 'spices',
-                name: 'قسم العطارة',
-                icon: '🌿',
-                products: [
-                    { id: 's1', name: 'كمون حبوب', price: 30, img: '🌿', quantity: 30, unit: 'جرام' },
-                    { id: 's2', name: 'فلفل أسود', price: 55, img: '🌶️', quantity: 20, unit: 'جرام' },
-                    { id: 's3', name: 'قرفة أعواد', price: 40, img: '🪵', quantity: 15, unit: 'عدد' },
-                    { id: 's4', name: 'زعتر بري', price: 25, img: '🌿', quantity: 22, unit: 'جرام' },
-                    { id: 's5', name: 'كركم مطحون', price: 35, img: '🟡', quantity: 18, unit: 'جرام' }
-                ]
-            }, {
-                id: 'rice',
-                name: 'قسم الأرز والمعكرونة',
-                icon: '🍚',
-                products: [
-                    { id: 'r1', name: 'أرز بسمتي', price: 65, img: '🍚', quantity: 12, unit: 'كيلو جرام' },
-                    { id: 'r2', name: 'أرز مصري', price: 35, img: '🍚', quantity: 20, unit: 'كيلو جرام' },
-                    { id: 'r3', name: 'معكرونة إسباجيتي', price: 18, img: '🍝', quantity: 30, unit: 'عدد' },
-                    { id: 'r4', name: 'معكرونة قلم', price: 16, img: '🍝', quantity: 25, unit: 'عدد' }
-                ]
-            }, {
-                id: 'cleaning',
-                name: 'قسم المنظفات ومنتجات العناية الشخصية',
-                icon: '🧴',
-                products: [
-                    { id: 'c1', name: 'شامبو طبيعي', price: 55, img: '🧴', quantity: 10, unit: 'لتر' },
-                    { id: 'c2', name: 'صابون سائل', price: 30, img: '🧼', quantity: 15, unit: 'لتر' },
-                    { id: 'c3', name: 'منظف أرضيات', price: 45, img: '🧹', quantity: 8, unit: 'لتر' },
-                    { id: 'c4', name: 'معجون أسنان', price: 25, img: '🪥', quantity: 12, unit: 'عدد' }
-                ]
-            }, {
-                id: 'telecom',
-                name: 'قسم شحن الاتصالات وكروت الشحن',
-                icon: '📱',
-                products: [
-                    { id: 't1', name: 'كارت شحن 10 ج.م', price: 10, img: '📱', quantity: 50, unit: 'عدد' },
-                    { id: 't2', name: 'كارت شحن 25 ج.م', price: 25, img: '📱', quantity: 40, unit: 'عدد' },
-                    { id: 't3', name: 'كارت شحن 50 ج.م', price: 50, img: '📱', quantity: 30, unit: 'عدد' },
-                    { id: 't4', name: 'كارت شحن 100 ج.م', price: 100, img: '📱', quantity: 20, unit: 'عدد' }
-                ]
-            }];
-        }
-
-        // ============================================================
-        //  5.  TOAST & LOADING
+        //  4.  TOAST & LOADING
         // ============================================================
         function showToast(msg, type = 'info') {
             const container = document.getElementById('toast-container');
@@ -2253,21 +2191,22 @@
         }
 
         // ============================================================
-        //  6.  FIREBASE CRUD OPERATIONS
+        //  5.  FIREBASE CRUD OPERATIONS
         // ============================================================
 
-        // ----- 6.1 Users -----
+        // ----- 5.1 Users -----
         async function getUsers() {
             const snap = await db.collection('users').get();
             return snap.docs.map(d => ({ id: d.id, ...d.data() }));
         }
 
         async function saveUsers(users) {
+            // حذف جميع المستخدمين ثم إعادة كتابتهم (للبساطة)
             const batch = db.batch();
             const snap = await db.collection('users').get();
             snap.docs.forEach(d => batch.delete(d.ref));
             users.forEach(u => {
-                const ref = db.collection('users').doc();
+                const ref = db.collection('users').doc(); // auto-id
                 batch.set(ref, u);
             });
             await batch.commit();
@@ -2281,7 +2220,7 @@
             await db.collection('users').doc(docId).delete();
         }
 
-        // ----- 6.2 Categories -----
+        // ----- 5.2 Categories -----
         async function getCategories() {
             const snap = await db.collection('categories').get();
             return snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -2292,7 +2231,7 @@
             const snap = await db.collection('categories').get();
             snap.docs.forEach(d => batch.delete(d.ref));
             categories.forEach(c => {
-                const ref = db.collection('categories').doc();
+                const ref = db.collection('categories').doc(); // auto-id
                 batch.set(ref, c);
             });
             await batch.commit();
@@ -2310,7 +2249,7 @@
             await db.collection('categories').doc(docId).delete();
         }
 
-        // ----- 6.3 Cart -----
+        // ----- 5.3 Cart (per user) -----
         async function getCartForUser(username) {
             const snap = await db.collection('carts').where('username', '==', username).get();
             if (snap.empty) return [];
@@ -2318,6 +2257,7 @@
         }
 
         async function setCartForUser(username, items) {
+            // حذف السلة القديمة إن وجدت ثم إنشاء جديدة
             const snap = await db.collection('carts').where('username', '==', username).get();
             const batch = db.batch();
             snap.docs.forEach(d => batch.delete(d.ref));
@@ -2326,7 +2266,7 @@
             await batch.commit();
         }
 
-        // ----- 6.4 Pending Users -----
+        // ----- 5.4 Pending Users -----
         async function getPendingUsers() {
             const snap = await db.collection('pendingUsers').get();
             return snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -2351,10 +2291,16 @@
             await db.collection('pendingUsers').doc(docId).delete();
         }
 
-        // ----- 6.5 Orders -----
+        // ----- 5.5 Orders -----
         async function getOrders() {
             const snap = await db.collection('orders').get();
-            return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            // مهم: نستخدم docId (وليس id) لتخزين معرّف مستند Firestore الحقيقي،
+            // لأن بيانات الطلب نفسها تحتوي على حقل id (مثل ORD-...)
+            // وكان استخدام نفس الاسم "id" يتسبب في استبدال معرّف المستند الحقيقي
+            // بحقل id الداخلي، مما جعل التحديث/الحذف المباشر للمستند مستحيلاً
+            // واضطر الكود لاستخدام saveOrders() التي تحذف وتعيد كتابة كل الطلبات
+            // في كل مرة (وهذا هو السبب الرئيسي للبطء).
+            return snap.docs.map(d => ({ docId: d.id, ...d.data() }));
         }
 
         async function saveOrders(orders) {
@@ -2380,7 +2326,7 @@
             await db.collection('orders').doc(docId).delete();
         }
 
-        // ----- 6.6 Archive -----
+        // ----- 5.6 Archive -----
         async function getArchive() {
             const snap = await db.collection('archive').get();
             return snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -2405,10 +2351,11 @@
             await db.collection('archive').doc(docId).update(updates);
         }
 
-        // ----- 6.7 Company Settings -----
+        // ----- 5.7 Company Settings -----
         async function getCompanySettings() {
             const snap = await db.collection('settings').doc('company').get();
             if (!snap.exists) {
+                // إعدادات افتراضية
                 const def = {
                     companyName: 'بقالة الخير',
                     companyLogo: '🛒',
@@ -2428,6 +2375,26 @@
         }
 
         // ============================================================
+        //  6.  DATA LOADER (محاكاة loadData السابقة)
+        // ============================================================
+        async function loadAllData() {
+            showLoading(true);
+            try {
+                const [users, categories, pending, orders, archive, settings] = await Promise.all([
+                    getUsers(),
+                    getCategories(),
+                    getPendingUsers(),
+                    getOrders(),
+                    getArchive(),
+                    getCompanySettings()
+                ]);
+                return { users, categories, pending, orders, archive, settings };
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ============================================================
         //  7.  UI HELPERS
         // ============================================================
         function closeModal(id) {
@@ -2439,7 +2406,7 @@
             if (e.target === document.getElementById(id)) closeModal(id);
         }
 
-        function showScreen(id) {
+        function showScreen(id, highlightId) {
             if (!currentUser && id !== 'login' && id !== 'register') {
                 id = 'login';
             }
@@ -2473,7 +2440,7 @@
             closeFloatingMenu();
             document.getElementById('cart-overlay').classList.remove('show');
 
-            if (id === 'orders') renderOrdersList();
+            if (id === 'orders') renderOrdersList(highlightId);
             if (id === 'archive') renderArchiveList();
             if (id === 'buyer-archive') renderBuyerArchive();
             if (id === 'stats') initStatsScreen();
@@ -2677,6 +2644,8 @@
         //  12. QUANTITY POPUP & CART
         // ============================================================
         function openQtyPopup(categoryId, productId) {
+            // نستخدم البيانات المخزنة محلياً (categories) لأننا حملناها مسبقاً
+            // لكننا نقرأها من Firebase مباشرة للتأكد من التحديث
             (async () => {
                 const categories = await getCategories();
                 const cat = categories.find(c => c.id === categoryId);
@@ -2740,9 +2709,11 @@
                     return;
                 }
 
+                // تحديث الكمية في Firebase
                 prod.quantity -= qty;
                 await saveCategories(categories);
 
+                // تحديث السلة
                 let cartItems = await getCartForUser(currentUser.username);
                 const existing = cartItems.find(i => i.categoryId === qtyPopupData.categoryId && i.productId === qtyPopupData
                     .productId);
@@ -2893,7 +2864,9 @@
         // ============================================================
         //  14. SUBMIT ORDER
         // ============================================================
+        let isSubmittingOrder = false; // حارس يمنع إرسال نفس الطلب أكثر من مرة (نقر مزدوج/سريع)
         async function submitOrder() {
+            if (isSubmittingOrder) return; // تجاهل أي ضغطة إضافية أثناء إرسال الطلب الحالي — هذا هو سبب ظهور الطلب مرتين عند البائع
             if (!currentUser) { showToast('⚠️ يجب تسجيل الدخول أولاً', 'error'); return; }
             const cartItems = await getCartForUser(currentUser.username);
             if (cartItems.length === 0) { showToast('⚠️ السلة فارغة', 'error'); return; }
@@ -2920,6 +2893,9 @@
                 timestamp: now.toISOString()
             };
 
+            isSubmittingOrder = true;
+            const submitBtn = document.getElementById('submit-order-btn');
+            if (submitBtn) submitBtn.disabled = true;
             showLoading(true);
             try {
                 await addOrder(order);
@@ -2933,6 +2909,8 @@
                 await renderCart();
             } finally {
                 showLoading(false);
+                isSubmittingOrder = false;
+                if (submitBtn) submitBtn.disabled = false;
             }
         }
 
@@ -2980,11 +2958,11 @@
             if (!order) return;
             if (order.status === 'new') {
                 order.status = 'viewed';
-                await saveOrders(orders);
+                // تحديث مستند هذا الطلب فقط بدلاً من حذف/إعادة كتابة كل الطلبات
+                await updateOrder(order.docId, { status: 'viewed' });
                 updateOrdersBadge();
             }
-            await renderOrdersList(orderId);
-            showScreen('orders');
+            showScreen('orders', orderId);
         }
 
         // ============================================================
@@ -3008,7 +2986,8 @@
 
             showLoading(true);
             try {
-                await saveOrders(orders);
+                // تحديث مستند هذا الطلب فقط بدلاً من حذف/إعادة كتابة كل الطلبات في كل ضغطة
+                await updateOrder(order.docId, { items: order.items });
                 await renderOrdersList(orderId);
             } finally {
                 showLoading(false);
@@ -3119,8 +3098,9 @@
                     shippedTotal += shipped * item.price;
                 });
 
+                const { docId, ...orderData } = order;
                 const archiveEntry = {
-                    ...order,
+                    ...orderData,
                     archivedDate: new Date().toLocaleDateString('ar-EG') + ' ' + new Date().toLocaleTimeString(
                     'ar-EG'),
                     shippedTotal: shippedTotal,
@@ -3130,14 +3110,15 @@
 
                 await addArchiveEntry(archiveEntry);
 
-                const updatedOrders = orders.filter(o => o.id !== orderId);
-                await saveOrders(updatedOrders);
+                // حذف مستند هذا الطلب فقط بدلاً من حذف/إعادة كتابة كل الطلبات
+                await deleteOrderDoc(docId);
 
                 await renderOrdersList();
                 await renderArchiveList();
                 updateOrdersBadge();
                 showToast(`✅ تم تجهيز الطلب ونقله للأرشيف`, 'success');
 
+                // إرسال واتساب
                 sendOrderPreparedWhatsApp(archiveEntry, shippedTotal);
             } finally {
                 showLoading(false);
@@ -3191,8 +3172,10 @@
             showLoading(true);
             try {
                 const orders = await getOrders();
-                const updated = orders.filter(o => o.id !== orderId);
-                await saveOrders(updated);
+                const order = orders.find(o => o.id === orderId);
+                if (!order) return;
+                // حذف مستند هذا الطلب فقط بدلاً من حذف/إعادة كتابة كل الطلبات
+                await deleteOrderDoc(order.docId);
                 await renderOrdersList();
                 updateOrdersBadge();
                 showToast('🗑️ تم حذف الطلب', 'success');
@@ -4285,7 +4268,7 @@
         }
 
         // ============================================================
-        //  27. APP INIT (مع التعبئة التلقائية)
+        //  27. APP INIT
         // ============================================================
         window.onload = async function() {
             try {
@@ -4302,38 +4285,6 @@
                 document.getElementById('company-payment-number').value = settings.paymentNumber || '';
                 document.getElementById('work-hours-from-input').value = settings.workHoursFrom;
                 document.getElementById('work-hours-to-input').value = settings.workHoursTo;
-
-                // ============================================================
-                //  🔥 التهيئة التلقائية (Auto‑Seed) عند أول استخدام
-                // ============================================================
-                try {
-                    // 1. التحقق من وجود مستخدمين
-                    const users = await getUsers();
-                    if (users.length === 0) {
-                        console.log("📦 لا يوجد مستخدمين، جاري إضافة المستخدمين الافتراضيين...");
-                        await addUser({ username: 'admin', password: 'admin123', type: 'مدير', fullname: 'مدير النظام',
-                            phone: '' });
-                        await addUser({ username: 'seller', password: 'seller123', type: 'بائع',
-                            fullname: 'البائع الافتراضي', phone: '' });
-                        await addUser({ username: 'buyer', password: 'buyer123', type: 'مشتري',
-                            fullname: 'مشتري تجريبي', phone: '' });
-                        console.log("✅ تم إضافة المستخدمين بنجاح");
-                    }
-
-                    // 2. التحقق من وجود أقسام
-                    const categories = await getCategories();
-                    if (categories.length === 0) {
-                        console.log("📦 لا توجد أقسام، جاري إضافة الأقسام والمنتجات الافتراضية...");
-                        const defaultCats = getDefaultCategories();
-                        for (const cat of defaultCats) {
-                            await addCategory(cat);
-                        }
-                        console.log("✅ تم إضافة الأقسام والمنتجات بنجاح");
-                    }
-                } catch (seedErr) {
-                    console.error("⚠️ حصل خطأ أثناء التهيئة التلقائية:", seedErr);
-                    showToast("⚠️ حدث خطأ أثناء تهيئة البيانات، لكن يمكنك المتابعة.", 'warning');
-                }
 
                 // تذكر المستخدم
                 const remembered = localStorage.getItem('bakala_remembered_user');
@@ -4386,6 +4337,11 @@
                 showLoading(false);
             }
         };
+
+        // ============================================================
+        //  28.  دالة للحصول على المعرف الفريد للمستخدم عند الحذف
+        // ============================================================
+        // (تم دمجها في deleteUserDocById أعلاه)
     </script>
 
 </body>
