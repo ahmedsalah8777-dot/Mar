@@ -56,10 +56,14 @@
             line-height: 1.6;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
+            overflow-x: hidden;
+            width: 100%;
         }
         .app-container {
             min-height: 100vh;
             position: relative;
+            overflow-x: hidden;
+            width: 100%;
         }
         .screen {
             display: none;
@@ -297,7 +301,7 @@
         .input-icon {
             position: absolute;
             left: 14px;
-            top: 40px;
+            bottom: 11px;
             cursor: pointer;
             font-size: 18px;
             color: var(--gray-400);
@@ -312,7 +316,7 @@
         .input-icon-left {
             position: absolute;
             left: 14px;
-            top: 40px;
+            bottom: 15px;
             font-size: 18px;
             color: var(--gray-400);
             pointer-events: none;
