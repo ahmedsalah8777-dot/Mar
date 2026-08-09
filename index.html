@@ -634,6 +634,209 @@
             background: var(--gray-200);
         }
 
+        /* ===== تحسينات الهيدر والقائمة والدخول (نسخة محسّنة) ===== */
+        .header {
+            padding: 10px 16px;
+            gap: 10px;
+            flex-wrap: nowrap;
+        }
+        .header-left {
+            min-width: 0;
+            flex: 1 1 auto;
+        }
+        .header-info {
+            min-width: 0;
+        }
+        .header-info h3 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .header-right {
+            flex-shrink: 0;
+        }
+        #menu-btn {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--primary-dark);
+            font-size: 22px;
+            font-weight: 900;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+        }
+        #menu-btn:hover {
+            background: #fff;
+        }
+        #menu-btn.open {
+            transform: rotate(90deg);
+        }
+
+        @media (max-width: 640px) {
+            .header {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto;
+                grid-template-areas: "left right" "center center";
+                align-items: center;
+                padding: 10px 12px;
+                gap: 8px;
+                row-gap: 8px;
+            }
+            .header-left {
+                grid-area: left;
+                gap: 8px;
+            }
+            .header-right {
+                grid-area: right;
+                gap: 6px;
+            }
+            .header-center {
+                grid-area: center;
+                order: 0;
+                width: 100%;
+            }
+            .header-logo {
+                width: 38px;
+                height: 38px;
+                font-size: 19px;
+            }
+            .header-info h3 {
+                font-size: 14px;
+            }
+            .header-info span {
+                font-size: 10px;
+            }
+            .header-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
+            }
+            .badge {
+                width: 18px;
+                height: 18px;
+                font-size: 9px;
+            }
+        }
+
+        /* القائمة كلوحة سفلية أنيقة على الموبايل */
+        .floating-menu {
+            padding: 6px 0;
+            border: 1px solid var(--gray-200);
+        }
+        .floating-menu button {
+            padding: 13px 18px;
+            font-size: 15px;
+        }
+        .floating-menu .menu-head {
+            display: none;
+        }
+        @media (max-width: 640px) {
+            .floating-overlay {
+                background: rgba(0, 0, 0, 0.45);
+            }
+            .floating-menu {
+                top: auto;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                width: 100%;
+                min-width: 0;
+                border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+                padding: 8px 0 max(14px, env(safe-area-inset-bottom));
+                animation: menuSlideUp 0.25s ease;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+            .floating-menu .menu-head {
+                display: block;
+                text-align: center;
+                padding: 6px 0 10px;
+            }
+            .floating-menu .menu-head::before {
+                content: '';
+                display: block;
+                width: 46px;
+                height: 5px;
+                border-radius: 3px;
+                background: var(--gray-300);
+                margin: 0 auto 8px;
+            }
+            .floating-menu .menu-head span {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--gray-500);
+            }
+            .floating-menu button {
+                padding: 15px 20px;
+                font-size: 16px;
+            }
+            .floating-menu button:active {
+                background: var(--primary-light);
+            }
+        }
+        @keyframes menuSlideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0.6;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* زر الدخول */
+        .login-card .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #2fa34a);
+            border: none;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 800;
+            padding: 15px 18px;
+            border-radius: 14px;
+            width: 100%;
+            box-shadow: 0 10px 22px rgba(26, 122, 46, 0.30);
+            transition: var(--transition);
+            letter-spacing: 0.3px;
+        }
+        .login-card .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(26, 122, 46, 0.38);
+        }
+        .login-card .btn-primary:active {
+            transform: scale(0.98);
+        }
+        .login-card .btn-outline {
+            width: 100%;
+            padding: 13px 18px;
+            border-radius: 14px;
+            font-weight: 700;
+        }
+        .remember-row {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 10px 12px;
+        }
+        .remember-label {
+            font-weight: 700;
+            color: var(--gray-700);
+        }
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 28px 20px;
+            }
+            .login-logo {
+                width: 76px;
+                height: 76px;
+                font-size: 36px;
+            }
+            .login-logo::after {
+                width: 86px;
+                height: 86px;
+            }
+            .login-title {
+                font-size: 22px;
+            }
+        }
+
         /* PRODUCTS SCREEN */
         #products-screen {
             flex-direction: column;
@@ -1271,19 +1474,20 @@
             justify-content: center;
         }
 
-        /* QUANTITY POPUP */
+        /* ===== QUANTITY POPUP – تصميم محسّن مع صورة كبيرة ===== */
         .qty-popup-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.55);
             z-index: 400;
             display: none;
             justify-content: center;
             align-items: center;
             animation: fadeIn 0.25s ease;
+            backdrop-filter: blur(3px);
         }
         .qty-popup-overlay.show {
             display: flex;
@@ -1291,66 +1495,161 @@
         .qty-popup {
             background: white;
             border-radius: var(--radius-xl);
-            padding: 30px 28px;
-            max-width: 400px;
-            width: 90%;
+            padding: 20px 18px 28px;
+            max-width: 420px;
+            width: 92%;
             box-shadow: var(--shadow-xl);
             animation: popIn 0.3s ease;
             text-align: center;
+            position: relative;
         }
-        .qty-popup h3 {
-            font-size: 20px;
-            margin-bottom: 6px;
+
+        /* حاوية الصورة */
+        .qty-product-image {
+            width: 100%;
+            max-height: 240px;
+            min-height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 12px;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            padding: 6px;
         }
-        .qty-popup .sub {
-            color: var(--gray-500);
+        .qty-product-image img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 230px;
+            object-fit: contain;
+            border-radius: var(--radius-sm);
+            display: block;
+        }
+        .qty-product-image .qty-emoji-placeholder {
+            font-size: 72px;
+            line-height: 1;
+            color: var(--gray-400);
+        }
+
+        /* اسم المنتج */
+        .qty-popup .qty-product-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--gray-800);
+            margin: 4px 0 2px;
+            line-height: 1.3;
+        }
+
+        /* السعر والوحدة */
+        .qty-product-meta {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+        .qty-product-meta span {
+            background: var(--gray-100);
+            padding: 4px 14px;
+            border-radius: 20px;
             font-size: 13px;
-            margin-bottom: 20px;
         }
-        .qty-popup .qty-control {
+        .qty-product-meta .meta-price {
+            color: var(--primary-dark);
+        }
+        .qty-product-meta .meta-unit {
+            color: var(--gray-600);
+        }
+
+        /* الكمية المتاحة */
+        .qty-available-text {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+        .qty-available-text span {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* أدوات التحكم في الكمية */
+        .qty-control {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 16px;
-            margin: 16px 0;
+            margin: 12px 0 14px;
         }
-        .qty-popup .qty-control button {
-            width: 44px;
-            height: 44px;
+        .qty-control button {
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             border: 2px solid var(--gray-300);
             background: white;
-            font-size: 24px;
+            font-size: 26px;
+            font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .qty-popup .qty-control button:hover {
+        .qty-control button:hover {
             background: var(--primary-light);
             border-color: var(--primary);
+            color: var(--primary);
         }
-        .qty-popup .qty-control input {
+        .qty-control button:active {
+            transform: scale(0.92);
+        }
+        .qty-control input {
             width: 80px;
             text-align: center;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
             border: 2px solid var(--gray-200);
             border-radius: var(--radius-sm);
             padding: 6px;
+            color: var(--gray-800);
+            background: var(--gray-50);
         }
-        .qty-popup .total-price {
-            font-size: 18px;
+        .qty-control input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+        }
+
+        /* السعر الإجمالي */
+        .qty-total-price {
+            font-size: 20px;
             font-weight: 700;
             color: var(--primary-dark);
-            margin: 16px 0;
+            margin: 10px 0 18px;
+            padding: 8px;
+            background: var(--primary-light);
+            border-radius: var(--radius-sm);
         }
-        .qty-popup .actions {
+
+        /* أزرار الإجراء */
+        .qty-actions {
             display: flex;
             gap: 12px;
-            margin-top: 20px;
         }
-        .qty-popup .actions .btn {
+        .qty-actions .btn {
             flex: 1;
+            padding: 12px;
+            font-size: 15px;
+            border-radius: var(--radius);
         }
+
+        /* ===== نهاية تصميم نافذة الكمية ===== */
 
         /* EDIT PRODUCTS OVERLAY */
         .edit-products-overlay {
@@ -1991,10 +2290,10 @@
             transition: var(--transition);
             border-radius: 50%;
         }
-        .switch input:checked + .slider {
+        .switch input:checked+.slider {
             background-color: var(--primary);
         }
-        .switch input:checked + .slider:before {
+        .switch input:checked+.slider:before {
             transform: translateX(24px);
         }
     </style>
@@ -2233,18 +2532,33 @@
             </div>
         </div>
 
-        <!-- QUANTITY POPUP -->
+        <!-- ===== QUANTITY POPUP – نسخة محسّنة مع صورة كبيرة ===== -->
         <div class="qty-popup-overlay" id="qty-popup-overlay" onclick="closeQtyPopupOutside(event)">
             <div class="qty-popup" onclick="event.stopPropagation()">
-                <h3 id="qty-popup-name">منتج</h3>
-                <div class="sub" id="qty-popup-sub">الكمية المتاحة: <span id="qty-available">0</span></div>
-                <div class="qty-control">
-                    <button onclick="changeQty(-1)">−</button>
-                    <input type="number" id="qty-input" value="1" min="1" step="1" />
-                    <button onclick="changeQty(1)">+</button>
+                <!-- صورة المنتج -->
+                <div class="qty-product-image" id="qty-product-image-container">
+                    <img id="qty-product-img" src="" alt="صورة المنتج" style="display:none;" />
+                    <span class="qty-emoji-placeholder" id="qty-product-emoji">📦</span>
                 </div>
-                <div class="total-price" id="qty-total">السعر الإجمالي: 0 ج.م</div>
-                <div class="actions">
+                <!-- اسم المنتج -->
+                <div class="qty-product-name" id="qty-popup-name">اسم المنتج</div>
+                <!-- السعر والوحدة -->
+                <div class="qty-product-meta">
+                    <span class="meta-price" id="qty-product-price">السعر: 0 ج.م</span>
+                    <span class="meta-unit" id="qty-product-unit">الوحدة: عدد</span>
+                </div>
+                <!-- الكمية المتاحة -->
+                <div class="qty-available-text">الكمية المتاحة: <span id="qty-available">0</span></div>
+                <!-- أدوات التحكم في الكمية -->
+                <div class="qty-control">
+                    <button type="button" onclick="changeQty(-1)">−</button>
+                    <input type="number" id="qty-input" value="1" min="1" step="1" />
+                    <button type="button" onclick="changeQty(1)">+</button>
+                </div>
+                <!-- السعر الإجمالي -->
+                <div class="qty-total-price" id="qty-total">السعر الإجمالي: 0 ج.م</div>
+                <!-- أزرار الإجراء -->
+                <div class="qty-actions">
                     <button class="btn btn-primary" onclick="confirmAddToCart()">✅ تأكيد الإضافة</button>
                     <button class="btn btn-outline" onclick="closeQtyPopup()">إلغاء</button>
                 </div>
@@ -2499,14 +2813,14 @@
         //  1.  FIREBASE CONFIG (استبدل بالقيم الخاصة بك)
         // ============================================================
         const firebaseConfig = {
-  apiKey: "AIzasyBH-p_fj6XpG0umkHl_04vETUOM91A1_cg",
-  authDomain: "market-889d1.firebaseapp.com",
-  projectId: "market-889d1",
-  storageBucket: "market-889d1.firebasestorage.app",
-  messagingSenderId: "268615106725",
-  appId: "1:268615106725:web:89886301c1a418d7b8cd4c",
-  measurementId: "G-4PPBCKEMT4"
-};
+            apiKey: "AIzasyBH-p_fj6XpG0umkHl_04vETUOM91A1_cg",
+            authDomain: "market-889d1.firebaseapp.com",
+            projectId: "market-889d1",
+            storageBucket: "market-889d1.firebasestorage.app",
+            messagingSenderId: "268615106725",
+            appId: "1:268615106725:web:89886301c1a418d7b8cd4c",
+            measurementId: "G-4PPBCKEMT4"
+        };
 
         // ============================================================
         //  2.  INIT FIREBASE
@@ -2564,12 +2878,11 @@
         }
 
         async function saveUsers(users) {
-            // حذف جميع المستخدمين ثم إعادة كتابتهم (للبساطة)
             const batch = db.batch();
             const snap = await db.collection('users').get();
             snap.docs.forEach(d => batch.delete(d.ref));
             users.forEach(u => {
-                const ref = db.collection('users').doc(); // auto-id
+                const ref = db.collection('users').doc();
                 batch.set(ref, u);
             });
             await batch.commit();
@@ -2594,7 +2907,7 @@
             const snap = await db.collection('categories').get();
             snap.docs.forEach(d => batch.delete(d.ref));
             categories.forEach(c => {
-                const ref = db.collection('categories').doc(); // auto-id
+                const ref = db.collection('categories').doc();
                 batch.set(ref, c);
             });
             await batch.commit();
@@ -2620,7 +2933,6 @@
         }
 
         async function setCartForUser(username, items) {
-            // حذف السلة القديمة إن وجدت ثم إنشاء جديدة
             const snap = await db.collection('carts').where('username', '==', username).get();
             const batch = db.batch();
             snap.docs.forEach(d => batch.delete(d.ref));
@@ -2657,12 +2969,6 @@
         // ----- 5.5 Orders -----
         async function getOrders() {
             const snap = await db.collection('orders').get();
-            // مهم: نستخدم docId (وليس id) لتخزين معرّف مستند Firestore الحقيقي،
-            // لأن بيانات الطلب نفسها تحتوي على حقل id (مثل ORD-...)
-            // وكان استخدام نفس الاسم "id" يتسبب في استبدال معرّف المستند الحقيقي
-            // بحقل id الداخلي، مما جعل التحديث/الحذف المباشر للمستند مستحيلاً
-            // واضطر الكود لاستخدام saveOrders() التي تحذف وتعيد كتابة كل الطلبات
-            // في كل مرة (وهذا هو السبب الرئيسي للبطء).
             return snap.docs.map(d => ({ docId: d.id, ...d.data() }));
         }
 
@@ -2718,7 +3024,6 @@
         async function getCompanySettings() {
             const snap = await db.collection('settings').doc('company').get();
             if (!snap.exists) {
-                // إعدادات افتراضية
                 const def = {
                     companyName: 'بقالة الخير',
                     companyLogo: '🛒',
@@ -2770,8 +3075,10 @@
 
         // ----- 5.10 DB Connection Monitor -----
         function initDbConnectionMonitor() {
-            window.addEventListener('online', () => { dbConnectionRetries = 0; updateDbConnectionStatus(); });
-            window.addEventListener('offline', () => { isDbConnected = false; updateDbConnectionStatus(); });
+            window.addEventListener('online', () => { dbConnectionRetries = 0;
+                updateDbConnectionStatus(); });
+            window.addEventListener('offline', () => { isDbConnected = false;
+                updateDbConnectionStatus(); });
 
             db.collection('settings').doc('company').onSnapshot({ includeMetadataChanges: true }, (snap) => {
                 if (!snap.metadata.fromCache) {
@@ -2832,10 +3139,12 @@
                 reader.onload = (e) => {
                     const img = new Image();
                     img.onload = () => {
-                        let width = img.width, height = img.height;
+                        let width = img.width,
+                            height = img.height;
                         if (width > maxDim || height > maxDim) {
-                            if (width > height) { height = Math.round(height * (maxDim / width)); width = maxDim; }
-                            else { width = Math.round(width * (maxDim / height)); height = maxDim; }
+                            if (width > height) { height = Math.round(height * (maxDim / width));
+                                width = maxDim; } else { width = Math.round(width * (maxDim / height));
+                                height = maxDim; }
                         }
                         const canvas = document.createElement('canvas');
                         canvas.width = width;
@@ -2852,9 +3161,6 @@
             });
         }
 
-        // ----- إصلاح روابط صور جوجل درايف -----
-        // روابط drive.google.com/uc?...  و open?id=... لم تعد تعمل داخل وسم <img>
-        // لذلك نحولها إلى رابط المعاينة الرسمي الذي يعمل دائمًا.
         function fixImageUrl(url) {
             if (!url || typeof url !== 'string') return url || '';
             if (url.startsWith('data:')) return url;
@@ -2864,6 +3170,7 @@
             }
             return url;
         }
+
         function imgTagFallback() {
             return " onerror=\"this.onerror=null;this.style.display='none';\"";
         }
@@ -3006,10 +3313,12 @@
                 reader.onload = (e) => {
                     const img = new Image();
                     img.onload = () => {
-                        let width = img.width, height = img.height;
+                        let width = img.width,
+                            height = img.height;
                         if (width > maxDim || height > maxDim) {
-                            if (width > height) { height = Math.round(height * (maxDim / width)); width = maxDim; }
-                            else { width = Math.round(width * (maxDim / height)); height = maxDim; }
+                            if (width > height) { height = Math.round(height * (maxDim / width));
+                                width = maxDim; } else { width = Math.round(width * (maxDim / height));
+                                height = maxDim; }
                         }
                         const canvas = document.createElement('canvas');
                         canvas.width = width;
@@ -3047,13 +3356,11 @@
                 googleDriveSettingsCache = driveSettings;
 
                 if (driveSettings.scriptUrl) {
-                    // رفع عبر جوجل درايف (لا يستهلك قاعدة البيانات)
                     const result = await uploadImageToDrive(file, 'announcement');
                     announcementSettingsData.imageUrl = fixImageUrl(result.url);
                     updateAnnouncementPreview();
                     showToast('✅ تم رفع الصورة إلى جوجل درايف، اضغط "حفظ" لتأكيد الحفظ', 'success');
                 } else {
-                    // احتياطي: تخزين مضغوط داخل قاعدة البيانات مباشرة
                     const compressed = await compressAnnouncementImage(file);
                     const approxSizeKB = Math.round((compressed.length * 3 / 4) / 1024);
                     if (approxSizeKB > 700) {
@@ -3153,7 +3460,7 @@
         }
 
         // ============================================================
-        //  6.  DATA LOADER (محاكاة loadData السابقة)
+        //  6.  DATA LOADER
         // ============================================================
         async function loadAllData() {
             showLoading(true);
@@ -3222,6 +3529,54 @@
             if (id === 'archive') renderArchiveList();
             if (id === 'buyer-archive') renderBuyerArchive();
             if (id === 'stats') initStatsScreen();
+
+            currentScreenId = id;
+            if (!__navFromHistory) {
+                try { history.pushState({ screen: id }, '', location.href); } catch (e) {}
+            }
+        }
+
+        // ===== التحكم في زر الرجوع بالمتصفح =====
+        let currentScreenId = 'login';
+        let __navFromHistory = false;
+
+        function closeAnyOpenLayer() {
+            let closed = false;
+            const menu = document.getElementById('floating-menu');
+            if (menu && menu.classList.contains('show')) { closeFloatingMenu();
+                closed = true; }
+            const cart = document.getElementById('cart-overlay');
+            if (cart && cart.classList.contains('show')) { cart.classList.remove('show');
+                closed = true; }
+            document.querySelectorAll('.modal.show, .overlay.show, .popup.show').forEach(function(el) {
+                el.classList.remove('show');
+                closed = true;
+            });
+            return closed;
+        }
+
+        function initHistoryGuard() {
+            try {
+                history.replaceState({ screen: currentScreenId }, '', location.href);
+                history.pushState({ screen: currentScreenId }, '', location.href);
+            } catch (e) {}
+            window.addEventListener('popstate', function(ev) {
+                if (closeAnyOpenLayer()) {
+                    try { history.pushState({ screen: currentScreenId }, '', location.href); } catch (e) {}
+                    return;
+                }
+                const target = (ev.state && ev.state.screen) ? ev.state.screen : null;
+                if (target && target !== currentScreenId) {
+                    __navFromHistory = true;
+                    try { showScreen(target); } finally { __navFromHistory = false; }
+                    return;
+                }
+                if (currentUser && currentScreenId !== 'main') {
+                    __navFromHistory = true;
+                    try { showScreen('main'); } finally { __navFromHistory = false; }
+                }
+                try { history.pushState({ screen: currentScreenId }, '', location.href); } catch (e) {}
+            });
         }
 
         function backToMain() {
@@ -3327,8 +3682,13 @@
                 const user = users.find(x => x.username === u && x.password === p);
                 if (user) {
                     currentUser = user;
-                    if (rem) localStorage.setItem('bakala_remembered_user', u);
-                    else localStorage.removeItem('bakala_remembered_user');
+                    if (rem) {
+                        localStorage.setItem('bakala_remembered_user', u);
+                        try { localStorage.setItem('bakala_remembered_pass', btoa(unescape(encodeURIComponent(p)))); } catch (e) {}
+                    } else {
+                        localStorage.removeItem('bakala_remembered_user');
+                        localStorage.removeItem('bakala_remembered_pass');
+                    }
                     await updateHeaderInfo();
                     showScreen('main');
                     await renderCategories();
@@ -3349,7 +3709,16 @@
             currentUser = null;
             closeFloatingMenu();
             showScreen('login');
-            document.getElementById('login-password').value = '';
+            const remU = localStorage.getItem('bakala_remembered_user');
+            const remP = localStorage.getItem('bakala_remembered_pass');
+            if (remU) {
+                document.getElementById('login-username').value = remU;
+                document.getElementById('remember-me').checked = true;
+                try { document.getElementById('login-password').value = remP ? decodeURIComponent(escape(atob(remP))) :
+                    ''; } catch (e) { document.getElementById('login-password').value = ''; }
+            } else {
+                document.getElementById('login-password').value = '';
+            }
             showToast('👋 تم تسجيل الخروج بنجاح', 'success');
         }
 
@@ -3420,25 +3789,48 @@
         }
 
         // ============================================================
-        //  12. QUANTITY POPUP & CART
+        //  12. QUANTITY POPUP – نسخة محسّنة مع صورة كبيرة
         // ============================================================
-        function openQtyPopup(categoryId, productId) {
-            // نستخدم البيانات المخزنة محلياً (categories) لأننا حملناها مسبقاً
-            // لكننا نقرأها من Firebase مباشرة للتأكد من التحديث
-            (async () => {
-                const categories = await getCategories();
-                const cat = categories.find(c => c.id === categoryId);
-                if (!cat) return;
-                const prod = cat.products.find(p => p.id === productId);
-                if (!prod) return;
-                if (prod.quantity <= 0) { showToast('❌ الكمية غير متوفرة', 'error'); return; }
-                qtyPopupData = { categoryId, productId, product: prod, maxQty: prod.quantity };
-                document.getElementById('qty-popup-name').textContent = `${prod.img || '📦'} ${prod.name}`;
-                document.getElementById('qty-available').textContent = prod.quantity;
-                document.getElementById('qty-input').value = 1;
-                updateQtyTotal();
-                document.getElementById('qty-popup-overlay').classList.add('show');
-            })();
+        async function openQtyPopup(categoryId, productId) {
+            const categories = await getCategories();
+            const cat = categories.find(c => c.id === categoryId);
+            if (!cat) return;
+            const prod = cat.products.find(p => p.id === productId);
+            if (!prod) return;
+            if (prod.quantity <= 0) {
+                showToast('❌ الكمية غير متوفرة', 'error');
+                return;
+            }
+
+            qtyPopupData = { categoryId, productId, product: prod, maxQty: prod.quantity };
+
+            // تعيين الصورة
+            const imgEl = document.getElementById('qty-product-img');
+            const emojiEl = document.getElementById('qty-product-emoji');
+            const container = document.getElementById('qty-product-image-container');
+
+            if (prod.imgUrl) {
+                imgEl.src = fixImageUrl(prod.imgUrl);
+                imgEl.style.display = 'block';
+                emojiEl.style.display = 'none';
+            } else {
+                imgEl.style.display = 'none';
+                emojiEl.textContent = prod.img || '📦';
+                emojiEl.style.display = 'block';
+            }
+
+            // تعيين الاسم والسعر والوحدة
+            document.getElementById('qty-popup-name').textContent = prod.name;
+            document.getElementById('qty-product-price').textContent = `السعر: ${prod.price} ج.م`;
+            document.getElementById('qty-product-unit').textContent = `الوحدة: ${prod.unit || 'عدد'}`;
+            document.getElementById('qty-available').textContent = prod.quantity;
+
+            // إعادة ضبط الكمية
+            document.getElementById('qty-input').value = 1;
+            updateQtyTotal();
+
+            // إظهار النافذة
+            document.getElementById('qty-popup-overlay').classList.add('show');
         }
 
         function closeQtyPopup() {
@@ -3488,11 +3880,9 @@
                     return;
                 }
 
-                // تحديث الكمية في Firebase
                 prod.quantity -= qty;
                 await saveCategories(categories);
 
-                // تحديث السلة
                 let cartItems = await getCartForUser(currentUser.username);
                 const existing = cartItems.find(i => i.categoryId === qtyPopupData.categoryId && i.productId === qtyPopupData
                     .productId);
@@ -3503,6 +3893,7 @@
                     name: prod.name,
                     price: prod.price,
                     img: prod.img || '📦',
+                    imgUrl: prod.imgUrl || null,
                     quantity: qty,
                     unit: prod.unit || 'عدد'
                 });
@@ -3643,9 +4034,9 @@
         // ============================================================
         //  14. SUBMIT ORDER
         // ============================================================
-        let isSubmittingOrder = false; // حارس يمنع إرسال نفس الطلب أكثر من مرة (نقر مزدوج/سريع)
+        let isSubmittingOrder = false;
         async function submitOrder() {
-            if (isSubmittingOrder) return; // تجاهل أي ضغطة إضافية أثناء إرسال الطلب الحالي — هذا هو سبب ظهور الطلب مرتين عند البائع
+            if (isSubmittingOrder) return;
             if (!currentUser) { showToast('⚠️ يجب تسجيل الدخول أولاً', 'error'); return; }
             const cartItems = await getCartForUser(currentUser.username);
             if (cartItems.length === 0) { showToast('⚠️ السلة فارغة', 'error'); return; }
@@ -3663,7 +4054,7 @@
                 username: currentUser.username,
                 phone: currentUser.phone || 'غير مسجل',
                 items: cartItems.map(i => ({ name: i.name, price: i.price, quantity: i.quantity, img: i.img || '📦',
-                    shipped: 0, unit: i.unit || 'عدد' })),
+                        imgUrl: i.imgUrl || null, shipped: 0, unit: i.unit || 'عدد' })),
                 total: total,
                 paymentMethod: paymentMethod,
                 deliveryAddress: deliveryAddress,
@@ -3737,7 +4128,6 @@
             if (!order) return;
             if (order.status === 'new') {
                 order.status = 'viewed';
-                // تحديث مستند هذا الطلب فقط بدلاً من حذف/إعادة كتابة كل الطلبات
                 await updateOrder(order.docId, { status: 'viewed' });
                 updateOrdersBadge();
             }
@@ -3747,10 +4137,9 @@
         // ============================================================
         //  16. ORDERS LIST (with shipping controls)
         // ============================================================
-        let ordersCache = []; // نسخة محلية من الطلبات لتفادي إعادة القراءة من قاعدة البيانات مع كل ضغطة
+        let ordersCache = [];
 
         async function changeShipQty(orderId, itemIdx, delta) {
-            // نستخدم النسخة المخزّنة محليًا بدل قراءة كل الطلبات من جديد في كل ضغطة
             const order = ordersCache.find(o => o.id === orderId);
             if (!order) return;
             const item = order.items[itemIdx];
@@ -3765,10 +4154,8 @@
             }
             item.shipped = newShipped;
 
-            // تحديث الواجهة فورًا من الذاكرة المحلية بدون أي اتصال بقاعدة البيانات (بدون تحميل)
             await renderOrdersList(orderId, ordersCache);
 
-            // حفظ التغيير في الخلفية دون تعطيل الواجهة أو إظهار شاشة تحميل
             try {
                 await updateOrder(order.docId, { items: order.items });
             } catch (err) {
@@ -3778,18 +4165,19 @@
 
         async function renderOrdersList(highlightId, preloadedOrders) {
             const container = document.getElementById('orders-list-container');
-            // استخدام النسخة الممرّرة مباشرة إن وُجدت لتفادي قراءة كل الطلبات من جديد
             const orders = preloadedOrders || await getOrders();
-            ordersCache = orders; // تحديث النسخة المخزّنة محليًا لتبقى متزامنة
+            ordersCache = orders;
             if (orders.length === 0) {
-                container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--gray-500);">📭 لا توجد طلبات مشتريات حتى الآن</div>';
+                container.innerHTML =
+                    '<div style="text-align:center;padding:40px;color:var(--gray-500);">📭 لا توجد طلبات مشتريات حتى الآن</div>';
                 return;
             }
             orders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
             container.innerHTML = orders.map(o => {
                 const isHighlight = o.id === highlightId;
-                const statusClass = o.status === 'new' ? 'new' : (o.status === 'viewed' ? 'viewed' : 'completed');
+                const statusClass = o.status === 'new' ? 'new' : (o.status === 'viewed' ? 'viewed' :
+                'completed');
                 const statusText = o.status === 'new' ? 'جديد' : (o.status === 'viewed' ? 'تم المعاينة' :
                 'مكتمل');
 
@@ -3893,16 +4281,12 @@
                 };
 
                 await addArchiveEntry(archiveEntry);
-
-                // حذف مستند هذا الطلب فقط بدلاً من حذف/إعادة كتابة كل الطلبات
                 await deleteOrderDoc(docId);
 
                 await renderOrdersList();
                 await renderArchiveList();
                 updateOrdersBadge();
                 showToast(`✅ تم تجهيز الطلب ونقله للأرشيف`, 'success');
-
-                // إرسال واتساب
                 sendOrderPreparedWhatsApp(archiveEntry, shippedTotal);
             } finally {
                 showLoading(false);
@@ -3958,7 +4342,6 @@
                 const orders = await getOrders();
                 const order = orders.find(o => o.id === orderId);
                 if (!order) return;
-                // حذف مستند هذا الطلب فقط بدلاً من حذف/إعادة كتابة كل الطلبات
                 await deleteOrderDoc(order.docId);
                 await renderOrdersList();
                 updateOrdersBadge();
@@ -4286,21 +4669,27 @@
             const menu = document.getElementById('floating-menu');
             const overlay = document.getElementById('floating-overlay');
             if (menu.classList.contains('show')) closeFloatingMenu();
-            else { menu.classList.add('show');
-                overlay.classList.add('show'); }
+            else {
+                menu.classList.add('show');
+                overlay.classList.add('show');
+                const b = document.getElementById('menu-btn');
+                if (b) b.classList.add('open');
+            }
         }
 
         function closeFloatingMenu() {
             document.getElementById('floating-menu').classList.remove('show');
             document.getElementById('floating-overlay').classList.remove('show');
+            const b = document.getElementById('menu-btn');
+            if (b) b.classList.remove('open');
         }
 
         function renderFloatingMenu() {
             const menu = document.getElementById('floating-menu');
             if (!currentUser) return;
-            let html = '';
+            let html = `<div class="menu-head"><span>${currentUser.type} | ${currentUser.username}</span></div>`;
             if (currentUser.type === 'مدير') {
-                html = `
+                html += `
                 <button onclick="openSettings()">⚙️ الإعدادات</button>
                 <button onclick="openPendingRequests()">📩 طلبات التسجيل</button>
                 <button onclick="showScreen('orders')">📦 كل الطلبات</button>
@@ -4310,7 +4699,7 @@
                 <button onclick="handleLogout()">🚪 تسجيل الخروج</button>
                 `;
             } else if (currentUser.type === 'بائع') {
-                html = `
+                html += `
                 <button onclick="showScreen('orders')">📦 طلبات المشتريات</button>
                 <button onclick="showScreen('archive')">📦 أرشيف حركة البيع</button>
                 <div class="divider"></div>
@@ -4409,7 +4798,8 @@
             const categories = await getCategories();
             const container = document.getElementById('settings-categories-list');
             if (!categories || categories.length === 0) {
-                container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--gray-500);">📭 لا توجد أقسام حالياً</div>';
+                container.innerHTML =
+                '<div style="text-align:center;padding:30px;color:var(--gray-500);">📭 لا توجد أقسام حالياً</div>';
                 return;
             }
 
@@ -4819,7 +5209,8 @@
             if (countEl) countEl.textContent = pending.length;
             if (!container) return;
             if (pending.length === 0) {
-                container.innerHTML = '<div style="padding:15px;color:var(--gray-500);text-align:center;">📭 لا توجد طلبات معلقة</div>';
+                container.innerHTML =
+                '<div style="padding:15px;color:var(--gray-500);text-align:center;">📭 لا توجد طلبات معلقة</div>';
                 return;
             }
             container.innerHTML = pending.map((req, idx) => `
@@ -5157,10 +5548,9 @@
             try {
                 showLoading(true);
 
-                // مراقبة اتصال قاعدة البيانات
                 initDbConnectionMonitor();
+                initHistoryGuard();
 
-                // قراءة الإعدادات
                 const settings = await getCompanySettings();
                 document.getElementById('header-company-name').textContent = settings.companyName;
                 document.getElementById('login-logo').textContent = settings.companyLogo;
@@ -5172,21 +5562,34 @@
                 document.getElementById('work-hours-from-input').value = settings.workHoursFrom;
                 document.getElementById('work-hours-to-input').value = settings.workHoursTo;
 
-                // تذكر المستخدم
                 const remembered = localStorage.getItem('bakala_remembered_user');
                 if (remembered) {
                     document.getElementById('login-username').value = remembered;
                     document.getElementById('remember-me').checked = true;
+                    const rp = localStorage.getItem('bakala_remembered_pass');
+                    if (rp) {
+                        try { document.getElementById('login-password').value = decodeURIComponent(escape(atob(rp))); } catch (
+                        e) {}
+                    }
                 }
+                document.getElementById('remember-me').addEventListener('change', function() {
+                    if (!this.checked) {
+                        localStorage.removeItem('bakala_remembered_user');
+                        localStorage.removeItem('bakala_remembered_pass');
+                    }
+                });
+                ['login-username', 'login-password'].forEach(function(idf) {
+                    document.getElementById(idf).addEventListener('keydown', function(ev) {
+                        if (ev.key === 'Enter') handleLogin();
+                    });
+                });
 
-                // عرض الأقسام
                 await renderCategories();
                 updateCartBadge();
                 updatePendingBadge();
                 updateOrdersBadge();
                 updateHeaderInfo();
 
-                // ربط تبديل كلمة السر
                 document.getElementById('toggle-password').addEventListener('click', function() {
                     const pw = document.getElementById('login-password');
                     if (pw.type === 'password') { pw.type = 'text';
@@ -5194,7 +5597,6 @@
                         this.textContent = '👁️'; }
                 });
 
-                // تغيير طريقة الدفع
                 document.getElementById('payment-method').addEventListener('change', function() {
                     const val = this.value;
                     const group = document.getElementById('payment-upload-group');
@@ -5202,15 +5604,12 @@
                     else group.style.display = 'none';
                 });
 
-                // التحقق من اسم المستخدم في نموذج القبول
                 document.getElementById('set-username-input').addEventListener('input', function() {
                     checkUsernameAvailability(this.value);
                 });
 
-                // تحديث الساعة كل ثانية
                 setInterval(updateHeaderClock, 1000);
 
-                // عرض قائمة الطلبات والأرشيف
                 await renderOrdersList();
                 await renderArchiveList();
 
@@ -5223,11 +5622,6 @@
                 showLoading(false);
             }
         };
-
-        // ============================================================
-        //  28.  دالة للحصول على المعرف الفريد للمستخدم عند الحذف
-        // ============================================================
-        // (تم دمجها في deleteUserDocById أعلاه)
     </script>
 
 </body>
