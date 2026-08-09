@@ -2852,6 +2852,22 @@
             });
         }
 
+        // ----- إصلاح روابط صور جوجل درايف -----
+        // روابط drive.google.com/uc?...  و open?id=... لم تعد تعمل داخل وسم <img>
+        // لذلك نحولها إلى رابط المعاينة الرسمي الذي يعمل دائمًا.
+        function fixImageUrl(url) {
+            if (!url || typeof url !== 'string') return url || '';
+            if (url.startsWith('data:')) return url;
+            var m = url.match(/[-\w]{25,}/);
+            if (/drive\.google\.com|googleusercontent\.com\/d\//.test(url) && m) {
+                return 'https://drive.google.com/thumbnail?id=' + m[0] + '&sz=w1000';
+            }
+            return url;
+        }
+        function imgTagFallback() {
+            return " onerror=\"this.onerror=null;this.style.display='none';\"";
+        }
+
         async function uploadImageToDrive(file, prefix = 'img') {
             if (!file.type.startsWith('image/')) {
                 throw new Error('يرجى اختيار ملف صورة فقط');
@@ -2896,7 +2912,7 @@
             if (!data || !data.success) {
                 throw new Error((data && data.error) || 'فشل رفع الصورة إلى جوجل درايف');
             }
-            return { url: data.url, fileId: data.fileId };
+            return { url: fixImageUrl(data.url), fileId: data.fileId };
         }
 
         async function loadGoogleDriveSettingsUI() {
@@ -2973,7 +2989,7 @@
             const noImage = document.getElementById('announcement-no-image');
             const deleteBtn = document.getElementById('delete-announcement-btn');
             if (announcementSettingsData.imageUrl) {
-                previewImage.src = announcementSettingsData.imageUrl;
+                previewImage.src = fixImageUrl(announcementSettingsData.imageUrl);
                 previewImage.style.display = 'block';
                 noImage.style.display = 'none';
                 deleteBtn.style.display = 'inline-flex';
@@ -3033,7 +3049,7 @@
                 if (driveSettings.scriptUrl) {
                     // رفع عبر جوجل درايف (لا يستهلك قاعدة البيانات)
                     const result = await uploadImageToDrive(file, 'announcement');
-                    announcementSettingsData.imageUrl = result.url;
+                    announcementSettingsData.imageUrl = fixImageUrl(result.url);
                     updateAnnouncementPreview();
                     showToast('✅ تم رفع الصورة إلى جوجل درايف، اضغط "حفظ" لتأكيد الحفظ', 'success');
                 } else {
@@ -3098,7 +3114,7 @@
             const image = document.getElementById('announcement-image');
             const countdown = document.getElementById('announcement-countdown');
             if (imageUrl) {
-                image.src = imageUrl;
+                image.src = fixImageUrl(imageUrl);
                 image.style.display = 'block';
             } else {
                 image.style.display = 'none';
@@ -3371,7 +3387,7 @@
             const categories = await getCategories();
             const grid = document.getElementById('categories-grid');
             grid.innerHTML = categories.map(c =>
-                `<div class="category-card" onclick="openCategoryProducts('${c.id}')">${c.iconUrl ? `<img class="category-icon-img" src="${c.iconUrl}" alt="${c.name}">` : `<span class="category-icon">${c.icon}</span>`}<span class="category-name">${c.name}</span></div>`
+                `<div class="category-card" onclick="openCategoryProducts('${c.id}')">${c.iconUrl ? `<img class="category-icon-img" src="${fixImageUrl(c.iconUrl)}" alt="${c.name}" loading="lazy"${imgTagFallback()}>` : `<span class="category-icon">${c.icon}</span>`}<span class="category-name">${c.name}</span></div>`
             ).join('');
         }
 
@@ -3389,7 +3405,7 @@
                     const disabled = p.quantity <= 0;
                     const unit = p.unit || 'عدد';
                     return `<tr>
-                        <td class="product-img-cell">${p.imgUrl ? `<img class="product-img" src="${p.imgUrl}" alt="${p.name}">` : `<div class="product-img">${p.img || '📦'}</div>`}</td>
+                        <td class="product-img-cell">${p.imgUrl ? `<img class="product-img" src="${fixImageUrl(p.imgUrl)}" alt="${p.name}" loading="lazy"${imgTagFallback()}>` : `<div class="product-img">${p.img || '📦'}</div>`}</td>
                         <td><strong>${p.name}</strong></td>
                         <td><span class="product-price">${p.price} ج.م</span></td>
                         <td><span class="product-qty">${p.quantity}</span></td>
@@ -4599,7 +4615,7 @@
                             ${cat.products.map(p => `
                                 <tr>
                                     <td>
-                                        <div class="mini-thumb">${p.imgUrl ? `<img src="${p.imgUrl}" alt="${p.name}">` : (p.img || '📦')}</div>
+                                        <div class="mini-thumb">${p.imgUrl ? `<img src="${fixImageUrl(p.imgUrl)}" alt="${p.name}" loading="lazy"${imgTagFallback()}>` : (p.img || '📦')}</div>
                                         <input type="text" id="prod-img-${p.id}" value="${p.img || '📦'}" title="إيموجي احتياطي" style="width:100%; text-align:center; padding:4px; border:1px solid var(--gray-300); border-radius:6px; font-size:14px; margin-bottom:4px;">
                                         <div style="display:flex; gap:4px; justify-content:center;">
                                             <button type="button" class="btn btn-sm btn-outline" style="padding:2px 6px; font-size:11px;" title="رفع صورة حقيقية" onclick="document.getElementById('prod-img-file-${p.id}').click()">📤</button>
@@ -4704,7 +4720,7 @@
                 if (!cat) return;
                 const prod = cat.products.find(p => p.id === prodId);
                 if (prod) {
-                    prod.imgUrl = result.url;
+                    prod.imgUrl = fixImageUrl(result.url);
                     await saveCategories(categories);
                     await renderEditProductsOverlay();
                     await renderCategories();
