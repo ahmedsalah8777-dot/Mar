@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ø¨Ù‚Ø§Ù„Ø© Ø§Ù„Ø®ÙŠØ± - Ù†Ø¸Ø§Ù… Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ù…Ø¨ÙŠØ¹Ø§Øª</title>
+    <title>بقالة الخير - نظام إدارة المبيعات</title>
 
     <!-- ===== Firebase SDK (v9 modular via compat) ===== -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js">
@@ -12,7 +12,7 @@
     </script>
 
     <style>
-        /* === Ø§Ù„Ø£Ù†Ù…Ø§Ø· Ø§Ù„Ø£Ø³Ø§Ø³ÙŠØ© (Ù†ÙØ³ Ø§Ù„Ù†Ø³Ø®Ø© Ø§Ù„Ø£ØµÙ„ÙŠØ©) === */
+        /* === الأنماط الأساسية (نفس النسخة الأصلية) === */
         :root {
             --primary: #1a7a2e;
             --primary-dark: #145a22;
@@ -664,7 +664,7 @@
             background: var(--gray-200);
         }
 
-        /* ===== ØªØ­Ø³ÙŠÙ†Ø§Øª Ø§Ù„Ù‡ÙŠØ¯Ø± ÙˆØ§Ù„Ù‚Ø§Ø¦Ù…Ø© ÙˆØ§Ù„Ø¯Ø®ÙˆÙ„ (Ù†Ø³Ø®Ø© Ù…Ø­Ø³Ù‘Ù†Ø©) ===== */
+        /* ===== تحسينات الهيدر والقائمة والدخول (نسخة محسّنة) ===== */
         .header {
             padding: 10px 16px;
             gap: 10px;
@@ -699,7 +699,7 @@
             transform: rotate(90deg);
         }
 
-        /* ÙØµÙ„ ØµÙÙˆÙ Ø§Ù„Ù‡ÙŠØ¯Ø± Ø¹Ù„Ù‰ Ø§Ù„Ø´Ø§Ø´Ø§Øª Ø§Ù„ØµØºÙŠØ±Ø© Ù„Ù…Ù†Ø¹ Ø§Ù„ØªØ¯Ø§Ø®Ù„ - (ØªÙ… Ø§Ù„Ø¥ØµÙ„Ø§Ø­) */
+        /* فصل صفوف الهيدر على الشاشات الصغيرة لمنع التداخل - (تم الإصلاح) */
 @media (max-width: 640px) {
     .header {
         flex-direction: column;
@@ -728,14 +728,14 @@
     .header-right {
         width: 100%;
         display: flex;
-        justify-content: space-around; /* ØªÙˆØ²ÙŠØ¹ Ø§Ù„Ø£ÙŠÙ‚ÙˆÙ†Ø§Øª Ø¨Ù…Ø³Ø§ÙØ§Øª Ù…ØªØ³Ø§ÙˆÙŠØ© Ù„Ù…Ù†Ø¹ Ø§Ù„ØªÙƒØ¯Ø³ */
+        justify-content: space-around; /* توزيع الأيقونات بمسافات متساوية لمنع التكدس */
         align-items: center;
         padding-top: 12px;
         border-top: 1px solid rgba(255, 255, 255, 0.2);
         gap: 8px;
     }
     .header-btn {
-        flex-shrink: 0; /* Ø®Ø§ØµÙŠØ© Ù…Ù‡Ù…Ø© Ø¬Ø¯Ø§Ù‹ ØªÙ…Ù†Ø¹ Ø§Ù†ÙƒÙ…Ø§Ø´ ÙˆØªØ¯Ø§Ø®Ù„ Ø§Ù„Ø£Ø²Ø±Ø§Ø± */
+        flex-shrink: 0; /* خاصية مهمة جداً تمنع انكماش وتداخل الأزرار */
         width: 44px;
         height: 44px;
         margin: 0;
@@ -774,7 +774,7 @@
             }
         }
 
-        /* Ø§Ù„Ù‚Ø§Ø¦Ù…Ø© ÙƒÙ„ÙˆØ­Ø© Ø³ÙÙ„ÙŠØ© Ø£Ù†ÙŠÙ‚Ø© Ø¹Ù„Ù‰ Ø§Ù„Ù…ÙˆØ¨Ø§ÙŠÙ„ */
+        /* القائمة كلوحة سفلية أنيقة على الموبايل */
         .floating-menu {
             padding: 6px 0;
             border: 1px solid var(--gray-200);
@@ -841,7 +841,7 @@
             }
         }
 
-        /* Ø²Ø± Ø§Ù„Ø¯Ø®ÙˆÙ„ */
+        /* زر الدخول */
         .login-card .btn-primary {
             background: linear-gradient(135deg, var(--primary), #2fa34a);
             border: none;
@@ -924,7 +924,7 @@
             margin: 0 auto;
             width: 100%;
         }
-        /* ===== PRODUCTS: Ø¨Ø·Ø§Ù‚Ø© Ù…Ù†ØªØ¬ Ø§Ø­ØªØ±Ø§ÙÙŠØ© ===== */
+        /* ===== PRODUCTS: بطاقة منتج احترافية ===== */
         .products-table {
             width: 100%;
             border-collapse: separate;
@@ -1444,7 +1444,7 @@
             min-width: 80px;
         }
 
-        /* Ø£Ø²Ø±Ø§Ø± ØªØ­Ø¯ÙŠØ¯ Ø§Ù„ÙƒÙ…ÙŠØ© Ø§Ù„Ù…Ø´Ø­ÙˆÙ†Ø© +- */
+        /* أزرار تحديد الكمية المشحونة +- */
         .ship-btn {
             width: 26px;
             height: 26px;
@@ -1656,7 +1656,7 @@
             justify-content: center;
         }
 
-        /* ===== QUANTITY POPUP â€“ ØªØµÙ…ÙŠÙ… Ù…Ø­Ø³Ù‘Ù† Ù…Ø¹ ØµÙˆØ±Ø© ÙƒØ¨ÙŠØ±Ø© ===== */
+        /* ===== QUANTITY POPUP – تصميم محسّن مع صورة كبيرة ===== */
         .qty-popup-overlay {
             position: fixed;
             top: 0;
@@ -1686,7 +1686,7 @@
             position: relative;
         }
 
-        /* Ø­Ø§ÙˆÙŠØ© Ø§Ù„ØµÙˆØ±Ø© */
+        /* حاوية الصورة */
         .qty-product-image {
             width: 100%;
             max-height: 240px;
@@ -1716,7 +1716,7 @@
             color: var(--gray-400);
         }
 
-        /* Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬ */
+        /* اسم المنتج */
         .qty-popup .qty-product-name {
             font-size: 22px;
             font-weight: 800;
@@ -1725,7 +1725,7 @@
             line-height: 1.3;
         }
 
-        /* Ø§Ù„Ø³Ø¹Ø± ÙˆØ§Ù„ÙˆØ­Ø¯Ø© */
+        /* السعر والوحدة */
         .qty-product-meta {
             display: flex;
             justify-content: center;
@@ -1749,7 +1749,7 @@
             color: var(--gray-600);
         }
 
-        /* Ø§Ù„ÙƒÙ…ÙŠØ© Ø§Ù„Ù…ØªØ§Ø­Ø© */
+        /* الكمية المتاحة */
         .qty-available-text {
             font-size: 14px;
             color: var(--gray-600);
@@ -1760,7 +1760,7 @@
             color: var(--primary);
         }
 
-        /* Ø£Ø¯ÙˆØ§Øª Ø§Ù„ØªØ­ÙƒÙ… ÙÙŠ Ø§Ù„ÙƒÙ…ÙŠØ© */
+        /* أدوات التحكم في الكمية */
         .qty-control {
             display: flex;
             align-items: center;
@@ -1808,7 +1808,7 @@
             background: white;
         }
 
-        /* Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ø¥Ø¬Ù…Ø§Ù„ÙŠ */
+        /* السعر الإجمالي */
         .qty-total-price {
             font-size: 20px;
             font-weight: 700;
@@ -1819,7 +1819,7 @@
             border-radius: var(--radius-sm);
         }
 
-        /* Ø£Ø²Ø±Ø§Ø± Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ */
+        /* أزرار الإجراء */
         .qty-actions {
             display: flex;
             gap: 12px;
@@ -1831,7 +1831,7 @@
             border-radius: var(--radius);
         }
 
-        /* ===== Ù†Ù‡Ø§ÙŠØ© ØªØµÙ…ÙŠÙ… Ù†Ø§ÙØ°Ø© Ø§Ù„ÙƒÙ…ÙŠØ© ===== */
+        /* ===== نهاية تصميم نافذة الكمية ===== */
 
         /* EDIT PRODUCTS OVERLAY */
         .edit-products-overlay {
@@ -2244,7 +2244,7 @@
             }
         }
 
-        /* ===== Ù…Ø¤Ø´Ø± Ø§ØªØµØ§Ù„ Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª ===== */
+        /* ===== مؤشر اتصال قاعدة البيانات ===== */
         .db-status {
             font-size: 11px;
             font-weight: 700;
@@ -2280,7 +2280,7 @@
             opacity: 1;
         }
 
-        /* ===== Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ ===== */
+        /* ===== إعدادات جوجل درايف ===== */
         .gdrive-steps {
             background: var(--gold-light);
             border: 1px solid var(--gold);
@@ -2319,7 +2319,7 @@
             object-fit: cover;
         }
 
-        /* ===== Ø´Ø§Ø´Ø© Ø§Ù„Ø¥Ø¹Ù„Ø§Ù† Ø§Ù„Ø¹Ø§Ø¦Ù…Ø© ===== */
+        /* ===== شاشة الإعلان العائمة ===== */
         .announcement-overlay {
             display: none;
             position: fixed;
@@ -2406,7 +2406,7 @@
             font-size: 12.5px;
         }
 
-        /* ===== ÙƒØ§Ø±Øª Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª ===== */
+        /* ===== كارت إعدادات الإعلانات ===== */
         .announcement-preview-box {
             border: 2px dashed var(--gray-300);
             border-radius: var(--radius);
@@ -2479,7 +2479,7 @@
             transform: translateX(24px);
         }
 
-        /* ===== Ø§Ù„Ù‡ÙŠØ¯Ø±: Ø¨Ø·Ø§Ù‚Ø© Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… + Ù‚Ø§Ø¦Ù…Ø© Ø¹Ø§Ø¦Ù…Ø© Ø§Ø­ØªØ±Ø§ÙÙŠØ© ===== */
+        /* ===== الهيدر: بطاقة المستخدم + قائمة عائمة احترافية ===== */
         .header-info {
             display: flex;
             flex-direction: column;
@@ -2667,7 +2667,7 @@
             }
         }
 
-        /* Ø§Ù„ØªÙ†Ø³ÙŠÙ‚ Ø§Ù„Ø§Ø­ØªØ±Ø§ÙÙŠ Ù„Ù„Ù‡ÙŠØ¯Ø± Ø¹Ù„Ù‰ Ø§Ù„Ù…ÙˆØ¨Ø§ÙŠÙ„ ÙˆØ§Ù„Ø´Ø§Ø´Ø§Øª Ø§Ù„ØµØºÙŠØ±Ø© */
+        /* التنسيق الاحترافي للهيدر على الموبايل والشاشات الصغيرة */
 @media (max-width: 640px) {
     .header {
         flex-direction: column;
@@ -2676,7 +2676,7 @@
         height: auto;
     }
     
-    /* Ø§Ù„ØµÙ Ø§Ù„Ø£ÙˆÙ„: Ø§Ù„Ù„ÙˆØ¬Ùˆ ÙˆÙ…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… */
+    /* الصف الأول: اللوجو ومعلومات المستخدم */
     .header-left {
         width: 100%;
         display: flex;
@@ -2701,19 +2701,19 @@
         max-width: 100%;
     }
 
-    /* Ø§Ù„ØµÙ Ø§Ù„Ø«Ø§Ù†ÙŠ: Ø£ÙŠÙ‚ÙˆÙ†Ø§Øª Ø§Ù„ØªØ­ÙƒÙ… (ØªÙ… ØªÙ†Ø³ÙŠÙ‚Ù‡Ø§ Ø¨Ù…Ø³Ø§ÙØ§Øª Ù…ØªØ³Ø§ÙˆÙŠØ©) */
+    /* الصف الثاني: أيقونات التحكم (تم تنسيقها بمسافات متساوية) */
     .header-right {
         width: 100%;
         display: flex;
-        justify-content: space-evenly; /* ØªÙˆØ²ÙŠØ¹ Ø§Ù„Ù…Ø³Ø§ÙØ§Øª Ø¨Ø§Ù„ØªØ³Ø§ÙˆÙŠ Ø¨ÙŠÙ† Ø§Ù„Ø£ÙŠÙ‚ÙˆÙ†Ø§Øª */
+        justify-content: space-evenly; /* توزيع المسافات بالتساوي بين الأيقونات */
         align-items: center;
         padding-top: 12px;
         border-top: 1px solid rgba(255, 255, 255, 0.2);
         gap: 8px;
-        order: 2; /* ØªØ±ØªÙŠØ¨Ù‡Ø§ Ù„ØªÙƒÙˆÙ† Ø£Ø³ÙÙ„ Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ù…Ø¨Ø§Ø´Ø±Ø© */
+        order: 2; /* ترتيبها لتكون أسفل معلومات المستخدم مباشرة */
     }
     
-    /* ØªÙ†Ø³ÙŠÙ‚ Ø­Ø¬Ù… Ø§Ù„Ø£ÙŠÙ‚ÙˆÙ†Ø§Øª Ù„Ù…Ù†Ø¹ Ø§Ù„ØªØ¯Ø§Ø®Ù„ */
+    /* تنسيق حجم الأيقونات لمنع التداخل */
     .header-btn {
         flex-shrink: 0;
         width: 44px;
@@ -2724,10 +2724,10 @@
         justify-content: center;
     }
 
-    /* Ø§Ù„ØµÙ Ø§Ù„Ø«Ø§Ù„Ø«: Ø§Ù„ØªÙˆÙ‚ÙŠØª ÙˆÙ…ÙˆØ§Ø¹ÙŠØ¯ Ø§Ù„Ø¹Ù…Ù„ */
+    /* الصف الثالث: التوقيت ومواعيد العمل */
     .header-center {
         width: 100%;
-        order: 3; /* ØªØ±ØªÙŠØ¨Ù‡ Ù„ÙŠÙƒÙˆÙ† ÙÙŠ Ù†Ù‡Ø§ÙŠØ© Ø§Ù„Ù‡ÙŠØ¯Ø± */
+        order: 3; /* ترتيبه ليكون في نهاية الهيدر */
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -2748,7 +2748,7 @@
     <div class="loading-overlay" id="loading-overlay">
         <div class="loading-spinner">
             <div class="spinner"></div>
-            <span style="font-weight:600;color:var(--gray-700);">Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</span>
+            <span style="font-weight:600;color:var(--gray-700);">جاري التحميل...</span>
         </div>
     </div>
 
@@ -2757,71 +2757,71 @@
         <!-- LOGIN SCREEN -->
         <div class="screen active" id="login-screen">
             <div class="login-card">
-                <div class="login-logo" id="login-logo" aria-label="Ø´Ø¹Ø§Ø± Ø§Ù„Ø´Ø±ÙƒØ©"></div>
-                <h2 class="login-title" id="login-title">Ø¨Ù‚Ø§Ù„Ø© Ø§Ù„Ø®ÙŠØ±</h2>
-                <p class="login-subtitle">Ù†Ø¸Ø§Ù… Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ù…Ø¨ÙŠØ¹Ø§Øª</p>
+                <div class="login-logo" id="login-logo" aria-label="شعار الشركة"></div>
+                <h2 class="login-title" id="login-title">بقالة الخير</h2>
+                <p class="login-subtitle">نظام إدارة المبيعات</p>
                 <div class="input-group">
-                    <label>ðŸ‘¤ Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…</label>
-                    <input type="text" id="login-username" placeholder="Ø£Ø¯Ø®Ù„ Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…" />
-                    <span class="input-icon-left">ðŸ“§</span>
+                    <label>👤 اسم المستخدم</label>
+                    <input type="text" id="login-username" placeholder="أدخل اسم المستخدم" />
+                    <span class="input-icon-left">📧</span>
                 </div>
                 <div class="input-group">
-                    <label>ðŸ”’ ÙƒÙ„Ù…Ø© Ø§Ù„Ø³Ø±</label>
-                    <input type="password" id="login-password" placeholder="Ø£Ø¯Ø®Ù„ ÙƒÙ„Ù…Ø© Ø§Ù„Ø³Ø±" />
-                    <button class="input-icon" id="toggle-password" title="Ø¥Ø¸Ù‡Ø§Ø±/Ø¥Ø®ÙØ§Ø¡ ÙƒÙ„Ù…Ø© Ø§Ù„Ø³Ø±">ðŸ‘ï¸</button>
+                    <label>🔒 كلمة السر</label>
+                    <input type="password" id="login-password" placeholder="أدخل كلمة السر" />
+                    <button class="input-icon" id="toggle-password" title="إظهار/إخفاء كلمة السر">👁️</button>
                 </div>
                 <div class="remember-row">
                     <label class="remember-label">
-                        <input type="checkbox" id="remember-me" /> ØªØ°ÙƒØ±Ù†ÙŠ
+                        <input type="checkbox" id="remember-me" /> تذكرني
                     </label>
                 </div>
-                <button class="btn btn-primary" onclick="handleLogin()">ðŸšª ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„</button>
-                <div class="divider-text" style="margin:12px 0; text-align:center;">Ø£Ùˆ</div>
-                <button class="btn btn-outline" onclick="showScreen('register')">âœ¨ Ù…Ø³ØªØ®Ø¯Ù… Ø¬Ø¯ÙŠØ¯</button>
+                <button class="btn btn-primary" onclick="handleLogin()">🚪 تسجيل الدخول</button>
+                <div class="divider-text" style="margin:12px 0; text-align:center;">أو</div>
+                <button class="btn btn-outline" onclick="showScreen('register')">✨ مستخدم جديد</button>
             </div>
         </div>
 
         <!-- REGISTER SCREEN -->
         <div class="screen" id="register-screen">
             <div class="register-card">
-                <h2>ðŸ“ Ø·Ù„Ø¨ ØªØ³Ø¬ÙŠÙ„ Ø¬Ø¯ÙŠØ¯</h2>
-                <p class="subtitle">Ø³ÙŠØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø·Ù„Ø¨Ùƒ Ù„Ù„Ù…Ø¯ÙŠØ± Ù„Ù„Ù…ÙˆØ§ÙÙ‚Ø©</p>
-                <div class="input-group"><label>ðŸ‘¤ Ø§Ù„Ø§Ø³Ù… Ø§Ù„Ø«Ù„Ø§Ø«ÙŠ</label><input type="text" id="reg-fullname" placeholder="Ù…Ø«Ø§Ù„: Ù…Ø­Ù…Ø¯ Ø£Ø­Ù…Ø¯ Ø¹Ù„ÙŠ" /></div>
-                <div class="input-group"><label>ðŸ“± Ø±Ù‚Ù… ÙˆØ§ØªØ³Ø§Ø¨</label><input type="tel" id="reg-phone" placeholder="Ù…Ø«Ø§Ù„: 01001234567" /></div>
-                <button class="btn btn-primary" onclick="requestRegistration()">ðŸ“¨ Ø·Ù„Ø¨ ØªØ³Ø¬ÙŠÙ„</button>
+                <h2>📝 طلب تسجيل جديد</h2>
+                <p class="subtitle">سيتم إرسال طلبك للمدير للموافقة</p>
+                <div class="input-group"><label>👤 الاسم الثلاثي</label><input type="text" id="reg-fullname" placeholder="مثال: محمد أحمد علي" /></div>
+                <div class="input-group"><label>📱 رقم واتساب</label><input type="tel" id="reg-phone" placeholder="مثال: 01001234567" /></div>
+                <button class="btn btn-primary" onclick="requestRegistration()">📨 طلب تسجيل</button>
                 <div id="register-result" style="margin-top:12px; font-weight:bold; color:var(--primary-dark);"></div>
-                <button class="back-link" onclick="showScreen('login')">â¬…ï¸ Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„</button>
+                <button class="back-link" onclick="showScreen('login')">⬅️ العودة لتسجيل الدخول</button>
             </div>
         </div>
 
         <!-- HEADER -->
         <header class="header" id="app-header" style="display:none;">
             <div class="header-left">
-                <div class="header-logo" id="header-logo" role="button" tabindex="0" aria-label="Ø§Ù„Ø¹ÙˆØ¯Ø© Ø¥Ù„Ù‰ Ø§Ù„Ø´Ø§Ø´Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©" title="Ø§Ù„Ø´Ø§Ø´Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©" onclick="backToMain()" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); backToMain(); }">ðŸ›’</div>
+                <div class="header-logo" id="header-logo" role="button" tabindex="0" aria-label="العودة إلى الشاشة الرئيسية" title="الشاشة الرئيسية" onclick="backToMain()" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); backToMain(); }">🛒</div>
                 <div class="header-info">
-                    <h3 id="header-company-name" role="button" tabindex="0" aria-label="Ø§Ù„Ø¹ÙˆØ¯Ø© Ø¥Ù„Ù‰ Ø§Ù„Ø´Ø§Ø´Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©" title="Ø§Ù„Ø´Ø§Ø´Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©" onclick="backToMain()" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); backToMain(); }">Ø¨Ù‚Ø§Ù„Ø© Ø§Ù„Ø®ÙŠØ±</h3>
+                    <h3 id="header-company-name" role="button" tabindex="0" aria-label="العودة إلى الشاشة الرئيسية" title="الشاشة الرئيسية" onclick="backToMain()" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); backToMain(); }">بقالة الخير</h3>
                     <div class="user-chip" id="header-user-info">
-                        <span class="user-chip-avatar" id="header-user-avatar">Ù…</span>
+                        <span class="user-chip-avatar" id="header-user-avatar">م</span>
                         <span class="user-chip-meta">
                             <span class="user-chip-name" id="header-user-name">admin</span>
-                            <span class="user-chip-role" id="header-user-role">Ù…Ø¯ÙŠØ±</span>
+                            <span class="user-chip-role" id="header-user-role">مدير</span>
                         </span>
                     </div>
-                    <div id="db-status-indicator" class="db-status db-online" title="Ø­Ø§Ù„Ø© Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª">
-                        <span class="db-dot" id="db-status-icon">ðŸŸ¢</span>
-                        <span id="db-status-text">Ù…ØªØµÙ„</span>
+                    <div id="db-status-indicator" class="db-status db-online" title="حالة الاتصال بقاعدة البيانات">
+                        <span class="db-dot" id="db-status-icon">🟢</span>
+                        <span id="db-status-text">متصل</span>
                     </div>
                 </div>
             </div>
             <div class="header-center" id="header-center">
-                <div class="header-clock" id="header-clock">ðŸ• --:--</div>
-                <div class="header-hours" id="header-hours">â° Ù…ÙˆØ§Ø¹ÙŠØ¯ Ø§Ù„Ø¹Ù…Ù„: --</div>
+                <div class="header-clock" id="header-clock">🕐 --:--</div>
+                <div class="header-hours" id="header-hours">⏰ مواعيد العمل: --</div>
             </div>
             <div class="header-right">
-                <button class="header-btn" id="header-btn-orders" onclick="toggleOrdersPopup()" title="Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø´ØªØ±ÙŠØ§Øª">ðŸ“¦<span class="badge gold" id="orders-header-badge" style="display:none;">0</span></button>
-                <button class="header-btn" id="header-btn-cart" onclick="toggleCart()" title="Ø³Ù„Ø© Ø§Ù„Ù…Ø´ØªØ±ÙŠØ§Øª">ðŸ›’<span class="badge" id="cart-badge" style="display:none;">0</span></button>
-                <button class="header-btn" id="header-btn-pending" onclick="openPendingRequests()" title="Ø·Ù„Ø¨Ø§Øª Ø§Ù„ØªØ³Ø¬ÙŠÙ„" style="position:relative;">ðŸ””<span class="badge gold" id="pending-header-badge" style="display:none;">0</span></button>
-                <button class="header-btn" id="menu-btn" title="Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©" onclick="toggleFloatingMenu()">â˜°</button>
+                <button class="header-btn" id="header-btn-orders" onclick="toggleOrdersPopup()" title="طلبات المشتريات">📦<span class="badge gold" id="orders-header-badge" style="display:none;">0</span></button>
+                <button class="header-btn" id="header-btn-cart" onclick="toggleCart()" title="سلة المشتريات">🛒<span class="badge" id="cart-badge" style="display:none;">0</span></button>
+                <button class="header-btn" id="header-btn-pending" onclick="openPendingRequests()" title="طلبات التسجيل" style="position:relative;">🔔<span class="badge gold" id="pending-header-badge" style="display:none;">0</span></button>
+                <button class="header-btn" id="menu-btn" title="القائمة" onclick="toggleFloatingMenu()">☰</button>
             </div>
         </header>
 
@@ -2829,11 +2829,11 @@
         <div id="announcement-overlay" class="announcement-overlay">
             <div class="announcement-content">
                 <div class="announcement-header">
-                    <h2>ðŸ“¢ Ø¥Ø¹Ù„Ø§Ù† Ù‡Ø§Ù…</h2>
-                    <button class="announcement-close-btn" onclick="closeAnnouncement()">Ã—</button>
+                    <h2>📢 إعلان هام</h2>
+                    <button class="announcement-close-btn" onclick="closeAnnouncement()">×</button>
                 </div>
                 <div class="announcement-body">
-                    <img id="announcement-image" class="announcement-image" src="" alt="Ø¥Ø¹Ù„Ø§Ù†" style="display:none;" />
+                    <img id="announcement-image" class="announcement-image" src="" alt="إعلان" style="display:none;" />
                 </div>
                 <div class="announcement-footer">
                     <div class="announcement-countdown" id="announcement-countdown"></div>
@@ -2844,7 +2844,7 @@
         <!-- MAIN SCREEN -->
         <div class="screen" id="main-screen">
             <div class="main-content">
-                <h2 class="section-title">ðŸ“¦ Ø§Ù„Ø£Ù‚Ø³Ø§Ù…</h2>
+                <h2 class="section-title">📦 الأقسام</h2>
                 <div class="categories-grid" id="categories-grid"></div>
             </div>
         </div>
@@ -2856,8 +2856,8 @@
         <!-- PRODUCTS SCREEN -->
         <div class="screen" id="products-screen">
             <div class="products-screen-header">
-                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">â¬…ï¸ Ø±Ø¬ÙˆØ¹</button>
-                <h3 id="products-screen-title">ðŸ“¦ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª</h3>
+                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">⬅️ رجوع</button>
+                <h3 id="products-screen-title">📦 المنتجات</h3>
             </div>
             <div class="products-screen-body" id="products-screen-body"></div>
         </div>
@@ -2866,35 +2866,35 @@
         <div class="cart-overlay" id="cart-overlay" onclick="closeCartOutside(event)">
             <div class="cart-panel" onclick="event.stopPropagation()">
                 <div class="cart-panel-header">
-                    <h3>ðŸ›’ Ø³Ù„Ø© Ø§Ù„Ù…Ø´ØªØ±ÙŠØ§Øª</h3>
-                    <button class="btn btn-sm" style="background:rgba(255,255,255,0.25);color:white;" onclick="toggleCart()">âœ•</button>
+                    <h3>🛒 سلة المشتريات</h3>
+                    <button class="btn btn-sm" style="background:rgba(255,255,255,0.25);color:white;" onclick="toggleCart()">✕</button>
                 </div>
                 <div class="cart-panel-body" id="cart-panel-body"></div>
                 <div class="cart-total" id="cart-total" style="display:none;">
-                    <span>Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹ Ø§Ù„ÙƒÙ„ÙŠ:</span>
-                    <span id="cart-total-amount">0 Ø¬.Ù…</span>
+                    <span>المجموع الكلي:</span>
+                    <span id="cart-total-amount">0 ج.م</span>
                 </div>
                 <div class="checkout-section" id="checkout-section" style="display:none;">
                     <div class="form-group">
-                        <label>Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¯ÙØ¹ *</label>
+                        <label>طريقة الدفع *</label>
                         <select id="payment-method" required>
-                            <option value="">-- Ø§Ø®ØªØ± --</option>
-                            <option value="ÙˆØ³ÙŠØ·">ÙˆØ³ÙŠØ·</option>
-                            <option value="ÙƒØ§Ø´ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…">ÙƒØ§Ø´ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…</option>
-                            <option value="Ù…Ø­ÙØ¸Ø© Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠØ©">Ù…Ø­ÙØ¸Ø© Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠØ©</option>
-                            <option value="Ø§Ù†Ø³ØªØ§Ø¨Ø§ÙŠ">Ø§Ù†Ø³ØªØ§Ø¨Ø§ÙŠ</option>
+                            <option value="">-- اختر --</option>
+                            <option value="وسيط">وسيط</option>
+                            <option value="كاش عند الاستلام">كاش عند الاستلام</option>
+                            <option value="محفظة إلكترونية">محفظة إلكترونية</option>
+                            <option value="انستاباي">انستاباي</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Ø¹Ù†ÙˆØ§Ù† Ø§Ù„ØªÙˆØµÙŠÙ„ *</label>
-                        <input type="text" id="delivery-address" placeholder="Ø£Ø¯Ø®Ù„ Ø¹Ù†ÙˆØ§Ù† Ø§Ù„ØªÙˆØµÙŠÙ„ Ø¨Ø§Ù„ØªÙØµÙŠÙ„" required />
+                        <label>عنوان التوصيل *</label>
+                        <input type="text" id="delivery-address" placeholder="أدخل عنوان التوصيل بالتفصيل" required />
                     </div>
                     <div class="form-group" id="payment-upload-group" style="display:none; background:var(--gold-light); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--gold);">
                         <div class="payment-note" id="payment-note-text" style="color:var(--gray-800); font-weight:600; font-size:12px;">
-                            ðŸ’¡ (ÙŠØªÙ… Ø±ÙØ¹ ØµÙˆØ±Ø© Ø§Ù„ØªØ­ÙˆÙŠÙ„ Ù…Ø­ÙØ¸Ø© Ø£Ùˆ Ø§Ù†Ø³ØªØ§Ø¨Ø§ÙŠ Ø¥Ù„Ù‰ Ø±Ù‚Ù… <span id="company-transfer-number" style="font-weight:bold; color:var(--primary-dark);">ØºÙŠØ± Ù…Ø­Ø¯Ø¯</span>)
+                            💡 (يتم رفع صورة التحويل محفظة أو انستاباي إلى رقم <span id="company-transfer-number" style="font-weight:bold; color:var(--primary-dark);">غير محدد</span>)
                         </div>
                     </div>
-                    <button id="submit-order-btn" class="btn btn-primary" onclick="submitOrder()">ðŸ“¨ Ø¥Ø±Ø³Ø§Ù„ Ø·Ù„Ø¨ Ù…Ø´ØªØ±ÙŠØ§Øª</button>
+                    <button id="submit-order-btn" class="btn btn-primary" onclick="submitOrder()">📨 إرسال طلب مشتريات</button>
                 </div>
             </div>
         </div>
@@ -2902,8 +2902,8 @@
         <!-- ORDERS POPUP -->
         <div class="orders-popup" id="orders-popup">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                <h4 style="margin:0;">ðŸ“¦ Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø©</h4>
-                <button class="btn btn-sm btn-outline" onclick="closeOrdersPopup(); showScreen('orders');">Ø¹Ø±Ø¶ Ø§Ù„ÙƒÙ„</button>
+                <h4 style="margin:0;">📦 الطلبات الجديدة</h4>
+                <button class="btn btn-sm btn-outline" onclick="closeOrdersPopup(); showScreen('orders');">عرض الكل</button>
             </div>
             <div id="orders-popup-list"></div>
         </div>
@@ -2911,8 +2911,8 @@
         <!-- ORDERS SCREEN -->
         <div class="screen" id="orders-screen">
             <div class="orders-header">
-                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">â¬…ï¸ Ø±Ø¬ÙˆØ¹</button>
-                <h3>ðŸ“¦ Ø¬Ù…ÙŠØ¹ Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø´ØªØ±ÙŠØ§Øª</h3>
+                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">⬅️ رجوع</button>
+                <h3>📦 جميع طلبات المشتريات</h3>
             </div>
             <div class="orders-body" id="orders-list-container"></div>
         </div>
@@ -2920,8 +2920,8 @@
         <!-- ARCHIVE SCREEN -->
         <div class="screen" id="archive-screen">
             <div class="archive-header">
-                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">â¬…ï¸ Ø±Ø¬ÙˆØ¹</button>
-                <h3>ðŸ“¦ Ø£Ø±Ø´ÙŠÙ Ø­Ø±ÙƒØ© Ø§Ù„Ø¨ÙŠØ¹</h3>
+                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">⬅️ رجوع</button>
+                <h3>📦 أرشيف حركة البيع</h3>
             </div>
             <div class="archive-body" id="archive-list-container"></div>
         </div>
@@ -2929,8 +2929,8 @@
         <!-- BUYER ARCHIVE SCREEN -->
         <div class="screen" id="buyer-archive-screen">
             <div class="archive-header">
-                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">â¬…ï¸ Ø±Ø¬ÙˆØ¹</button>
-                <h3>ðŸ“‹ Ø£Ø±Ø´ÙŠÙ Ù…Ø´ØªØ±ÙŠØ§ØªÙŠ</h3>
+                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">⬅️ رجوع</button>
+                <h3>📋 أرشيف مشترياتي</h3>
             </div>
             <div class="archive-body" id="buyer-archive-list-container"></div>
         </div>
@@ -2939,20 +2939,20 @@
         <div class="modal-overlay" id="archive-detail-modal" onclick="closeModalOutside(event, 'archive-detail-modal')">
             <div class="modal-box" style="max-width:650px;" onclick="event.stopPropagation()">
                 <div class="modal-header">
-                    <h3 id="archive-modal-title">ðŸ“„ ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø·Ù„Ø¨</h3>
-                    <button class="modal-close" onclick="closeModal('archive-detail-modal')">Ã—</button>
+                    <h3 id="archive-modal-title">📄 تفاصيل الطلب</h3>
+                    <button class="modal-close" onclick="closeModal('archive-detail-modal')">×</button>
                 </div>
                 <div id="archive-modal-info" style="margin-bottom:14px; font-size:13px; background:var(--gray-50); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--gray-200);"></div>
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr id="archive-modal-thead-row">
-                                <th>ðŸ“¦ Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬</th>
-                                <th>ðŸ’° Ø§Ù„Ø³Ø¹Ø±</th>
-                                <th>ðŸ“ Ø§Ù„Ù…Ø·Ù„ÙˆØ¨</th>
-                                <th>ðŸšš Ù…Ø§ ØªÙ… Ø´Ø­Ù†Ù‡</th>
-                                <th>ðŸ”„ Ù…Ø±ØªØ¬Ø¹</th>
-                                <th>ðŸ’µ Ø§Ù„ØµØ§ÙÙŠ</th>
+                                <th>📦 اسم المنتج</th>
+                                <th>💰 السعر</th>
+                                <th>📝 المطلوب</th>
+                                <th>🚚 ما تم شحنه</th>
+                                <th>🔄 مرتجع</th>
+                                <th>💵 الصافي</th>
                             </tr>
                         </thead>
                         <tbody id="archive-modal-tbody"></tbody>
@@ -2960,8 +2960,8 @@
                 </div>
                 <div id="archive-modal-summary" style="margin-top:14px; padding:10px; background:var(--primary-light); border-radius:var(--radius-sm); font-weight:bold; font-size:13px; color:var(--primary-dark);"></div>
                 <div id="archive-modal-footer" style="margin-top:16px; text-align:center; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
-                    <button class="btn btn-warning" onclick="startReturnsEdit()">ðŸ”„ ØªØ¹Ø¯ÙŠÙ„ Ù…Ø±ØªØ¬Ø¹Ø§Øª</button>
-                    <button class="btn btn-primary" onclick="closeModal('archive-detail-modal')">Ø¥ØºÙ„Ø§Ù‚</button>
+                    <button class="btn btn-warning" onclick="startReturnsEdit()">🔄 تعديل مرتجعات</button>
+                    <button class="btn btn-primary" onclick="closeModal('archive-detail-modal')">إغلاق</button>
                 </div>
             </div>
         </div>
@@ -2970,46 +2970,46 @@
         <div class="modal-overlay" id="pending-requests-modal" onclick="closeModalOutside(event, 'pending-requests-modal')">
             <div class="modal-box" onclick="event.stopPropagation()">
                 <div class="modal-header">
-                    <h3>ðŸ“© Ø·Ù„Ø¨Ø§Øª Ø§Ù„ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ù…Ø¹Ù„Ù‚Ø©</h3>
-                    <button class="modal-close" onclick="closeModal('pending-requests-modal')">Ã—</button>
+                    <h3>📩 طلبات التسجيل المعلقة</h3>
+                    <button class="modal-close" onclick="closeModal('pending-requests-modal')">×</button>
                 </div>
                 <div id="pending-requests-list"></div>
                 <div style="margin-top:12px;color:var(--gray-500);font-size:13px;display:flex;justify-content:space-between;align-items:center;">
-                    <span id="pending-count">0</span> Ø·Ù„Ø¨ Ù…Ø¹Ù„Ù‚
-                    <button class="btn btn-sm btn-outline" onclick="renderPendingRequests()">ðŸ”„ ØªØ­Ø¯ÙŠØ«</button>
+                    <span id="pending-count">0</span> طلب معلق
+                    <button class="btn btn-sm btn-outline" onclick="renderPendingRequests()">🔄 تحديث</button>
                 </div>
             </div>
         </div>
 
-        <!-- ===== QUANTITY POPUP â€“ Ù†Ø³Ø®Ø© Ù…Ø­Ø³Ù‘Ù†Ø© Ù…Ø¹ ØµÙˆØ±Ø© ÙƒØ¨ÙŠØ±Ø© ===== -->
+        <!-- ===== QUANTITY POPUP – نسخة محسّنة مع صورة كبيرة ===== -->
         <div class="qty-popup-overlay" id="qty-popup-overlay" onclick="closeQtyPopupOutside(event)">
             <div class="qty-popup" onclick="event.stopPropagation()">
-                <!-- ØµÙˆØ±Ø© Ø§Ù„Ù…Ù†ØªØ¬ -->
+                <!-- صورة المنتج -->
                 <div class="qty-product-image" id="qty-product-image-container">
-                    <img id="qty-product-img" src="" alt="ØµÙˆØ±Ø© Ø§Ù„Ù…Ù†ØªØ¬" style="display:none;" />
-                    <span class="qty-emoji-placeholder" id="qty-product-emoji">ðŸ“¦</span>
+                    <img id="qty-product-img" src="" alt="صورة المنتج" style="display:none;" />
+                    <span class="qty-emoji-placeholder" id="qty-product-emoji">📦</span>
                 </div>
-                <!-- Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬ -->
-                <div class="qty-product-name" id="qty-popup-name">Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬</div>
-                <!-- Ø§Ù„Ø³Ø¹Ø± ÙˆØ§Ù„ÙˆØ­Ø¯Ø© -->
+                <!-- اسم المنتج -->
+                <div class="qty-product-name" id="qty-popup-name">اسم المنتج</div>
+                <!-- السعر والوحدة -->
                 <div class="qty-product-meta">
-                    <span class="meta-price" id="qty-product-price">Ø§Ù„Ø³Ø¹Ø±: 0 Ø¬.Ù…</span>
-                    <span class="meta-unit" id="qty-product-unit">Ø§Ù„ÙˆØ­Ø¯Ø©: Ø¹Ø¯Ø¯</span>
+                    <span class="meta-price" id="qty-product-price">السعر: 0 ج.م</span>
+                    <span class="meta-unit" id="qty-product-unit">الوحدة: عدد</span>
                 </div>
-                <!-- Ø§Ù„ÙƒÙ…ÙŠØ© Ø§Ù„Ù…ØªØ§Ø­Ø© -->
-                <div class="qty-available-text">Ø§Ù„ÙƒÙ…ÙŠØ© Ø§Ù„Ù…ØªØ§Ø­Ø©: <span id="qty-available">0</span></div>
-                <!-- Ø£Ø¯ÙˆØ§Øª Ø§Ù„ØªØ­ÙƒÙ… ÙÙŠ Ø§Ù„ÙƒÙ…ÙŠØ© -->
+                <!-- الكمية المتاحة -->
+                <div class="qty-available-text">الكمية المتاحة: <span id="qty-available">0</span></div>
+                <!-- أدوات التحكم في الكمية -->
                 <div class="qty-control">
-                    <button type="button" onclick="changeQty(-1)">âˆ’</button>
+                    <button type="button" onclick="changeQty(-1)">−</button>
                     <input type="number" id="qty-input" value="1" min="1" step="1" />
                     <button type="button" onclick="changeQty(1)">+</button>
                 </div>
-                <!-- Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ø¥Ø¬Ù…Ø§Ù„ÙŠ -->
-                <div class="qty-total-price" id="qty-total">Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ø¥Ø¬Ù…Ø§Ù„ÙŠ: 0 Ø¬.Ù…</div>
-                <!-- Ø£Ø²Ø±Ø§Ø± Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ -->
+                <!-- السعر الإجمالي -->
+                <div class="qty-total-price" id="qty-total">السعر الإجمالي: 0 ج.م</div>
+                <!-- أزرار الإجراء -->
                 <div class="qty-actions">
-                    <button class="btn btn-primary" onclick="confirmAddToCart()">âœ… ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø¥Ø¶Ø§ÙØ©</button>
-                    <button class="btn btn-outline" onclick="closeQtyPopup()">Ø¥Ù„ØºØ§Ø¡</button>
+                    <button class="btn btn-primary" onclick="confirmAddToCart()">✅ تأكيد الإضافة</button>
+                    <button class="btn btn-outline" onclick="closeQtyPopup()">إلغاء</button>
                 </div>
             </div>
         </div>
@@ -3018,8 +3018,8 @@
         <div class="edit-products-overlay" id="edit-products-overlay">
             <div class="edit-products-panel">
                 <div class="edit-products-panel-header">
-                    <h3 id="edit-products-title">âœï¸ ØªØ­Ø±ÙŠØ± Ù…Ù†ØªØ¬Ø§Øª Ø§Ù„Ù‚Ø³Ù…</h3>
-                    <button class="btn btn-sm" style="background:rgba(255,255,255,0.25);color:white;" onclick="closeEditProductsOverlay()">âœ• Ø¥ØºÙ„Ø§Ù‚</button>
+                    <h3 id="edit-products-title">✏️ تحرير منتجات القسم</h3>
+                    <button class="btn btn-sm" style="background:rgba(255,255,255,0.25);color:white;" onclick="closeEditProductsOverlay()">✕ إغلاق</button>
                 </div>
                 <div class="edit-products-panel-body" id="edit-products-body"></div>
             </div>
@@ -3028,20 +3028,20 @@
         <!-- EDIT CATEGORY MODAL -->
         <div class="modal-overlay" id="edit-category-modal">
             <div class="modal-box">
-                <div class="modal-header"><h3 id="edit-category-title">âœï¸ ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù‚Ø³Ù…</h3><button class="modal-close" onclick="closeModal('edit-category-modal')">Ã—</button></div>
-                <div class="form-group"><label>ðŸ“‚ Ø§Ø³Ù… Ø§Ù„Ù‚Ø³Ù…</label><input type="text" id="edit-category-name" placeholder="Ø£Ø¯Ø®Ù„ Ø§Ø³Ù… Ø§Ù„Ù‚Ø³Ù…" /></div>
-                <div class="form-group"><label>ðŸŽ¨ ØµÙˆØ±Ø© / Ø£ÙŠÙ‚ÙˆÙ†Ø© Ø§Ù„Ù‚Ø³Ù… (Emoji Ø§Ø­ØªÙŠØ§Ø·ÙŠ)</label><input type="text" id="edit-category-icon" placeholder="Ù…Ø«Ø§Ù„: ðŸ§€" /></div>
+                <div class="modal-header"><h3 id="edit-category-title">✏️ تعديل القسم</h3><button class="modal-close" onclick="closeModal('edit-category-modal')">×</button></div>
+                <div class="form-group"><label>📂 اسم القسم</label><input type="text" id="edit-category-name" placeholder="أدخل اسم القسم" /></div>
+                <div class="form-group"><label>🎨 صورة / أيقونة القسم (Emoji احتياطي)</label><input type="text" id="edit-category-icon" placeholder="مثال: 🧀" /></div>
                 <div class="form-group">
-                    <label>ðŸ“¸ ØµÙˆØ±Ø© Ø­Ù‚ÙŠÙ‚ÙŠØ© Ù„Ù„Ù‚Ø³Ù… (Ø§Ø®ØªÙŠØ§Ø±ÙŠ - ØªÙØ±ÙØ¹ Ø¹Ù„Ù‰ Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ)</label>
+                    <label>📸 صورة حقيقية للقسم (اختياري - تُرفع على جوجل درايف)</label>
                     <div style="display:flex; gap:10px; align-items:center;">
-                        <img id="edit-category-image-preview" src="" alt="Ù…Ø¹Ø§ÙŠÙ†Ø©" style="width:56px;height:56px;border-radius:10px;object-fit:cover;display:none;background:var(--gray-100);box-shadow:var(--shadow-sm);" />
-                        <button type="button" class="btn btn-sm btn-outline" onclick="document.getElementById('edit-category-image-input').click()">ðŸ“¤ Ø±ÙØ¹ ØµÙˆØ±Ø©</button>
-                        <button type="button" id="remove-category-image-btn" class="btn btn-sm btn-danger" style="display:none;" onclick="removeCategoryImage()">ðŸ—‘ï¸ Ø¥Ø²Ø§Ù„Ø©</button>
+                        <img id="edit-category-image-preview" src="" alt="معاينة" style="width:56px;height:56px;border-radius:10px;object-fit:cover;display:none;background:var(--gray-100);box-shadow:var(--shadow-sm);" />
+                        <button type="button" class="btn btn-sm btn-outline" onclick="document.getElementById('edit-category-image-input').click()">📤 رفع صورة</button>
+                        <button type="button" id="remove-category-image-btn" class="btn btn-sm btn-danger" style="display:none;" onclick="removeCategoryImage()">🗑️ إزالة</button>
                     </div>
                     <input type="file" id="edit-category-image-input" accept="image/*" style="display:none;" onchange="handleCategoryImageUpload(this)" />
                     <div id="category-image-upload-status" style="font-size:12px;color:var(--gray-500);margin-top:4px;"></div>
                 </div>
-                <div class="btn-group"><button class="btn btn-primary" onclick="saveEditedCategory()">ðŸ’¾ Ø­ÙØ¸</button><button class="btn btn-outline" onclick="closeModal('edit-category-modal')">Ø¥Ù„ØºØ§Ø¡</button></div>
+                <div class="btn-group"><button class="btn btn-primary" onclick="saveEditedCategory()">💾 حفظ</button><button class="btn btn-outline" onclick="closeModal('edit-category-modal')">إلغاء</button></div>
             </div>
         </div>
 
@@ -3049,26 +3049,26 @@
         <div class="modal-overlay" id="set-password-modal">
             <div class="modal-box">
                 <div class="modal-header">
-                    <h3>ðŸ”‘ Ù‚Ø¨ÙˆÙ„ Ø·Ù„Ø¨ Ø§Ù„ØªØ³Ø¬ÙŠÙ„</h3>
-                    <button class="modal-close" onclick="closeModal('set-password-modal')">Ã—</button>
+                    <h3>🔑 قبول طلب التسجيل</h3>
+                    <button class="modal-close" onclick="closeModal('set-password-modal')">×</button>
                 </div>
                 <div class="form-group">
-                    <label>ðŸ‘¤ Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…: <span id="set-password-username"></span></label>
+                    <label>👤 المستخدم: <span id="set-password-username"></span></label>
                 </div>
                 <div class="form-group">
-                    <label>ðŸ‘¤ Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø§Ù„Ø¬Ø¯ÙŠØ¯ *</label>
-                    <input type="text" id="set-username-input" placeholder="Ø£Ø¯Ø®Ù„ Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…" style="direction:ltr; text-align:left;" />
+                    <label>👤 اسم المستخدم الجديد *</label>
+                    <input type="text" id="set-username-input" placeholder="أدخل اسم المستخدم" style="direction:ltr; text-align:left;" />
                     <div id="username-suggestion" class="username-suggestion"></div>
                 </div>
                 <div class="form-group">
-                    <label>ðŸ”‘ ÙƒÙ„Ù…Ø© Ø§Ù„Ø³Ø± Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø© *</label>
-                    <input type="text" id="set-password-input" placeholder="Ø£Ø¯Ø®Ù„ ÙƒÙ„Ù…Ø© Ø§Ù„Ø³Ø±" style="direction:ltr; text-align:left;" />
-                    <button class="btn btn-sm btn-info" style="margin-top:6px;" onclick="generateRandomPassword()">ðŸ”€ ØªÙˆÙ„ÙŠØ¯ ÙƒÙ„Ù…Ø© Ø³Ø± Ø¹Ø´ÙˆØ§Ø¦ÙŠØ©</button>
-                    <button class="btn btn-sm btn-outline" style="margin-top:6px; margin-right:6px;" onclick="suggestUsername()">ðŸ’¡ Ø§Ù‚ØªØ±Ø§Ø­ Ø§Ø³Ù… Ù…Ø³ØªØ®Ø¯Ù…</button>
+                    <label>🔑 كلمة السر الجديدة *</label>
+                    <input type="text" id="set-password-input" placeholder="أدخل كلمة السر" style="direction:ltr; text-align:left;" />
+                    <button class="btn btn-sm btn-info" style="margin-top:6px;" onclick="generateRandomPassword()">🔀 توليد كلمة سر عشوائية</button>
+                    <button class="btn btn-sm btn-outline" style="margin-top:6px; margin-right:6px;" onclick="suggestUsername()">💡 اقتراح اسم مستخدم</button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-success" onclick="confirmSetPassword()">âœ… ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ù‚Ø¨ÙÙˆÙ„</button>
-                    <button class="btn btn-outline" onclick="closeModal('set-password-modal')">Ø¥Ù„ØºØ§Ø¡</button>
+                    <button class="btn btn-success" onclick="confirmSetPassword()">✅ تأكيد القبُول</button>
+                    <button class="btn btn-outline" onclick="closeModal('set-password-modal')">إلغاء</button>
                 </div>
             </div>
         </div>
@@ -3076,41 +3076,41 @@
         <!-- SETTINGS SCREEN -->
         <div class="screen" id="settings-screen">
             <div class="settings-header">
-                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">â¬…ï¸ Ø±Ø¬ÙˆØ¹</button>
-                <h3>âš™ï¸ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª</h3>
+                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">⬅️ رجوع</button>
+                <h3>⚙️ الإعدادات</h3>
             </div>
             <div class="settings-body">
                 <div class="settings-tabs">
-                    <button class="settings-tab active" onclick="switchSettingsTab('users')">ðŸ‘¥ Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…ÙŠÙ†</button>
-                    <button class="settings-tab" onclick="switchSettingsTab('categories')">ðŸ“‚ Ø§Ù„Ø£Ù‚Ø³Ø§Ù… ÙˆØ§Ù„Ù…Ù†ØªØ¬Ø§Øª</button>
-                    <button class="settings-tab" onclick="switchSettingsTab('company')">ðŸ¢ Ø§Ù„Ø´Ø±ÙƒØ©</button>
-                    <button class="settings-tab" onclick="switchSettingsTab('announcements')">ðŸ“¢ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª</button>
+                    <button class="settings-tab active" onclick="switchSettingsTab('users')">👥 المستخدمين</button>
+                    <button class="settings-tab" onclick="switchSettingsTab('categories')">📂 الأقسام والمنتجات</button>
+                    <button class="settings-tab" onclick="switchSettingsTab('company')">🏢 الشركة</button>
+                    <button class="settings-tab" onclick="switchSettingsTab('announcements')">📢 الإعلانات</button>
                 </div>
                 <div class="settings-panel active" id="settings-panel-users">
                     <div class="settings-card">
-                        <h3>âž• Ø¥Ø¶Ø§ÙØ© Ù…Ø³ØªØ®Ø¯Ù… Ø¬Ø¯ÙŠØ¯</h3>
+                        <h3>➕ إضافة مستخدم جديد</h3>
                         <div class="form-row">
-                            <div class="input-group"><label>ðŸ‘¤ Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…</label><input type="text" id="new-user-username" /></div>
-                            <div class="input-group"><label>ðŸ”‘ ÙƒÙ„Ù…Ø© Ø§Ù„Ø³Ø±</label><input type="text" id="new-user-password" /></div>
-                            <div class="input-group"><label>ðŸ“ Ø§Ù„Ø§Ø³Ù… Ø§Ù„Ø«Ù„Ø§Ø«ÙŠ</label><input type="text" id="new-user-fullname" /></div>
-                            <div class="input-group"><label>ðŸ“± Ø±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ</label><input type="tel" id="new-user-phone" /></div>
-                            <div class="input-group"><label>ðŸ‘¥ Ø§Ù„Ù†ÙˆØ¹</label>
-                                <select id="new-user-type"><option value="Ù…Ø´ØªØ±ÙŠ">Ù…Ø´ØªØ±ÙŠ</option><option value="Ø¨Ø§Ø¦Ø¹">Ø¨Ø§Ø¦Ø¹</option><option value="Ù…Ø¯ÙŠØ±">Ù…Ø¯ÙŠØ±</option></select>
+                            <div class="input-group"><label>👤 اسم المستخدم</label><input type="text" id="new-user-username" /></div>
+                            <div class="input-group"><label>🔑 كلمة السر</label><input type="text" id="new-user-password" /></div>
+                            <div class="input-group"><label>📝 الاسم الثلاثي</label><input type="text" id="new-user-fullname" /></div>
+                            <div class="input-group"><label>📱 رقم الهاتف</label><input type="tel" id="new-user-phone" /></div>
+                            <div class="input-group"><label>👥 النوع</label>
+                                <select id="new-user-type"><option value="مشتري">مشتري</option><option value="بائع">بائع</option><option value="مدير">مدير</option></select>
                             </div>
-                            <button class="btn btn-primary btn-sm" onclick="addNewUser()" style="height:48px;">âœ… Ø¥Ø¶Ø§ÙØ©</button>
+                            <button class="btn btn-primary btn-sm" onclick="addNewUser()" style="height:48px;">✅ إضافة</button>
                         </div>
                     </div>
                     <div class="settings-card">
-                        <h3>ðŸ“‹ Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…ÙŠÙ†</h3>
-                        <div class="table-wrapper"><table><thead><tr><th>#</th><th>Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…</th><th>Ø§Ù„Ù†ÙˆØ¹</th><th>ÙƒÙ„Ù…Ø© Ø§Ù„Ø³Ø±</th><th>Ø§Ù„Ø§Ø³Ù… Ø§Ù„Ø«Ù„Ø§Ø«ÙŠ</th><th>Ø±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ</th><th>Ø¥Ø¬Ø±Ø§Ø¡Ø§Øª</th></tr></thead><tbody id="users-table-body"></tbody></table></div>
+                        <h3>📋 قائمة المستخدمين</h3>
+                        <div class="table-wrapper"><table><thead><tr><th>#</th><th>اسم المستخدم</th><th>النوع</th><th>كلمة السر</th><th>الاسم الثلاثي</th><th>رقم الهاتف</th><th>إجراءات</th></tr></thead><tbody id="users-table-body"></tbody></table></div>
                     </div>
                 </div>
 
                 <div class="settings-panel" id="settings-panel-categories">
                     <div class="settings-card">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-                            <h3>ðŸ“‚ Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ø£Ù‚Ø³Ø§Ù… ÙˆØ§Ù„Ù…Ù†ØªØ¬Ø§Øª</h3>
-                            <button class="btn btn-primary btn-sm" onclick="showAddCategoryForm()">âž• Ø¥Ø¶Ø§ÙØ© Ù‚Ø³Ù… Ø¬Ø¯ÙŠØ¯</button>
+                            <h3>📂 إدارة الأقسام والمنتجات</h3>
+                            <button class="btn btn-primary btn-sm" onclick="showAddCategoryForm()">➕ إضافة قسم جديد</button>
                         </div>
                         <div id="settings-categories-list"></div>
                     </div>
@@ -3118,55 +3118,55 @@
 
                 <div class="settings-panel" id="settings-panel-company">
                     <div class="settings-card">
-                        <h3>ðŸ¢ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´Ø±ÙƒØ©</h3>
-                        <div class="input-group"><label>ðŸ·ï¸ Ø§Ø³Ù… Ø§Ù„Ø´Ø±ÙƒØ©</label><input type="text" id="company-name-input" /></div>
-                        <div class="input-group"><label>ðŸ–¼ï¸ Ù„ÙˆØ¬Ùˆ Ø§Ù„Ø´Ø±ÙƒØ© (Emoji Ø§Ø­ØªÙŠØ§Ø·ÙŠ)</label><input type="text" id="company-logo-input" /></div>
+                        <h3>🏢 إعدادات الشركة</h3>
+                        <div class="input-group"><label>🏷️ اسم الشركة</label><input type="text" id="company-name-input" /></div>
+                        <div class="input-group"><label>🖼️ لوجو الشركة (Emoji احتياطي)</label><input type="text" id="company-logo-input" /></div>
                         <div class="form-group">
-                            <label>ðŸ“¸ ØµÙˆØ±Ø© Ø­Ù‚ÙŠÙ‚ÙŠØ© Ù„Ù„ÙˆØ¬Ùˆ (Ø§Ø®ØªÙŠØ§Ø±ÙŠ - ØªÙØ±ÙØ¹ Ø¹Ù„Ù‰ Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ)</label>
+                            <label>📸 صورة حقيقية للوجو (اختياري - تُرفع على جوجل درايف)</label>
                             <div style="display:flex; gap:10px; align-items:center;">
-                                <img id="company-logo-image-preview" src="" alt="Ù…Ø¹Ø§ÙŠÙ†Ø©" style="width:56px;height:56px;border-radius:50%;object-fit:cover;display:none;background:var(--gray-100);box-shadow:var(--shadow-sm);" />
-                                <button type="button" class="btn btn-sm btn-outline" onclick="document.getElementById('company-logo-image-input').click()">ðŸ“¤ Ø±ÙØ¹ ØµÙˆØ±Ø©</button>
-                                <button type="button" id="remove-company-logo-btn" class="btn btn-sm btn-danger" style="display:none;" onclick="removeCompanyLogoImage()">ðŸ—‘ï¸ Ø¥Ø²Ø§Ù„Ø©</button>
+                                <img id="company-logo-image-preview" src="" alt="معاينة" style="width:56px;height:56px;border-radius:50%;object-fit:cover;display:none;background:var(--gray-100);box-shadow:var(--shadow-sm);" />
+                                <button type="button" class="btn btn-sm btn-outline" onclick="document.getElementById('company-logo-image-input').click()">📤 رفع صورة</button>
+                                <button type="button" id="remove-company-logo-btn" class="btn btn-sm btn-danger" style="display:none;" onclick="removeCompanyLogoImage()">🗑️ إزالة</button>
                             </div>
                             <input type="file" id="company-logo-image-input" accept="image/*" style="display:none;" onchange="handleCompanyLogoUpload(this)" />
                             <div id="company-logo-upload-status" style="font-size:12px;color:var(--gray-500);margin-top:4px;"></div>
                         </div>
-                        <div class="input-group"><label>ðŸ“± Ø±Ù‚Ù… ÙˆØ§ØªØ³Ø§Ø¨ Ø§Ù„Ù…Ø¯ÙŠØ±</label><input type="tel" id="admin-whatsapp-input" placeholder="Ù…Ø«Ø§Ù„: 01001234567" /></div>
-                        <div class="input-group"><label>ðŸ“± Ø±Ù‚Ù… Ø§Ù„ØªØ­ÙˆÙŠÙ„ (Ù…Ø­ÙØ¸Ø©/Ø¥Ù†Ø³ØªØ§Ø¨Ø§ÙŠ)</label><input type="tel" id="company-payment-number" placeholder="Ø±Ù‚Ù… Ø§Ù„ØªØ­ÙˆÙŠÙ„" /></div>
+                        <div class="input-group"><label>📱 رقم واتساب المدير</label><input type="tel" id="admin-whatsapp-input" placeholder="مثال: 01001234567" /></div>
+                        <div class="input-group"><label>📱 رقم التحويل (محفظة/إنستاباي)</label><input type="tel" id="company-payment-number" placeholder="رقم التحويل" /></div>
                         <div class="form-row">
-                            <div class="input-group"><label>ðŸ• Ù…ÙˆØ§Ø¹ÙŠØ¯ Ø§Ù„Ø¹Ù…Ù„ - Ù…Ù† Ø§Ù„Ø³Ø§Ø¹Ø©</label><input type="time" id="work-hours-from-input" /></div>
-                            <div class="input-group"><label>ðŸ•™ Ù…ÙˆØ§Ø¹ÙŠØ¯ Ø§Ù„Ø¹Ù…Ù„ - Ø¥Ù„Ù‰ Ø§Ù„Ø³Ø§Ø¹Ø©</label><input type="time" id="work-hours-to-input" /></div>
+                            <div class="input-group"><label>🕐 مواعيد العمل - من الساعة</label><input type="time" id="work-hours-from-input" /></div>
+                            <div class="input-group"><label>🕙 مواعيد العمل - إلى الساعة</label><input type="time" id="work-hours-to-input" /></div>
                         </div>
-                        <button class="btn btn-primary" onclick="saveCompanySettings()" style="margin-top:12px;">ðŸ’¾ Ø­ÙØ¸ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª</button>
+                        <button class="btn btn-primary" onclick="saveCompanySettings()" style="margin-top:12px;">💾 حفظ الإعدادات</button>
                     </div>
 
                     <div class="settings-card">
-                        <h3>ðŸ—‚ï¸ Ø±Ø¨Ø· Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø¨Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ</h3>
+                        <h3>🗂️ ربط قاعدة البيانات بجوجل درايف</h3>
                         <div class="gdrive-steps">
-                            <strong>ðŸ“‹ Ù„Ù…Ø§Ø°Ø§ Ù‡Ø°Ù‡ Ø§Ù„Ø®Ø·ÙˆØ©ØŸ</strong> Ø¨Ø¯Ù„ ØªØ®Ø²ÙŠÙ† ØµÙˆØ± Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª ÙˆØ§Ù„Ø£Ù‚Ø³Ø§Ù… Ø¯Ø§Ø®Ù„ Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù…Ø¨Ø§Ø´Ø±Ø© (ÙˆÙ‡Ùˆ Ù…Ø§ ÙŠØ³ØªÙ‡Ù„Ùƒ Ù…Ø³Ø§Ø­ØªÙ‡Ø§ Ø¨Ø³Ø±Ø¹Ø©)ØŒ ÙŠØªÙ… Ø±ÙØ¹ Ø§Ù„ØµÙˆØ±Ø© Ø¥Ù„Ù‰ Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ Ø§Ù„Ø®Ø§Øµ Ø¨ÙƒØŒ ÙˆØªÙØ®Ø²ÙŽÙ‘Ù† ÙÙŠ Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª ÙÙ‚Ø· Ø±Ø§Ø¨Ø· Ø§Ù„ØµÙˆØ±Ø©.
-                            <br><strong>ðŸ› ï¸ Ø®Ø·ÙˆØ§Øª Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯ (Ù…Ø±Ø© ÙˆØ§Ø­Ø¯Ø© ÙÙ‚Ø·):</strong>
+                            <strong>📋 لماذا هذه الخطوة؟</strong> بدل تخزين صور المنتجات والأقسام داخل قاعدة البيانات مباشرة (وهو ما يستهلك مساحتها بسرعة)، يتم رفع الصورة إلى جوجل درايف الخاص بك، وتُخزَّن في قاعدة البيانات فقط رابط الصورة.
+                            <br><strong>🛠️ خطوات الإعداد (مرة واحدة فقط):</strong>
                             <ol>
-                                <li>Ø§ÙØªØ­ Ù…ÙˆÙ‚Ø¹ <strong>script.google.com</strong> ÙˆØ£Ù†Ø´Ø¦ Ù…Ø´Ø±ÙˆØ¹ Ø¬Ø¯ÙŠØ¯.</li>
-                                <li>Ø§Ù„ØµÙ‚ ÙƒÙˆØ¯ "Apps Script" Ø§Ù„Ø°ÙŠ Ø²ÙˆØ¯Ù†Ø§Ùƒ Ø¨Ù‡ (Ù…Ù„Ù Code.gs Ø§Ù„Ù…Ø±ÙÙ‚).</li>
-                                <li>Ù…Ù† Ø²Ø± Deploy Ø§Ø®ØªØ± "New deployment" â† Ø§Ù„Ù†ÙˆØ¹ "Web app".</li>
-                                <li>Ø§Ø¬Ø¹Ù„ "Execute as" = MeØŒ Ùˆ"Who has access" = Anyone.</li>
-                                <li>Ø§Ù†Ø³Ø® Ø±Ø§Ø¨Ø· Ø§Ù„Ù€ Web App (ÙŠÙ†ØªÙ‡ÙŠ Ø¨Ù€ <code>/exec</code>) ÙˆØ§Ù„ØµÙ‚Ù‡ Ø¨Ø§Ù„Ø£Ø³ÙÙ„.</li>
-                                <li>(Ø§Ø®ØªÙŠØ§Ø±ÙŠ) Ø£Ù†Ø´Ø¦ Ù…Ø¬Ù„Ø¯ Ø¯Ø§Ø®Ù„ Ø¯Ø±Ø§ÙŠÙ ÙˆØ§Ù„ØµÙ‚ Ù…Ø¹Ø±Ù‘ÙÙ‡ (Folder ID) Ø¨Ø§Ù„Ø£Ø³ÙÙ„.</li>
+                                <li>افتح موقع <strong>script.google.com</strong> وأنشئ مشروع جديد.</li>
+                                <li>الصق كود "Apps Script" الذي زودناك به (ملف Code.gs المرفق).</li>
+                                <li>من زر Deploy اختر "New deployment" ← النوع "Web app".</li>
+                                <li>اجعل "Execute as" = Me، و"Who has access" = Anyone.</li>
+                                <li>انسخ رابط الـ Web App (ينتهي بـ <code>/exec</code>) والصقه بالأسفل.</li>
+                                <li>(اختياري) أنشئ مجلد داخل درايف والصق معرّفه (Folder ID) بالأسفل.</li>
                             </ol>
                         </div>
 
                         <div class="input-group">
-                            <label>ðŸ”— Ø±Ø§Ø¨Ø· Ø³ÙƒØ±Ø¨Øª Ø§Ù„Ø±ÙØ¹ (Web App URL)</label>
+                            <label>🔗 رابط سكربت الرفع (Web App URL)</label>
                             <input type="text" id="gdrive-script-url" placeholder="https://script.google.com/macros/s/xxxxx/exec" style="direction:ltr; text-align:left;" />
                         </div>
                         <div class="input-group">
-                            <label>ðŸ“ Ù…Ø¹Ø±Ù‘Ù Ù…Ø¬Ù„Ø¯ Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)</label>
-                            <input type="text" id="gdrive-folder-id" placeholder="Ù…Ø«Ø§Ù„: 1AbCdEfGhIjKlMnOpQrSt" style="direction:ltr; text-align:left;" />
+                            <label>📁 معرّف مجلد جوجل درايف (اختياري)</label>
+                            <input type="text" id="gdrive-folder-id" placeholder="مثال: 1AbCdEfGhIjKlMnOpQrSt" style="direction:ltr; text-align:left;" />
                         </div>
 
                         <div class="form-row">
-                            <button class="btn btn-success" onclick="saveGoogleDriveSettings()">ðŸ’¾ Ø­ÙØ¸ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø¯Ø±Ø§ÙŠÙ</button>
-                            <button class="btn btn-outline" onclick="testGoogleDriveConnection()">ðŸ” Ø§Ø®ØªØ¨Ø§Ø± Ø§Ù„Ø§ØªØµØ§Ù„</button>
+                            <button class="btn btn-success" onclick="saveGoogleDriveSettings()">💾 حفظ إعدادات درايف</button>
+                            <button class="btn btn-outline" onclick="testGoogleDriveConnection()">🔍 اختبار الاتصال</button>
                         </div>
                         <div class="gdrive-test-status" id="gdrive-test-status"></div>
                     </div>
@@ -3174,12 +3174,12 @@
 
                 <div class="settings-panel" id="settings-panel-announcements">
                     <div class="settings-card">
-                        <h3>ðŸ“¢ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª</h3>
+                        <h3>📢 إعدادات الإعلانات</h3>
 
                         <div class="announcement-toggle-row">
                             <div>
-                                <div style="font-weight:700;color:var(--gray-800);margin-bottom:4px;">ØªÙØ¹ÙŠÙ„ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†</div>
-                                <div style="font-size:12px;color:var(--gray-500);">Ø¹Ø±Ø¶ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù† ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹ Ø¹Ù†Ø¯ ØªØ³Ø¬ÙŠÙ„ Ø¯Ø®ÙˆÙ„ Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…ÙŠÙ†</div>
+                                <div style="font-weight:700;color:var(--gray-800);margin-bottom:4px;">تفعيل الإعلان</div>
+                                <div style="font-size:12px;color:var(--gray-500);">عرض الإعلان تلقائياً عند تسجيل دخول المستخدمين</div>
                             </div>
                             <label class="switch">
                                 <input type="checkbox" id="announcement-enabled" />
@@ -3188,32 +3188,32 @@
                         </div>
 
                         <div class="input-group">
-                            <label>â±ï¸ Ù…Ø¯Ø© Ø¹Ø±Ø¶ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù† (Ø¨Ø§Ù„Ø«ÙˆØ§Ù†ÙŠ)</label>
+                            <label>⏱️ مدة عرض الإعلان (بالثواني)</label>
                             <input type="number" id="announcement-duration" min="3" max="60" value="10" />
                         </div>
 
                         <div class="announcement-preview-box" id="announcement-preview-container">
-                            <img id="announcement-preview-image" src="" alt="Ù…Ø¹Ø§ÙŠÙ†Ø© Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†" style="display:none;" />
+                            <img id="announcement-preview-image" src="" alt="معاينة الإعلان" style="display:none;" />
                             <div id="announcement-no-image">
-                                <div style="font-size:36px;margin-bottom:6px;">ðŸ“„</div>
-                                <div style="font-weight:700;color:var(--gray-600);">Ù„Ø§ ØªÙˆØ¬Ø¯ ØµÙˆØ±Ø©</div>
-                                <div style="font-size:12px;color:var(--gray-500);margin-top:4px;">Ù‚Ù… Ø¨Ø±ÙØ¹ ØµÙˆØ±Ø© Ù„Ù„Ø¥Ø¹Ù„Ø§Ù†</div>
+                                <div style="font-size:36px;margin-bottom:6px;">📄</div>
+                                <div style="font-weight:700;color:var(--gray-600);">لا توجد صورة</div>
+                                <div style="font-size:12px;color:var(--gray-500);margin-top:4px;">قم برفع صورة للإعلان</div>
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <button class="btn btn-primary" onclick="document.getElementById('announcement-file-input').click()">ðŸ“¤ Ø±ÙØ¹ ØµÙˆØ±Ø©</button>
-                            <button id="delete-announcement-btn" class="btn btn-danger" style="display:none;" onclick="deleteAnnouncementImage()">ðŸ—‘ï¸ Ø­Ø°Ù Ø§Ù„ØµÙˆØ±Ø©</button>
+                            <button class="btn btn-primary" onclick="document.getElementById('announcement-file-input').click()">📤 رفع صورة</button>
+                            <button id="delete-announcement-btn" class="btn btn-danger" style="display:none;" onclick="deleteAnnouncementImage()">🗑️ حذف الصورة</button>
                         </div>
                         <input type="file" id="announcement-file-input" accept="image/*" style="display:none;" onchange="uploadAnnouncementImage()" />
 
                         <div style="margin-top:14px;padding:10px 12px;background:var(--gold-light);border:1px solid var(--gold);border-radius:var(--radius-sm);font-size:12px;color:var(--gray-700);">
-                            <strong>Ù…Ù„Ø§Ø­Ø¸Ø©:</strong> ÙŠØªÙ… Ø¶ØºØ· Ø§Ù„ØµÙˆØ±Ø© ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹ Ù‚Ø¨Ù„ Ø§Ù„Ø­ÙØ¸ Ù„ØªÙ†Ø§Ø³Ø¨ Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§ØªØŒ ÙˆÙŠÙÙØ¶Ù‘Ù„ Ø§Ø®ØªÙŠØ§Ø± ØµÙˆØ±Ø© ÙˆØ§Ø¶Ø­Ø© Ø§Ù„Ø£Ø¨Ø¹Ø§Ø¯.
+                            <strong>ملاحظة:</strong> يتم ضغط الصورة تلقائياً قبل الحفظ لتناسب قاعدة البيانات، ويُفضّل اختيار صورة واضحة الأبعاد.
                         </div>
 
                         <div class="form-row" style="margin-top:16px;">
-                            <button class="btn btn-success" onclick="saveAnnouncementSettings()">ðŸ’¾ Ø­ÙØ¸ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†</button>
-                            <button class="btn btn-outline" onclick="previewAnnouncementSettings()">ðŸ‘ï¸ Ù…Ø¹Ø§ÙŠÙ†Ø© Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†</button>
+                            <button class="btn btn-success" onclick="saveAnnouncementSettings()">💾 حفظ إعدادات الإعلان</button>
+                            <button class="btn btn-outline" onclick="previewAnnouncementSettings()">👁️ معاينة الإعلان</button>
                         </div>
                     </div>
                 </div>
@@ -3223,32 +3223,32 @@
         <!-- STATS SCREEN -->
         <div class="screen" id="stats-screen">
             <div class="stats-header">
-                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">â¬…ï¸ Ø±Ø¬ÙˆØ¹</button>
-                <h3>ðŸ“Š Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª</h3>
+                <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:white;" onclick="backToMain()">⬅️ رجوع</button>
+                <h3>📊 الإحصائيات</h3>
                 <span id="stats-range-label" style="font-size:12px;opacity:.9;"></span>
             </div>
             <div class="stats-body">
                 <div class="stats-filter">
                     <div class="stats-filter-row">
-                        <div class="fld"><label>ðŸ“… Ù…Ù† ØªØ§Ø±ÙŠØ®</label><input type="date" id="stats-from" onchange="renderStats()" /></div>
-                        <div class="fld"><label>ðŸ“… Ø¥Ù„Ù‰ ØªØ§Ø±ÙŠØ®</label><input type="date" id="stats-to" onchange="renderStats()" /></div>
-                        <button class="btn btn-primary btn-sm" onclick="renderStats()">ðŸ” Ø¹Ø±Ø¶</button>
+                        <div class="fld"><label>📅 من تاريخ</label><input type="date" id="stats-from" onchange="renderStats()" /></div>
+                        <div class="fld"><label>📅 إلى تاريخ</label><input type="date" id="stats-to" onchange="renderStats()" /></div>
+                        <button class="btn btn-primary btn-sm" onclick="renderStats()">🔍 عرض</button>
                     </div>
                     <div class="stats-presets" id="stats-presets">
-                        <button onclick="setStatsPreset(0,this)">Ø§Ù„ÙŠÙˆÙ…</button>
-                        <button onclick="setStatsPreset(6,this)">Ø¢Ø®Ø± 7 Ø£ÙŠØ§Ù…</button>
-                        <button onclick="setStatsPreset(29,this)">Ø¢Ø®Ø± 30 ÙŠÙˆÙ…</button>
-                        <button onclick="setStatsPreset('month',this)">Ù‡Ø°Ø§ Ø§Ù„Ø´Ù‡Ø±</button>
-                        <button onclick="setStatsPreset('all',this)">ÙƒÙ„ Ø§Ù„ÙØªØ±Ø§Øª</button>
+                        <button onclick="setStatsPreset(0,this)">اليوم</button>
+                        <button onclick="setStatsPreset(6,this)">آخر 7 أيام</button>
+                        <button onclick="setStatsPreset(29,this)">آخر 30 يوم</button>
+                        <button onclick="setStatsPreset('month',this)">هذا الشهر</button>
+                        <button onclick="setStatsPreset('all',this)">كل الفترات</button>
                     </div>
                 </div>
 
                 <div class="stats-cards" id="stats-cards"></div>
 
                 <div class="stats-tabs">
-                    <button id="stats-tab-btn-products" class="active" onclick="switchStatsTab('products')">ðŸ›ï¸ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª Ø§Ù„Ù…Ø¨Ø§Ø¹Ø©</button>
-                    <button id="stats-tab-btn-revenue" onclick="switchStatsTab('revenue')">ðŸ’° Ø¹Ø§Ø¦Ø¯ Ø§Ù„Ø¨ÙŠØ¹</button>
-                    <button id="stats-tab-btn-users" onclick="switchStatsTab('users')">ðŸ‘¥ Ù…Ø´ØªØ±ÙŠØ§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…ÙŠÙ†</button>
+                    <button id="stats-tab-btn-products" class="active" onclick="switchStatsTab('products')">🛍️ المنتجات المباعة</button>
+                    <button id="stats-tab-btn-revenue" onclick="switchStatsTab('revenue')">💰 عائد البيع</button>
+                    <button id="stats-tab-btn-users" onclick="switchStatsTab('users')">👥 مشتريات المستخدمين</button>
                 </div>
 
                 <div class="stats-panel active" id="stats-panel-products"></div>
@@ -3262,11 +3262,11 @@
     <div id="toast-container"></div>
 
     <!-- ========================================================================= -->
-    <!-- ===== JAVASCRIPT â€“ FIREBASE INTEGRATION ===== -->
+    <!-- ===== JAVASCRIPT – FIREBASE INTEGRATION ===== -->
     <!-- ========================================================================= -->
     <script>
         // ============================================================
-        //  1.  FIREBASE CONFIG (Ø§Ø³ØªØ¨Ø¯Ù„ Ø¨Ø§Ù„Ù‚ÙŠÙ… Ø§Ù„Ø®Ø§ØµØ© Ø¨Ùƒ)
+        //  1.  FIREBASE CONFIG (استبدل بالقيم الخاصة بك)
         // ============================================================
         const firebaseConfig = {
             apiKey: "AIzasyBH-p_fj6XpG0umkHl_04vETUOM91A1_cg",
@@ -3482,8 +3482,8 @@
             const snap = await db.collection('settings').doc('company').get();
             if (!snap.exists) {
                 const def = {
-                    companyName: 'Ø¨Ù‚Ø§Ù„Ø© Ø§Ù„Ø®ÙŠØ±',
-                    companyLogo: 'ðŸ›’',
+                    companyName: 'بقالة الخير',
+                    companyLogo: '🛒',
                     companyLogoUrl: null,
                     adminWhatsapp: '',
                     paymentNumber: '',
@@ -3569,24 +3569,24 @@
 
             if (!navigator.onLine) {
                 indicator.className = 'db-status db-offline';
-                icon.textContent = 'ðŸ”´';
-                text.textContent = 'ØºÙŠØ± Ù…ØªØµÙ„';
-                indicator.title = 'Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ø§ØªØµØ§Ù„ Ø¨Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª';
+                icon.textContent = '🔴';
+                text.textContent = 'غير متصل';
+                indicator.title = 'لا يوجد اتصال بالإنترنت';
             } else if (isDbConnected) {
                 indicator.className = 'db-status db-online';
-                icon.textContent = 'ðŸŸ¢';
-                text.textContent = 'Ù…ØªØµÙ„';
-                indicator.title = 'Ù…ØªØµÙ„ Ø¨Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª';
+                icon.textContent = '🟢';
+                text.textContent = 'متصل';
+                indicator.title = 'متصل بقاعدة البيانات';
             } else if (dbConnectionRetries > MAX_DB_RETRIES) {
                 indicator.className = 'db-status db-offline';
-                icon.textContent = 'ðŸ”´';
-                text.textContent = 'ØºÙŠØ± Ù…ØªØµÙ„';
-                indicator.title = 'ØªØ¹Ø°Ø± Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª';
+                icon.textContent = '🔴';
+                text.textContent = 'غير متصل';
+                indicator.title = 'تعذر الاتصال بقاعدة البيانات';
             } else {
                 indicator.className = 'db-status db-weak';
-                icon.textContent = 'ðŸŸ ';
-                text.textContent = 'Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø§ØªØµØ§Ù„';
-                indicator.title = 'ÙŠØªÙ… Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ø§Ù„Ø³ÙŠØ±ÙØ±...';
+                icon.textContent = '🟠';
+                text.textContent = 'جاري الاتصال';
+                indicator.title = 'يتم الاتصال بالسيرفر...';
             }
         }
 
@@ -3611,10 +3611,10 @@
                         ctx.drawImage(img, 0, 0, width, height);
                         resolve(canvas.toDataURL('image/jpeg', quality));
                     };
-                    img.onerror = () => reject(new Error('ØªØ¹Ø°Ø±Øª Ù‚Ø±Ø§Ø¡Ø© Ø§Ù„ØµÙˆØ±Ø©'));
+                    img.onerror = () => reject(new Error('تعذرت قراءة الصورة'));
                     img.src = e.target.result;
                 };
-                reader.onerror = () => reject(new Error('ØªØ¹Ø°Ø±Øª Ù‚Ø±Ø§Ø¡Ø© Ø§Ù„Ù…Ù„Ù'));
+                reader.onerror = () => reject(new Error('تعذرت قراءة الملف'));
                 reader.readAsDataURL(file);
             });
         }
@@ -3637,30 +3637,30 @@
             const el = document.getElementById(elId);
             if (!el) return;
 
-            // Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù†ÙØ³ ØµÙˆØ±Ø© Ø§Ù„Ù„ÙˆØ¬Ùˆ Ø§Ù„Ù…Ø­ÙÙˆØ¸Ø© ÙÙŠ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª
-            // Ù„Ø´Ø§Ø´Ø© ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ ÙˆØ§Ù„Ù‡ÙŠØ¯Ø± Ø¨Ø¯ÙˆÙ† Ø¥Ù†Ø´Ø§Ø¡ ØµÙˆØ±Ø© Ù…Ø®ØªÙ„ÙØ©.
+            // استخدام نفس صورة اللوجو المحفوظة في الإعدادات
+            // لشاشة تسجيل الدخول والهيدر بدون إنشاء صورة مختلفة.
             if (settings.companyLogoUrl) {
                 const logoUrl = fixImageUrl(settings.companyLogoUrl);
                 el.innerHTML =
-                    `<img src="${logoUrl}" alt="Ø´Ø¹Ø§Ø± Ø§Ù„Ø´Ø±ÙƒØ©" loading="eager"${imgTagFallback()}>`;
+                    `<img src="${logoUrl}" alt="شعار الشركة" loading="eager"${imgTagFallback()}>`;
             } else {
-                // ÙÙŠ Ø­Ø§Ù„Ø© Ø¹Ø¯Ù… ÙˆØ¬ÙˆØ¯ ØµÙˆØ±Ø© Ù…Ø±ÙÙˆØ¹Ø©ØŒ Ø§Ø³ØªØ®Ø¯Ù… Ø§Ù„Ù€ Emoji Ø§Ù„Ù…Ø­ÙÙˆØ¸ ÙÙŠ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª.
-                el.textContent = settings.companyLogo || 'ðŸ›’';
+                // في حالة عدم وجود صورة مرفوعة، استخدم الـ Emoji المحفوظ في الإعدادات.
+                el.textContent = settings.companyLogo || '🛒';
             }
         }
 
         async function uploadImageToDrive(file, prefix = 'img') {
             if (!file.type.startsWith('image/')) {
-                throw new Error('ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± Ù…Ù„Ù ØµÙˆØ±Ø© ÙÙ‚Ø·');
+                throw new Error('يرجى اختيار ملف صورة فقط');
             }
             if (file.size > 10 * 1024 * 1024) {
-                throw new Error('Ø­Ø¬Ù… Ø§Ù„ØµÙˆØ±Ø© ÙƒØ¨ÙŠØ± Ø¬Ø¯Ù‹Ø§ (Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ù‚ØµÙ‰ 10 Ù…ÙŠØ¬Ø§Ø¨Ø§ÙŠØª)');
+                throw new Error('حجم الصورة كبير جدًا (الحد الأقصى 10 ميجابايت)');
             }
 
             const driveSettings = googleDriveSettingsCache || await getGoogleDriveSettingsDoc();
             googleDriveSettingsCache = driveSettings;
             if (!driveSettings.scriptUrl) {
-                throw new Error('Ù„Ù… ÙŠØªÙ… Ø¥Ø¹Ø¯Ø§Ø¯ Ø±Ø§Ø¨Ø· Ø±ÙØ¹ Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ Ø¨Ø¹Ø¯. Ø§ÙØªØ­ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª â† Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ');
+                throw new Error('لم يتم إعداد رابط رفع جوجل درايف بعد. افتح الإعدادات ← جوجل درايف');
             }
 
             const dataUrl = await compressImageGeneric(file);
@@ -3680,18 +3680,18 @@
                     })
                 });
             } catch (err) {
-                throw new Error('ØªØ¹Ø°Ø± Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ø®Ø¯Ù…Ø© Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙØŒ ØªØ£ÙƒØ¯ Ù…Ù† Ø§Ù„Ø±Ø§Ø¨Ø· ÙˆØ§Ù„Ø§ØªØµØ§Ù„ Ø¨Ø§Ù„Ø¥Ù†ØªØ±Ù†Øª');
+                throw new Error('تعذر الاتصال بخدمة جوجل درايف، تأكد من الرابط والاتصال بالإنترنت');
             }
 
             let data;
             try {
                 data = await res.json();
             } catch (err) {
-                throw new Error('Ø§Ø³ØªØ¬Ø§Ø¨Ø© ØºÙŠØ± ØµØ­ÙŠØ­Ø© Ù…Ù† Ø³ÙƒØ±Ø¨Øª Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ');
+                throw new Error('استجابة غير صحيحة من سكربت جوجل درايف');
             }
 
             if (!data || !data.success) {
-                throw new Error((data && data.error) || 'ÙØ´Ù„ Ø±ÙØ¹ Ø§Ù„ØµÙˆØ±Ø© Ø¥Ù„Ù‰ Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ');
+                throw new Error((data && data.error) || 'فشل رفع الصورة إلى جوجل درايف');
             }
             return { url: fixImageUrl(data.url), fileId: data.fileId };
         }
@@ -3705,7 +3705,7 @@
                 document.getElementById('gdrive-folder-id').value = settings.folderId || '';
                 document.getElementById('gdrive-test-status').textContent = '';
             } catch (err) {
-                showToast('âŒ ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ', 'error');
+                showToast('❌ تعذر تحميل إعدادات جوجل درايف', 'error');
             } finally {
                 showLoading(false);
             }
@@ -3717,9 +3717,9 @@
             showLoading(true);
             try {
                 await saveGoogleDriveSettingsDoc({ scriptUrl, folderId });
-                showToast('âœ… ØªÙ… Ø­ÙØ¸ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                showToast('✅ تم حفظ إعدادات جوجل درايف بنجاح', 'success');
             } catch (err) {
-                showToast('âŒ ÙØ´Ù„ Ø­ÙØ¸ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª: ' + err.message, 'error');
+                showToast('❌ فشل حفظ الإعدادات: ' + err.message, 'error');
             } finally {
                 showLoading(false);
             }
@@ -3729,24 +3729,24 @@
             const scriptUrl = document.getElementById('gdrive-script-url').value.trim();
             const statusEl = document.getElementById('gdrive-test-status');
             if (!scriptUrl) {
-                showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ Ø±Ø§Ø¨Ø· Ø§Ù„Ø³ÙƒØ±Ø¨Øª Ø£ÙˆÙ„Ø§Ù‹', 'error');
+                showToast('⚠️ يرجى إدخال رابط السكربت أولاً', 'error');
                 return;
             }
             statusEl.style.color = 'var(--gray-500)';
-            statusEl.textContent = 'â³ Ø¬Ø§Ø±ÙŠ Ø§Ø®ØªØ¨Ø§Ø± Ø§Ù„Ø§ØªØµØ§Ù„...';
+            statusEl.textContent = '⏳ جاري اختبار الاتصال...';
             try {
                 const res = await fetch(scriptUrl);
                 const data = await res.json();
                 if (data && data.status === 'ok') {
                     statusEl.style.color = 'var(--primary)';
-                    statusEl.textContent = 'âœ… Ø§Ù„Ø§ØªØµØ§Ù„ ÙŠØ¹Ù…Ù„ Ø¨Ù†Ø¬Ø§Ø­ØŒ ÙŠÙ…ÙƒÙ†Ùƒ Ø§Ù„Ø¢Ù† Ø±ÙØ¹ Ø§Ù„ØµÙˆØ±';
+                    statusEl.textContent = '✅ الاتصال يعمل بنجاح، يمكنك الآن رفع الصور';
                 } else {
                     statusEl.style.color = 'var(--gold)';
-                    statusEl.textContent = 'âš ï¸ ØªÙ… Ø§Ù„ÙˆØµÙˆÙ„ Ù„Ù„Ø±Ø§Ø¨Ø· Ù„ÙƒÙ† Ø§Ù„Ø§Ø³ØªØ¬Ø§Ø¨Ø© ØºÙŠØ± Ù…ØªÙˆÙ‚Ø¹Ø©ØŒ ØªØ£ÙƒØ¯ Ù…Ù† Ø§Ù„ÙƒÙˆØ¯ Ø§Ù„Ù…Ù†Ø´ÙˆØ±';
+                    statusEl.textContent = '⚠️ تم الوصول للرابط لكن الاستجابة غير متوقعة، تأكد من الكود المنشور';
                 }
             } catch (err) {
                 statusEl.style.color = 'var(--red)';
-                statusEl.textContent = 'âŒ ÙØ´Ù„ Ø§Ù„Ø§ØªØµØ§Ù„ØŒ ØªØ£ÙƒØ¯ Ù…Ù† Ø§Ù„Ø±Ø§Ø¨Ø· ÙˆÙ…Ù† Ø£Ù† Ø§Ù„Ù†Ø´Ø± Ù…ØªØ§Ø­ Ù„Ù€ "Anyone"';
+                statusEl.textContent = '❌ فشل الاتصال، تأكد من الرابط ومن أن النشر متاح لـ "Anyone"';
             }
         }
 
@@ -3759,7 +3759,7 @@
                 document.getElementById('announcement-duration').value = announcementSettingsData.duration || 10;
                 updateAnnouncementPreview();
             } catch (err) {
-                showToast('âŒ ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†', 'error');
+                showToast('❌ تعذر تحميل إعدادات الإعلان', 'error');
             } finally {
                 showLoading(false);
             }
@@ -3801,10 +3801,10 @@
                         ctx.drawImage(img, 0, 0, width, height);
                         resolve(canvas.toDataURL('image/jpeg', quality));
                     };
-                    img.onerror = () => reject(new Error('ØªØ¹Ø°Ø±Øª Ù‚Ø±Ø§Ø¡Ø© Ø§Ù„ØµÙˆØ±Ø©'));
+                    img.onerror = () => reject(new Error('تعذرت قراءة الصورة'));
                     img.src = e.target.result;
                 };
-                reader.onerror = () => reject(new Error('ØªØ¹Ø°Ø±Øª Ù‚Ø±Ø§Ø¡Ø© Ø§Ù„Ù…Ù„Ù'));
+                reader.onerror = () => reject(new Error('تعذرت قراءة الملف'));
                 reader.readAsDataURL(file);
             });
         }
@@ -3814,12 +3814,12 @@
             const file = fileInput.files[0];
             if (!file) return;
             if (!file.type.startsWith('image/')) {
-                showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± Ù…Ù„Ù ØµÙˆØ±Ø© ÙÙ‚Ø·', 'error');
+                showToast('⚠️ يرجى اختيار ملف صورة فقط', 'error');
                 fileInput.value = '';
                 return;
             }
             if (file.size > 10 * 1024 * 1024) {
-                showToast('âš ï¸ Ø­Ø¬Ù… Ø§Ù„ØµÙˆØ±Ø© ÙƒØ¨ÙŠØ± Ø¬Ø¯Ù‹Ø§ (Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ù‚ØµÙ‰ 10 Ù…ÙŠØ¬Ø§Ø¨Ø§ÙŠØª)', 'error');
+                showToast('⚠️ حجم الصورة كبير جدًا (الحد الأقصى 10 ميجابايت)', 'error');
                 fileInput.value = '';
                 return;
             }
@@ -3833,20 +3833,20 @@
                     const result = await uploadImageToDrive(file, 'announcement');
                     announcementSettingsData.imageUrl = fixImageUrl(result.url);
                     updateAnnouncementPreview();
-                    showToast('âœ… ØªÙ… Ø±ÙØ¹ Ø§Ù„ØµÙˆØ±Ø© Ø¥Ù„Ù‰ Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙØŒ Ø§Ø¶ØºØ· "Ø­ÙØ¸" Ù„ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø­ÙØ¸', 'success');
+                    showToast('✅ تم رفع الصورة إلى جوجل درايف، اضغط "حفظ" لتأكيد الحفظ', 'success');
                 } else {
                     const compressed = await compressAnnouncementImage(file);
                     const approxSizeKB = Math.round((compressed.length * 3 / 4) / 1024);
                     if (approxSizeKB > 700) {
-                        showToast('âš ï¸ Ø§Ù„ØµÙˆØ±Ø© ÙƒØ¨ÙŠØ±Ø© Ø±ØºÙ… Ø§Ù„Ø¶ØºØ·ØŒ Ø¬Ø±Ù‘Ø¨ ØµÙˆØ±Ø© Ø£Ø®Ø±Ù‰ Ø£Ùˆ ÙØ¹Ù‘Ù„ Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ Ù…Ù† Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª', 'error');
+                        showToast('⚠️ الصورة كبيرة رغم الضغط، جرّب صورة أخرى أو فعّل جوجل درايف من الإعدادات', 'error');
                         return;
                     }
                     announcementSettingsData.imageUrl = compressed;
                     updateAnnouncementPreview();
-                    showToast('âœ… ØªÙ… ØªØ¬Ù‡ÙŠØ² Ø§Ù„ØµÙˆØ±Ø©ØŒ Ø§Ø¶ØºØ· "Ø­ÙØ¸" Ù„ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø­ÙØ¸', 'success');
+                    showToast('✅ تم تجهيز الصورة، اضغط "حفظ" لتأكيد الحفظ', 'success');
                 }
             } catch (err) {
-                showToast('âŒ ' + (err.message || 'ØªØ¹Ø°Ø± Ù…Ø¹Ø§Ù„Ø¬Ø© Ø§Ù„ØµÙˆØ±Ø©'), 'error');
+                showToast('❌ ' + (err.message || 'تعذر معالجة الصورة'), 'error');
             } finally {
                 showLoading(false);
                 fileInput.value = '';
@@ -3854,17 +3854,17 @@
         }
 
         function deleteAnnouncementImage() {
-            if (!confirm('Ù‡Ù„ Ø£Ù†Øª Ù…ØªØ£ÙƒØ¯ Ù…Ù† Ø­Ø°Ù ØµÙˆØ±Ø© Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†ØŸ')) return;
+            if (!confirm('هل أنت متأكد من حذف صورة الإعلان؟')) return;
             announcementSettingsData.imageUrl = null;
             updateAnnouncementPreview();
-            showToast('ðŸ—‘ï¸ ØªÙ… Ø­Ø°Ù Ø§Ù„ØµÙˆØ±Ø©ØŒ Ø§Ø¶ØºØ· "Ø­ÙØ¸" Ù„ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø­ÙØ¸', 'warning');
+            showToast('🗑️ تم حذف الصورة، اضغط "حفظ" لتأكيد الحفظ', 'warning');
         }
 
         async function saveAnnouncementSettings() {
             const enabled = document.getElementById('announcement-enabled').checked;
             const duration = parseInt(document.getElementById('announcement-duration').value, 10);
             if (!duration || duration < 3 || duration > 60) {
-                showToast('âš ï¸ Ù…Ø¯Ø© Ø§Ù„Ø¥Ø¹Ù„Ø§Ù† ÙŠØ¬Ø¨ Ø£Ù† ØªÙƒÙˆÙ† Ø¨ÙŠÙ† 3 Ùˆ 60 Ø«Ø§Ù†ÙŠØ©', 'error');
+                showToast('⚠️ مدة الإعلان يجب أن تكون بين 3 و 60 ثانية', 'error');
                 return;
             }
             announcementSettingsData.enabled = enabled;
@@ -3873,9 +3873,9 @@
             showLoading(true);
             try {
                 await saveAnnouncementSettingsDoc(announcementSettingsData);
-                showToast('âœ… ØªÙ… Ø­ÙØ¸ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø¥Ø¹Ù„Ø§Ù† Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                showToast('✅ تم حفظ إعدادات الإعلان بنجاح', 'success');
             } catch (err) {
-                showToast('âŒ ÙØ´Ù„ Ø­ÙØ¸ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†: ' + err.message, 'error');
+                showToast('❌ فشل حفظ إعدادات الإعلان: ' + err.message, 'error');
             } finally {
                 showLoading(false);
             }
@@ -3884,7 +3884,7 @@
         function previewAnnouncementSettings() {
             const duration = parseInt(document.getElementById('announcement-duration').value, 10) || 10;
             if (!announcementSettingsData.imageUrl) {
-                showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ Ø±ÙØ¹ ØµÙˆØ±Ø© Ø£ÙˆÙ„Ø§Ù‹ Ù„Ù„Ù…Ø¹Ø§ÙŠÙ†Ø©', 'error');
+                showToast('⚠️ يرجى رفع صورة أولاً للمعاينة', 'error');
                 return;
             }
             showAnnouncement(duration, announcementSettingsData.imageUrl);
@@ -3903,12 +3903,12 @@
             overlay.classList.add('show');
 
             let remaining = duration;
-            countdown.textContent = `Ø³ÙŠØªÙ… Ø§Ù„Ø¥ØºÙ„Ø§Ù‚ ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹ Ø¨Ø¹Ø¯ ${remaining} Ø«Ø§Ù†ÙŠØ©`;
+            countdown.textContent = `سيتم الإغلاق تلقائياً بعد ${remaining} ثانية`;
             clearInterval(announcementCountdownInterval);
             announcementCountdownInterval = setInterval(() => {
                 remaining--;
-                if (remaining > 0) countdown.textContent = `Ø³ÙŠØªÙ… Ø§Ù„Ø¥ØºÙ„Ø§Ù‚ ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹ Ø¨Ø¹Ø¯ ${remaining} Ø«Ø§Ù†ÙŠØ©`;
-                else countdown.textContent = 'ÙŠÙ…ÙƒÙ†Ùƒ Ø§Ù„Ø¥ØºÙ„Ø§Ù‚ Ø§Ù„Ø¢Ù†';
+                if (remaining > 0) countdown.textContent = `سيتم الإغلاق تلقائياً بعد ${remaining} ثانية`;
+                else countdown.textContent = 'يمكنك الإغلاق الآن';
             }, 1000);
 
             clearTimeout(announcementAutoCloseTimer);
@@ -3929,7 +3929,7 @@
                     setTimeout(() => showAnnouncement(settings.duration || 10, settings.imageUrl), 800);
                 }
             } catch (err) {
-                console.error('Ø®Ø·Ø£ ÙÙŠ ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†:', err);
+                console.error('خطأ في تحميل الإعلان:', err);
             }
         }
 
@@ -3971,20 +3971,20 @@
             }
 
             if (currentUser) {
-                if (id === 'settings' && currentUser.type !== 'Ù…Ø¯ÙŠØ±') {
-                    showToast('âš ï¸ ØºÙŠØ± Ù…ØµØ±Ø­ Ù„Ùƒ Ø¨Ø¯Ø®ÙˆÙ„ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª', 'error');
+                if (id === 'settings' && currentUser.type !== 'مدير') {
+                    showToast('⚠️ غير مصرح لك بدخول الإعدادات', 'error');
                     return;
                 }
-                if (id === 'orders' && currentUser.type === 'Ù…Ø´ØªØ±ÙŠ') {
-                    showToast('âš ï¸ ØºÙŠØ± Ù…ØµØ±Ø­ Ù„Ùƒ Ø¨Ø¯Ø®ÙˆÙ„ Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø´ØªØ±ÙŠØ§Øª', 'error');
+                if (id === 'orders' && currentUser.type === 'مشتري') {
+                    showToast('⚠️ غير مصرح لك بدخول طلبات المشتريات', 'error');
                     return;
                 }
-                if (id === 'stats' && currentUser.type !== 'Ù…Ø¯ÙŠØ±') {
-                    showToast('âš ï¸ Ø´Ø§Ø´Ø© Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ù…ØªØ§Ø­Ø© Ù„Ù„Ù…Ø¯ÙŠØ± ÙÙ‚Ø·', 'error');
+                if (id === 'stats' && currentUser.type !== 'مدير') {
+                    showToast('⚠️ شاشة الإحصائيات متاحة للمدير فقط', 'error');
                     return;
                 }
-                if (id === 'archive' && currentUser.type === 'Ù…Ø´ØªØ±ÙŠ') {
-                    showToast('âš ï¸ ØºÙŠØ± Ù…ØµØ±Ø­ Ù„Ùƒ Ø¨Ø¯Ø®ÙˆÙ„ Ø£Ø±Ø´ÙŠÙ Ø­Ø±ÙƒØ© Ø§Ù„Ø¨ÙŠØ¹', 'error');
+                if (id === 'archive' && currentUser.type === 'مشتري') {
+                    showToast('⚠️ غير مصرح لك بدخول أرشيف حركة البيع', 'error');
                     return;
                 }
             }
@@ -4010,7 +4010,7 @@
             }
         }
 
-        // ===== Ø§Ù„ØªØ­ÙƒÙ… ÙÙŠ Ø²Ø± Ø§Ù„Ø±Ø¬ÙˆØ¹ Ø¨Ø§Ù„Ù…ØªØµÙØ­ =====
+        // ===== التحكم في زر الرجوع بالمتصفح =====
         let currentScreenId = 'login';
         let __navFromHistory = false;
 
@@ -4031,7 +4031,7 @@
 
         function initHistoryGuard() {
             window.addEventListener('beforeunload', function (e) {
-                const msg = 'Ù‡Ù„ Ø£Ù†Øª Ù…ØªØ£ÙƒØ¯ Ø£Ù†Ùƒ ØªØ±ÙŠØ¯ Ù…ØºØ§Ø¯Ø±Ø© Ø§Ù„ØªØ·Ø¨ÙŠÙ‚ØŸ';
+                const msg = 'هل أنت متأكد أنك تريد مغادرة التطبيق؟';
                 e.returnValue = msg;
                 return msg;
             });
@@ -4085,15 +4085,15 @@
                 setHeaderUserChip(currentUser);
                 if (menuBtn) menuBtn.style.display = 'flex';
 
-                if (currentUser.type === 'Ù…Ø¯ÙŠØ±') {
+                if (currentUser.type === 'مدير') {
                     if (ordersBtn) ordersBtn.style.display = 'flex';
                     if (cartBtn) cartBtn.style.display = 'flex';
                     if (pendingBtn) pendingBtn.style.display = 'flex';
-                } else if (currentUser.type === 'Ø¨Ø§Ø¦Ø¹') {
+                } else if (currentUser.type === 'بائع') {
                     if (ordersBtn) ordersBtn.style.display = 'flex';
                     if (cartBtn) cartBtn.style.display = 'none';
                     if (pendingBtn) pendingBtn.style.display = 'none';
-                } else if (currentUser.type === 'Ù…Ø´ØªØ±ÙŠ') {
+                } else if (currentUser.type === 'مشتري') {
                     if (ordersBtn) ordersBtn.style.display = 'none';
                     if (cartBtn) cartBtn.style.display = 'flex';
                     if (pendingBtn) pendingBtn.style.display = 'none';
@@ -4110,8 +4110,8 @@
         }
 
         function roleKey(type) {
-            if (type === 'Ù…Ø¯ÙŠØ±') return 'admin';
-            if (type === 'Ø¨Ø§Ø¦Ø¹') return 'seller';
+            if (type === 'مدير') return 'admin';
+            if (type === 'بائع') return 'seller';
             return 'buyer';
         }
 
@@ -4124,7 +4124,7 @@
             const name = user.username || '';
             if (nameEl) nameEl.textContent = name;
             if (roleEl) roleEl.textContent = user.type || '';
-            if (avatarEl) avatarEl.textContent = (name.trim()[0] || 'ØŸ').toUpperCase();
+            if (avatarEl) avatarEl.textContent = (name.trim()[0] || '؟').toUpperCase();
             chip.setAttribute('data-role', roleKey(user.type));
             chip.setAttribute('title', `${user.type} | ${name}`);
         }
@@ -4133,7 +4133,7 @@
             const parts = (hhmm || '00:00').split(':');
             const h = parseInt(parts[0], 10) || 0;
             const m = parseInt(parts[1], 10) || 0;
-            const period = h >= 12 ? 'Ù…' : 'Øµ';
+            const period = h >= 12 ? 'م' : 'ص';
             let h12 = h % 12;
             if (h12 === 0) h12 = 12;
             return `${h12}:${String(m).padStart(2, '0')} ${period}`;
@@ -4156,13 +4156,13 @@
             if (!clockEl || !hoursEl) return;
             const now = new Date();
             const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true });
-            clockEl.textContent = `ðŸ• ${timeStr}`;
+            clockEl.textContent = `🕐 ${timeStr}`;
 
             const settings = await getCompanySettings();
             const { workHoursFrom, workHoursTo } = settings;
             const open = isWithinWorkHours(now, workHoursFrom, workHoursTo);
             hoursEl.innerHTML =
-                `â° ${formatHourLabel(workHoursFrom)} - ${formatHourLabel(workHoursTo)} <strong style="color:${open ? '#c8ffd4' : '#ffd9a0'};">(${open ? 'Ù…ÙØªÙˆØ­ Ø§Ù„Ø¢Ù†' : 'Ù…ØºÙ„Ù‚ Ø§Ù„Ø¢Ù†'})</strong>`;
+                `⏰ ${formatHourLabel(workHoursFrom)} - ${formatHourLabel(workHoursTo)} <strong style="color:${open ? '#c8ffd4' : '#ffd9a0'};">(${open ? 'مفتوح الآن' : 'مغلق الآن'})</strong>`;
         }
 
         // ============================================================
@@ -4172,7 +4172,7 @@
             const u = document.getElementById('login-username').value.trim();
             const p = document.getElementById('login-password').value.trim();
             const rem = document.getElementById('remember-me').checked;
-            if (!u || !p) return showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… ÙˆÙƒÙ„Ù…Ø© Ø§Ù„Ø³Ø±', 'error');
+            if (!u || !p) return showToast('⚠️ يرجى إدخال اسم المستخدم وكلمة السر', 'error');
 
             showLoading(true);
             try {
@@ -4193,10 +4193,10 @@
                     updateCartBadge();
                     updatePendingBadge();
                     updateOrdersBadge();
-                    showToast(`ðŸ‘‹ Ù…Ø±Ø­Ø¨Ø§Ù‹ ${user.username}!`, 'success');
+                    showToast(`👋 مرحباً ${user.username}!`, 'success');
                     showAnnouncementAfterLogin();
                 } else {
-                    showToast('âŒ Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø£Ùˆ ÙƒÙ„Ù…Ø© Ø§Ù„Ø³Ø± ØºÙŠØ± ØµØ­ÙŠØ­Ø©', 'error');
+                    showToast('❌ اسم المستخدم أو كلمة السر غير صحيحة', 'error');
                 }
             } finally {
                 showLoading(false);
@@ -4217,7 +4217,7 @@
             } else {
                 document.getElementById('login-password').value = '';
             }
-            showToast('ðŸ‘‹ ØªÙ… ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø®Ø±ÙˆØ¬ Ø¨Ù†Ø¬Ø§Ø­', 'success');
+            showToast('👋 تم تسجيل الخروج بنجاح', 'success');
         }
 
         // ============================================================
@@ -4229,7 +4229,7 @@
             const resultDiv = document.getElementById('register-result');
 
             if (!fullname || !phone) {
-                return showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ù„Ø§Ø³Ù… ÙˆØ±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ', 'error');
+                return showToast('⚠️ يرجى إدخال الاسم ورقم الهاتف', 'error');
             }
 
             showLoading(true);
@@ -4239,8 +4239,8 @@
                 await addPendingUser({ fullname, phone, date: dateStr });
                 document.getElementById('reg-fullname').value = '';
                 document.getElementById('reg-phone').value = '';
-                if (resultDiv) resultDiv.textContent = 'âœ… ØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø·Ù„Ø¨Ùƒ Ø¨Ù†Ø¬Ø§Ø­! Ø³ÙŠØªÙ… Ù…Ø±Ø§Ø¬Ø¹ØªÙ‡ Ù…Ù† Ù‚Ø¨Ù„ Ø§Ù„Ù…Ø¯ÙŠØ±.';
-                showToast('âœ… ØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø·Ù„Ø¨ Ø§Ù„ØªØ³Ø¬ÙŠÙ„ Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                if (resultDiv) resultDiv.textContent = '✅ تم إرسال طلبك بنجاح! سيتم مراجعته من قبل المدير.';
+                showToast('✅ تم إرسال طلب التسجيل بنجاح', 'success');
                 updatePendingBadge();
             } finally {
                 showLoading(false);
@@ -4268,26 +4268,26 @@
             if (cat.products && cat.products.length) {
                 body.innerHTML = `
                 <div class="table-wrapper">
-                <table class="products-table" aria-label="Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª">
+                <table class="products-table" aria-label="قائمة المنتجات">
                 <tbody>${cat.products.map(p => {
                     const disabled = p.quantity <= 0;
-                    const unit = p.unit || 'Ø¹Ø¯Ø¯';
+                    const unit = p.unit || 'عدد';
                     return `<tr>
                         <td class="product-img-cell">
                             ${p.imgUrl
                                 ? `<img class="product-img" src="${fixImageUrl(p.imgUrl)}" alt="${p.name}" loading="lazy"${imgTagFallback()}>`
-                                : `<div class="product-img">${p.img || 'ðŸ“¦'}</div>`}
+                                : `<div class="product-img">${p.img || '📦'}</div>`}
                         </td>
                         <td class="product-name-cell">
                             <strong title="${p.name}">${p.name}</strong>
                         </td>
                         <td class="product-meta-cell">
-                            <span class="product-price">${p.price} Ø¬.Ù…</span>
+                            <span class="product-price">${p.price} ج.م</span>
                             <span class="product-unit">${unit}</span>
                         </td>
                         <td class="product-action-cell">
                             <button class="btn-add-cart" onclick="openQtyPopup('${catId}','${p.id}')" ${disabled ? 'disabled' : ''}>
-                                ${disabled ? 'âŒ Ù†Ø§ÙØ°' : 'ðŸ›’ Ø£Ø¶Ù Ù„Ù„Ø³Ù„Ø©'}
+                                ${disabled ? '❌ نافذ' : '🛒 أضف للسلة'}
                             </button>
                         </td>
                     </tr>`;
@@ -4295,13 +4295,13 @@
                 </table>
                 </div>`;
             } else {
-                body.innerHTML = '<div style="text-align:center;padding:30px;">ðŸ“­ Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ù†ØªØ¬Ø§Øª ÙÙŠ Ù‡Ø°Ø§ Ø§Ù„Ù‚Ø³Ù…</div>';
+                body.innerHTML = '<div style="text-align:center;padding:30px;">📭 لا توجد منتجات في هذا القسم</div>';
             }
             showScreen('products');
         }
 
         // ============================================================
-        //  12. QUANTITY POPUP â€“ Ù†Ø³Ø®Ø© Ù…Ø­Ø³Ù‘Ù†Ø© Ù…Ø¹ ØµÙˆØ±Ø© ÙƒØ¨ÙŠØ±Ø©
+        //  12. QUANTITY POPUP – نسخة محسّنة مع صورة كبيرة
         // ============================================================
         async function openQtyPopup(categoryId, productId) {
             const categories = await getCategories();
@@ -4310,13 +4310,13 @@
             const prod = cat.products.find(p => p.id === productId);
             if (!prod) return;
             if (prod.quantity <= 0) {
-                showToast('âŒ Ø§Ù„ÙƒÙ…ÙŠØ© ØºÙŠØ± Ù…ØªÙˆÙØ±Ø©', 'error');
+                showToast('❌ الكمية غير متوفرة', 'error');
                 return;
             }
 
             qtyPopupData = { categoryId, productId, product: prod, maxQty: prod.quantity };
 
-            // ØªØ¹ÙŠÙŠÙ† Ø§Ù„ØµÙˆØ±Ø©
+            // تعيين الصورة
             const imgEl = document.getElementById('qty-product-img');
             const emojiEl = document.getElementById('qty-product-emoji');
             const container = document.getElementById('qty-product-image-container');
@@ -4327,21 +4327,21 @@
                 emojiEl.style.display = 'none';
             } else {
                 imgEl.style.display = 'none';
-                emojiEl.textContent = prod.img || 'ðŸ“¦';
+                emojiEl.textContent = prod.img || '📦';
                 emojiEl.style.display = 'block';
             }
 
-            // ØªØ¹ÙŠÙŠÙ† Ø§Ù„Ø§Ø³Ù… ÙˆØ§Ù„Ø³Ø¹Ø± ÙˆØ§Ù„ÙˆØ­Ø¯Ø©
+            // تعيين الاسم والسعر والوحدة
             document.getElementById('qty-popup-name').textContent = prod.name;
-            document.getElementById('qty-product-price').textContent = `Ø§Ù„Ø³Ø¹Ø±: ${prod.price} Ø¬.Ù…`;
-            document.getElementById('qty-product-unit').textContent = `Ø§Ù„ÙˆØ­Ø¯Ø©: ${prod.unit || 'Ø¹Ø¯Ø¯'}`;
+            document.getElementById('qty-product-price').textContent = `السعر: ${prod.price} ج.م`;
+            document.getElementById('qty-product-unit').textContent = `الوحدة: ${prod.unit || 'عدد'}`;
             document.getElementById('qty-available').textContent = prod.quantity;
 
-            // Ø¥Ø¹Ø§Ø¯Ø© Ø¶Ø¨Ø· Ø§Ù„ÙƒÙ…ÙŠØ©
+            // إعادة ضبط الكمية
             document.getElementById('qty-input').value = 1;
             updateQtyTotal();
 
-            // Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ù†Ø§ÙØ°Ø©
+            // إظهار النافذة
             document.getElementById('qty-popup-overlay').classList.add('show');
         }
 
@@ -4359,7 +4359,7 @@
             let val = parseInt(input.value) || 1;
             val = Math.max(1, val + delta);
             if (qtyPopupData && val > qtyPopupData.maxQty) {
-                showToast(`âš ï¸ Ø§Ù„Ù…ØªØ§Ø­ ${qtyPopupData.maxQty} ÙÙ‚Ø·`, 'error');
+                showToast(`⚠️ المتاح ${qtyPopupData.maxQty} فقط`, 'error');
                 val = qtyPopupData.maxQty;
             }
             input.value = val;
@@ -4371,7 +4371,7 @@
             const qty = parseInt(input.value) || 1;
             if (qtyPopupData) {
                 const total = qty * qtyPopupData.product.price;
-                document.getElementById('qty-total').textContent = `Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ø¥Ø¬Ù…Ø§Ù„ÙŠ: ${total} Ø¬.Ù…`;
+                document.getElementById('qty-total').textContent = `السعر الإجمالي: ${total} ج.م`;
             }
         }
 
@@ -4388,7 +4388,7 @@
                 if (!cat) return;
                 const prod = cat.products.find(p => p.id === qtyPopupData.productId);
                 if (!prod || prod.quantity < qty) {
-                    showToast(`âš ï¸ Ø§Ù„ÙƒÙ…ÙŠØ© Ø§Ù„Ù…ØªØ§Ø­Ø© ${prod ? prod.quantity : 0} ÙÙ‚Ø·`, 'error');
+                    showToast(`⚠️ الكمية المتاحة ${prod ? prod.quantity : 0} فقط`, 'error');
                     return;
                 }
 
@@ -4404,16 +4404,16 @@
                     productId: qtyPopupData.productId,
                     name: prod.name,
                     price: prod.price,
-                    img: prod.img || 'ðŸ“¦',
+                    img: prod.img || '📦',
                     imgUrl: prod.imgUrl || null,
                     quantity: qty,
-                    unit: prod.unit || 'Ø¹Ø¯Ø¯'
+                    unit: prod.unit || 'عدد'
                 });
                 await setCartForUser(currentUser.username, cartItems);
 
                 updateCartBadge();
                 closeQtyPopup();
-                showToast(`âœ… ØªÙ…Øª Ø¥Ø¶Ø§ÙØ© ${qty} Ù‚Ø·Ø¹Ø© Ø¥Ù„Ù‰ Ø§Ù„Ø³Ù„Ø©`, 'success');
+                showToast(`✅ تمت إضافة ${qty} قطعة إلى السلة`, 'success');
                 if (document.getElementById('products-screen').classList.contains('active'))
                     openCategoryProducts(qtyPopupData.categoryId);
             } finally {
@@ -4434,7 +4434,7 @@
             overlay.classList.add('show');
             closeFloatingMenu();
             const settings = await getCompanySettings();
-            document.getElementById('company-transfer-number').textContent = settings.paymentNumber || 'ØºÙŠØ± Ù…Ø­Ø¯Ø¯ ÙÙŠ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª';
+            document.getElementById('company-transfer-number').textContent = settings.paymentNumber || 'غير محدد في الإعدادات';
         }
 
         function closeCartOutside(e) {
@@ -4451,26 +4451,26 @@
             const checkout = document.getElementById('checkout-section');
 
             if (!cartItems.length) {
-                body.innerHTML = '<div style="text-align:center;padding:40px;color:var(--gray-500);">ðŸ›’<br>Ø§Ù„Ø³Ù„Ø© ÙØ§Ø±ØºØ©</div>';
+                body.innerHTML = '<div style="text-align:center;padding:40px;color:var(--gray-500);">🛒<br>السلة فارغة</div>';
                 totalDiv.style.display = 'none';
                 checkout.style.display = 'none';
             } else {
                 body.innerHTML = cartItems.map((item, i) => `
                 <div class="cart-item">
-                    <span class="cart-item-img">${item.img || 'ðŸ“¦'}</span>
+                    <span class="cart-item-img">${item.img || '📦'}</span>
                     <div class="cart-item-info">
                         <h4>${item.name}</h4>
-                        <span class="price">${item.price} Ø¬.Ù… Ã— ${item.quantity} = ${item.price * item.quantity} Ø¬.Ù…</span>
-                        <span class="unit">(${item.unit || 'Ø¹Ø¯Ø¯'})</span>
+                        <span class="price">${item.price} ج.م × ${item.quantity} = ${item.price * item.quantity} ج.م</span>
+                        <span class="unit">(${item.unit || 'عدد'})</span>
                     </div>
                     <div class="cart-item-actions">
-                        <button class="qty-btn" onclick="changeCartQty(${i},-1)">âˆ’</button>
+                        <button class="qty-btn" onclick="changeCartQty(${i},-1)">−</button>
                         <span>${item.quantity}</span>
                         <button class="qty-btn" onclick="changeCartQty(${i},1)">+</button>
-                        <button class="remove-btn" onclick="removeCartItem(${i})">ðŸ—‘ï¸</button>
+                        <button class="remove-btn" onclick="removeCartItem(${i})">🗑️</button>
                     </div>
                 </div>`).join('');
-                totalAmt.textContent = cartItems.reduce((s, i) => s + i.price * i.quantity, 0) + ' Ø¬.Ù…';
+                totalAmt.textContent = cartItems.reduce((s, i) => s + i.price * i.quantity, 0) + ' ج.م';
                 totalDiv.style.display = 'flex';
                 checkout.style.display = 'block';
             }
@@ -4496,7 +4496,7 @@
                         await saveCategories(categories);
                         await setCartForUser(currentUser.username, cartItems);
                         await renderCart();
-                    } else showToast(`âš ï¸ Ø§Ù„ÙƒÙ…ÙŠØ© Ø§Ù„Ù…ØªØ§Ø­Ø© Ù†ÙØ¯Øª`, 'error');
+                    } else showToast(`⚠️ الكمية المتاحة نفدت`, 'error');
                 } else {
                     item.quantity -= 1;
                     if (prod) prod.quantity += 1;
@@ -4528,7 +4528,7 @@
                 await saveCategories(categories);
                 await setCartForUser(currentUser.username, cartItems);
                 await renderCart();
-                showToast('ðŸ—‘ï¸ ØªÙ… Ø§Ù„Ø­Ø°Ù Ù…Ù† Ø§Ù„Ø³Ù„Ø©', 'success');
+                showToast('🗑️ تم الحذف من السلة', 'success');
             } finally {
                 showLoading(false);
             }
@@ -4549,13 +4549,13 @@
         let isSubmittingOrder = false;
         async function submitOrder() {
             if (isSubmittingOrder) return;
-            if (!currentUser) { showToast('âš ï¸ ÙŠØ¬Ø¨ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø£ÙˆÙ„Ø§Ù‹', 'error'); return; }
+            if (!currentUser) { showToast('⚠️ يجب تسجيل الدخول أولاً', 'error'); return; }
             const cartItems = await getCartForUser(currentUser.username);
-            if (cartItems.length === 0) { showToast('âš ï¸ Ø§Ù„Ø³Ù„Ø© ÙØ§Ø±ØºØ©', 'error'); return; }
+            if (cartItems.length === 0) { showToast('⚠️ السلة فارغة', 'error'); return; }
             const paymentMethod = document.getElementById('payment-method').value;
             const deliveryAddress = document.getElementById('delivery-address').value.trim();
-            if (!paymentMethod) { showToast('âš ï¸ Ø§Ø®ØªØ± Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¯ÙØ¹', 'error'); return; }
-            if (!deliveryAddress) { showToast('âš ï¸ Ø£Ø¯Ø®Ù„ Ø¹Ù†ÙˆØ§Ù† Ø§Ù„ØªÙˆØµÙŠÙ„', 'error'); return; }
+            if (!paymentMethod) { showToast('⚠️ اختر طريقة الدفع', 'error'); return; }
+            if (!deliveryAddress) { showToast('⚠️ أدخل عنوان التوصيل', 'error'); return; }
 
             const total = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
             const now = new Date();
@@ -4564,9 +4564,9 @@
             const order = {
                 id: 'ORD-' + Date.now(),
                 username: currentUser.username,
-                phone: currentUser.phone || 'ØºÙŠØ± Ù…Ø³Ø¬Ù„',
-                items: cartItems.map(i => ({ name: i.name, price: i.price, quantity: i.quantity, img: i.img || 'ðŸ“¦',
-                        imgUrl: i.imgUrl || null, shipped: 0, unit: i.unit || 'Ø¹Ø¯Ø¯' })),
+                phone: currentUser.phone || 'غير مسجل',
+                items: cartItems.map(i => ({ name: i.name, price: i.price, quantity: i.quantity, img: i.img || '📦',
+                        imgUrl: i.imgUrl || null, shipped: 0, unit: i.unit || 'عدد' })),
                 total: total,
                 paymentMethod: paymentMethod,
                 deliveryAddress: deliveryAddress,
@@ -4585,7 +4585,7 @@
                 updateCartBadge();
                 updateOrdersBadge();
                 document.getElementById('cart-overlay').classList.remove('show');
-                showToast(`âœ… ØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø·Ù„Ø¨Ùƒ Ø¨Ù†Ø¬Ø§Ø­!`, 'success');
+                showToast(`✅ تم إرسال طلبك بنجاح!`, 'success');
                 document.getElementById('payment-method').value = '';
                 document.getElementById('delivery-address').value = '';
                 await renderCart();
@@ -4603,7 +4603,7 @@
             const badge = document.getElementById('orders-header-badge');
             const orders = await getOrders();
             const count = orders.filter(o => o.status === 'new').length;
-            if (count > 0 && currentUser && (currentUser.type === 'Ù…Ø¯ÙŠØ±' || currentUser.type === 'Ø¨Ø§Ø¦Ø¹')) {
+            if (count > 0 && currentUser && (currentUser.type === 'مدير' || currentUser.type === 'بائع')) {
                 badge.textContent = count;
                 badge.style.display = 'flex';
             } else {
@@ -4618,12 +4618,12 @@
             const newOrders = orders.filter(o => o.status === 'new');
             const list = document.getElementById('orders-popup-list');
             if (newOrders.length === 0) {
-                list.innerHTML = '<div class="empty-msg">ðŸ“­ Ù„Ø§ ØªÙˆØ¬Ø¯ Ø·Ù„Ø¨Ø§Øª Ø¬Ø¯ÙŠØ¯Ø©</div>';
+                list.innerHTML = '<div class="empty-msg">📭 لا توجد طلبات جديدة</div>';
             } else {
                 list.innerHTML = newOrders.map(o => `
                 <div class="order-item" onclick="closeOrdersPopup(); showOrderDetail('${o.id}')">
-                    <div class="info"><strong>${o.username}</strong><small>ðŸ“± ${o.phone} | ðŸ•’ ${o.date}</small></div>
-                    <div class="total">${o.total} Ø¬.Ù…</div>
+                    <div class="info"><strong>${o.username}</strong><small>📱 ${o.phone} | 🕒 ${o.date}</small></div>
+                    <div class="total">${o.total} ج.م</div>
                 </div>
             `).join('');
             }
@@ -4661,7 +4661,7 @@
             let newShipped = currentShipped + delta;
             if (newShipped < 0) newShipped = 0;
             if (newShipped > item.quantity) {
-                showToast(`âš ï¸ Ù„Ø§ ÙŠÙ…ÙƒÙ† Ø´Ø­Ù† Ø£ÙƒØ«Ø± Ù…Ù† Ø§Ù„Ù…Ø·Ù„ÙˆØ¨ (${item.quantity})`, 'warning');
+                showToast(`⚠️ لا يمكن شحن أكثر من المطلوب (${item.quantity})`, 'warning');
                 newShipped = item.quantity;
             }
             item.shipped = newShipped;
@@ -4671,7 +4671,7 @@
             try {
                 await updateOrder(order.docId, { items: order.items });
             } catch (err) {
-                showToast('âŒ ÙØ´Ù„ Ø­ÙØ¸ Ø§Ù„ØªØ­Ø¯ÙŠØ«ØŒ ØªØ­Ù‚Ù‚ Ù…Ù† Ø§Ù„Ø§ØªØµØ§Ù„: ' + err.message, 'error');
+                showToast('❌ فشل حفظ التحديث، تحقق من الاتصال: ' + err.message, 'error');
             }
         }
 
@@ -4681,7 +4681,7 @@
             ordersCache = orders;
             if (orders.length === 0) {
                 container.innerHTML =
-                    '<div style="text-align:center;padding:40px;color:var(--gray-500);">ðŸ“­ Ù„Ø§ ØªÙˆØ¬Ø¯ Ø·Ù„Ø¨Ø§Øª Ù…Ø´ØªØ±ÙŠØ§Øª Ø­ØªÙ‰ Ø§Ù„Ø¢Ù†</div>';
+                    '<div style="text-align:center;padding:40px;color:var(--gray-500);">📭 لا توجد طلبات مشتريات حتى الآن</div>';
                 return;
             }
             orders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
@@ -4690,8 +4690,8 @@
                 const isHighlight = o.id === highlightId;
                 const statusClass = o.status === 'new' ? 'new' : (o.status === 'viewed' ? 'viewed' :
                 'completed');
-                const statusText = o.status === 'new' ? 'Ø¬Ø¯ÙŠØ¯' : (o.status === 'viewed' ? 'ØªÙ… Ø§Ù„Ù…Ø¹Ø§ÙŠÙ†Ø©' :
-                'Ù…ÙƒØªÙ…Ù„');
+                const statusText = o.status === 'new' ? 'جديد' : (o.status === 'viewed' ? 'تم المعاينة' :
+                'مكتمل');
 
                 let totalShippedPieces = 0;
                 let totalShippedCost = 0;
@@ -4701,7 +4701,7 @@
                     const remaining = item.quantity - shipped;
                     const shippedCost = shipped * item.price;
                     const remainingCost = remaining * item.price;
-                    const unit = item.unit || 'Ø¹Ø¯Ø¯';
+                    const unit = item.unit || 'عدد';
 
                     totalShippedPieces += shipped;
                     totalShippedCost += shippedCost;
@@ -4710,23 +4710,23 @@
                     <div class="item-row" style="background:var(--gray-50); padding:8px 10px; border-radius:var(--radius-sm); margin-bottom:6px;">
                         <div style="flex:1; min-width:110px;">
                             <strong>${item.name}</strong>
-                            <div style="font-size:11px; color:var(--gray-500);">Ø³Ø¹Ø± Ø§Ù„Ù‚Ø·Ø¹Ø©: ${item.price} Ø¬.Ù…</div>
-                            <div style="font-size:11px; color:var(--gray-500);">Ø§Ù„ÙˆØ­Ø¯Ø©: ${unit}</div>
+                            <div style="font-size:11px; color:var(--gray-500);">سعر القطعة: ${item.price} ج.م</div>
+                            <div style="font-size:11px; color:var(--gray-500);">الوحدة: ${unit}</div>
                         </div>
                         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                            <span style="font-size:12px; color:var(--gray-700);">Ø§Ù„Ù…Ø·Ù„ÙˆØ¨: <strong>${item.quantity}</strong></span>
+                            <span style="font-size:12px; color:var(--gray-700);">المطلوب: <strong>${item.quantity}</strong></span>
                             <div style="display:inline-flex; align-items:center; gap:2px; background:white; padding:2px 6px; border-radius:20px; border:1px solid var(--gray-300);">
                                 <button type="button" class="ship-btn" onclick="changeShipQty('${o.id}', ${idx}, -1)">-</button>
                                 <span class="ship-qty-display">${shipped}</span>
                                 <button type="button" class="ship-btn" onclick="changeShipQty('${o.id}', ${idx}, 1)">+</button>
                             </div>
                             <span style="font-size:12px; color:${remaining > 0 ? 'var(--red)' : 'var(--primary)'}; font-weight:bold;">
-                                Ø§Ù„Ù…ØªØ¨Ù‚ÙŠ: <strong>${remaining}</strong> Ù‚Ø·Ø¹Ø©
+                                المتبقي: <strong>${remaining}</strong> قطعة
                             </span>
                         </div>
                         <div style="text-align:left; min-width:90px; font-weight:bold; font-size:12px;">
-                            <div style="color:var(--primary);">Ù…Ø´Ø­ÙˆÙ†: ${shippedCost} Ø¬.Ù…</div>
-                            <div style="color:${remainingCost > 0 ? 'var(--red)' : 'var(--gray-500)'};">Ù…ØªØ¨Ù‚ÙŠ: ${remainingCost} Ø¬.Ù…</div>
+                            <div style="color:var(--primary);">مشحون: ${shippedCost} ج.م</div>
+                            <div style="color:${remainingCost > 0 ? 'var(--red)' : 'var(--gray-500)'};">متبقي: ${remainingCost} ج.م</div>
                         </div>
                     </div>`;
                 }).join('');
@@ -4737,39 +4737,39 @@
                 return `
                 <div class="order-card" style="${isHighlight ? 'border-right-color:var(--gold);background:#fefce8;' : ''}">
                     <div class="order-header">
-                        <div class="user">ðŸ‘¤ ${o.username} (${o.phone})</div>
+                        <div class="user">👤 ${o.username} (${o.phone})</div>
                         <span class="status ${statusClass}">${statusText}</span>
                     </div>
                     <div class="order-details">
-                        <div class="detail-item"><div class="label">ðŸ“… Ø§Ù„ØªØ§Ø±ÙŠØ®</div><div class="value">${o.date}</div></div>
-                        <div class="detail-item"><div class="label">ðŸ’³ Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¯ÙØ¹</div><div class="value">${o.paymentMethod}</div></div>
-                        <div class="detail-item"><div class="label">ðŸ“ Ø§Ù„Ø¹Ù†ÙˆØ§Ù†</div><div class="value">${o.deliveryAddress}</div></div>
-                        <div class="detail-item"><div class="label">ðŸ“¦ ØªÙ… Ø´Ø­Ù†Ù‡</div><div class="value" style="color:var(--primary);">${totalShippedPieces} Ù‚Ø·Ø¹Ø© (${totalShippedCost} Ø¬.Ù…)</div></div>
-                        <div class="detail-item"><div class="label">â³ Ø§Ù„Ù…ØªØ¨Ù‚ÙŠ Ù„Ù„Ø´Ø­Ù†</div><div class="value" style="color:var(--red);">${o.total - totalShippedCost} Ø¬.Ù…</div></div>
+                        <div class="detail-item"><div class="label">📅 التاريخ</div><div class="value">${o.date}</div></div>
+                        <div class="detail-item"><div class="label">💳 طريقة الدفع</div><div class="value">${o.paymentMethod}</div></div>
+                        <div class="detail-item"><div class="label">📍 العنوان</div><div class="value">${o.deliveryAddress}</div></div>
+                        <div class="detail-item"><div class="label">📦 تم شحنه</div><div class="value" style="color:var(--primary);">${totalShippedPieces} قطعة (${totalShippedCost} ج.م)</div></div>
+                        <div class="detail-item"><div class="label">⏳ المتبقي للشحن</div><div class="value" style="color:var(--red);">${o.total - totalShippedCost} ج.م</div></div>
                     </div>
                     <div class="order-items">
-                        <div style="font-weight:bold; margin-bottom:6px; font-size:13px; color:var(--gray-700);">ØªØ­Ø¯ÙŠØ¯ Ø§Ù„ÙƒÙ…ÙŠØ§Øª Ø§Ù„Ù…Ø´Ø­ÙˆÙ†Ø©:</div>
+                        <div style="font-weight:bold; margin-bottom:6px; font-size:13px; color:var(--gray-700);">تحديد الكميات المشحونة:</div>
                         ${itemsHtml}
                         <div class="total-row" style="margin-top:8px;">
-                            <span>Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø·Ù„Ø¨ Ø§Ù„ÙƒÙ„ÙŠ</span>
-                            <span>${o.total} Ø¬.Ù…</span>
+                            <span>إجمالي الطلب الكلي</span>
+                            <span>${o.total} ج.م</span>
                         </div>
                     </div>
                     ${!isCompleted ? `
                     <div class="order-actions">
-                        <button class="btn btn-success" onclick="completeOrder('${o.id}')">âœ… ØªÙ… Ø§Ù„ØªØ¬Ù‡ÙŠØ²</button>
-                        <button class="btn btn-danger" onclick="deleteOrder('${o.id}')">ðŸ—‘ï¸ Ø­Ø°Ù</button>
+                        <button class="btn btn-success" onclick="completeOrder('${o.id}')">✅ تم التجهيز</button>
+                        <button class="btn btn-danger" onclick="deleteOrder('${o.id}')">🗑️ حذف</button>
                     </div>` : `
-                    <div style="background:#d4edda;padding:6px;border-radius:var(--radius-sm);text-align:center;color:#155724;font-weight:bold;font-size:13px;">âœ… ØªÙ… ØªØ¬Ù‡ÙŠØ² Ø§Ù„Ø·Ù„Ø¨ ÙˆÙ†Ù‚Ù„Ù‡ Ù„Ù„Ø£Ø±Ø´ÙŠÙ</div>`}
+                    <div style="background:#d4edda;padding:6px;border-radius:var(--radius-sm);text-align:center;color:#155724;font-weight:bold;font-size:13px;">✅ تم تجهيز الطلب ونقله للأرشيف</div>`}
                 </div>`;
             }).join('');
         }
 
         // ============================================================
-        //  17. COMPLETE ORDER â†’ ARCHIVE
+        //  17. COMPLETE ORDER → ARCHIVE
         // ============================================================
         async function completeOrder(orderId) {
-            if (!confirm('ØªØ£ÙƒÙŠØ¯ ØªØ¬Ù‡ÙŠØ² Ù‡Ø°Ø§ Ø§Ù„Ø·Ù„Ø¨ ÙˆÙ†Ù‚Ù„Ù‡ Ù„Ù„Ø£Ø±Ø´ÙŠÙØŸ')) return;
+            if (!confirm('تأكيد تجهيز هذا الطلب ونقله للأرشيف؟')) return;
             showLoading(true);
             try {
                 const orders = await getOrders();
@@ -4798,7 +4798,7 @@
                 await renderOrdersList();
                 await renderArchiveList();
                 updateOrdersBadge();
-                showToast(`âœ… ØªÙ… ØªØ¬Ù‡ÙŠØ² Ø§Ù„Ø·Ù„Ø¨ ÙˆÙ†Ù‚Ù„Ù‡ Ù„Ù„Ø£Ø±Ø´ÙŠÙ`, 'success');
+                showToast(`✅ تم تجهيز الطلب ونقله للأرشيف`, 'success');
                 sendOrderPreparedWhatsApp(archiveEntry, shippedTotal);
             } finally {
                 showLoading(false);
@@ -4809,36 +4809,36 @@
         //  18. WHATSAPP SENDER
         // ============================================================
         function sendOrderPreparedWhatsApp(order, shippedTotal) {
-            const companyName = localStorage.getItem('bakala_company_name') || 'Ø¨Ù‚Ø§Ù„Ø© Ø§Ù„Ø®ÙŠØ±';
+            const companyName = localStorage.getItem('bakala_company_name') || 'بقالة الخير';
             const remaining = order.total - shippedTotal;
 
             const itemsText = (order.items || []).map(item => {
                 const requested = item.quantity;
                 const shipped = item.shipped || 0;
-                const unit = item.unit || 'Ø¹Ø¯Ø¯';
+                const unit = item.unit || 'عدد';
                 const itemTotal = shipped * item.price;
-                return `â€¢ ${item.name} : ${shipped} Ù…Ù† ${requested} ${unit} (${itemTotal} Ø¬.Ù…)`;
+                return `• ${item.name} : ${shipped} من ${requested} ${unit} (${itemTotal} ج.م)`;
             }).join('\n');
 
             const message =
-                `- ØªØ­Ø¯ÙŠØ« Ø­Ø§Ù„Ø© Ø·Ù„Ø¨Ùƒ Ù…Ù† ${companyName} -\n\nÙ…Ø±Ø­Ø¨Ø§Ù‹ ${order.username}\n\nØªÙ… ØªØ¬Ù‡ÙŠØ² Ø·Ù„Ø¨Ùƒ Ø¨Ù†Ø¬Ø§Ø­ âœ“\n\n* Ø§Ù„ØªØ§Ø±ÙŠØ®: ${order.date || order.archivedDate || ''}\n* Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¯ÙØ¹: ${order.paymentMethod || 'ØºÙŠØ± Ù…Ø­Ø¯Ø¯Ø©'}\n* Ø¹Ù†ÙˆØ§Ù† Ø§Ù„ØªÙˆØµÙŠÙ„: ${order.deliveryAddress || 'ØºÙŠØ± Ù…Ø­Ø¯Ø¯'}\n\n* ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø£ØµÙ†Ø§Ù Ø§Ù„Ù…Ø¬Ù‡Ø²Ø©:\n${itemsText}\n\n* Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ù‚ÙŠÙ…Ø© Ø§Ù„Ø·Ù„Ø¨: ${order.total} Ø¬.Ù…\n* ØªÙƒÙ„ÙÙ‡ Ù…Ø§ ØªÙ… Ø´Ø­Ù†Ù‡: ${shippedTotal} Ø¬.Ù…\n* Ø§Ù„Ù…Ø¨Ù„Øº Ø§Ù„Ù…ØªØ¨Ù‚ÙŠ: ${remaining} Ø¬.Ù…\n\nØ´ÙƒØ±Ø§Ù‹ Ù„Ø«Ù‚ØªÙƒ Ø¨Ù†Ø§\n${companyName}`;
+                `- تحديث حالة طلبك من ${companyName} -\n\nمرحباً ${order.username}\n\nتم تجهيز طلبك بنجاح ✓\n\n* التاريخ: ${order.date || order.archivedDate || ''}\n* طريقة الدفع: ${order.paymentMethod || 'غير محددة'}\n* عنوان التوصيل: ${order.deliveryAddress || 'غير محدد'}\n\n* تفاصيل الأصناف المجهزة:\n${itemsText}\n\n* إجمالي قيمة الطلب: ${order.total} ج.م\n* تكلفه ما تم شحنه: ${shippedTotal} ج.م\n* المبلغ المتبقي: ${remaining} ج.م\n\nشكراً لثقتك بنا\n${companyName}`;
 
             if (order.phone) {
                 const sent = sendWhatsAppMessage(order.phone, message);
-                if (sent) showToast(`ðŸ“² ØªÙ… Ø¥Ø±Ø³Ø§Ù„ ØªÙØ§ØµÙŠÙ„ Ø§Ù„ØªØ¬Ù‡ÙŠØ² Ø¥Ù„Ù‰ ÙˆØ§ØªØ³Ø§Ø¨ Ø§Ù„Ù…Ø´ØªØ±ÙŠ (${order.phone})`, 'success');
-                else showToast(`âš ï¸ Ù„Ù… Ù†ØªÙ…ÙƒÙ† Ù…Ù† Ø¥Ø±Ø³Ø§Ù„ Ø±Ø³Ø§Ù„Ø© Ø§Ù„ÙˆØ§ØªØ³Ø§Ø¨ØŒ ØªØ£ÙƒØ¯ Ù…Ù† Ø±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ: ${order.phone}`, 'warning');
+                if (sent) showToast(`📲 تم إرسال تفاصيل التجهيز إلى واتساب المشتري (${order.phone})`, 'success');
+                else showToast(`⚠️ لم نتمكن من إرسال رسالة الواتساب، تأكد من رقم الهاتف: ${order.phone}`, 'warning');
             } else {
-                showToast('âš ï¸ Ø±Ù‚Ù… Ù‡Ø§ØªÙ Ø§Ù„Ù…Ø´ØªØ±ÙŠ ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯ Ù„Ø¥Ø±Ø³Ø§Ù„ Ø±Ø³Ø§Ù„Ø© Ø§Ù„ÙˆØ§ØªØ³Ø§Ø¨', 'warning');
+                showToast('⚠️ رقم هاتف المشتري غير موجود لإرسال رسالة الواتساب', 'warning');
             }
         }
 
         function sendWhatsAppMessage(phoneNumber, message) {
-            if (!phoneNumber) { showToast('âš ï¸ Ø±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯', 'error'); return false; }
+            if (!phoneNumber) { showToast('⚠️ رقم الهاتف غير موجود', 'error'); return false; }
             let cleaned = phoneNumber.replace(/[^0-9]/g, '');
             if (cleaned.startsWith('0')) cleaned = '20' + cleaned.substring(1);
             else if (cleaned.length < 10) cleaned = '20' + cleaned;
             if (cleaned.startsWith('0020')) cleaned = cleaned.substring(2);
-            if (cleaned.length < 10) { showToast(`âš ï¸ Ø±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ ØºÙŠØ± Ù…ÙƒØªÙ…Ù„: ${phoneNumber}`, 'warning'); return false; }
+            if (cleaned.length < 10) { showToast(`⚠️ رقم الهاتف غير مكتمل: ${phoneNumber}`, 'warning'); return false; }
             const encodedMessage = encodeURIComponent(message);
             window.open(`https://wa.me/${cleaned}?text=${encodedMessage}`, '_blank');
             return true;
@@ -4848,7 +4848,7 @@
         //  19. DELETE ORDER
         // ============================================================
         async function deleteOrder(orderId) {
-            if (!confirm('Ø­Ø°Ù Ù‡Ø°Ø§ Ø§Ù„Ø·Ù„Ø¨ Ù†Ù‡Ø§Ø¦ÙŠØ§Ù‹ØŸ')) return;
+            if (!confirm('حذف هذا الطلب نهائياً؟')) return;
             showLoading(true);
             try {
                 const orders = await getOrders();
@@ -4857,7 +4857,7 @@
                 await deleteOrderDoc(order.docId);
                 await renderOrdersList();
                 updateOrdersBadge();
-                showToast('ðŸ—‘ï¸ ØªÙ… Ø­Ø°Ù Ø§Ù„Ø·Ù„Ø¨', 'success');
+                showToast('🗑️ تم حذف الطلب', 'success');
             } finally {
                 showLoading(false);
             }
@@ -4877,7 +4877,7 @@
 
             if (allUserOrders.length === 0) {
                 container.innerHTML =
-                    '<div style="text-align:center;padding:40px;color:var(--gray-500);">ðŸ“­ Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ø´ØªØ±ÙŠØ§Øª Ø³Ø§Ø¨Ù‚Ø© ÙÙŠ Ø£Ø±Ø´ÙŠÙÙƒ</div>';
+                    '<div style="text-align:center;padding:40px;color:var(--gray-500);">📭 لا توجد مشتريات سابقة في أرشيفك</div>';
                 return;
             }
 
@@ -4888,15 +4888,15 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width:70px;">Ø§Ù„ØµÙˆØ±Ø©</th>
-                            <th style="text-align:right;">Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬</th>
-                            <th>Ø§Ù„Ù…Ø·Ù„ÙˆØ¨</th>
-                            <th>ØªÙ… Ø§Ù„ØªØ³Ù„ÙŠÙ…</th>
-                            <th>Ù…Ø±ØªØ¬Ø¹</th>
-                            <th>Ø§Ù„ØµØ§ÙÙŠ</th>
-                            <th>Ø§Ù„ÙˆØ­Ø¯Ø©</th>
-                            <th>Ø§Ù„Ø­Ø§Ù„Ø©</th>
-                            <th>Ø§Ù„ØªØ§Ø±ÙŠØ®</th>
+                            <th style="width:70px;">الصورة</th>
+                            <th style="text-align:right;">اسم المنتج</th>
+                            <th>المطلوب</th>
+                            <th>تم التسليم</th>
+                            <th>مرتجع</th>
+                            <th>الصافي</th>
+                            <th>الوحدة</th>
+                            <th>الحالة</th>
+                            <th>التاريخ</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -4905,13 +4905,13 @@
             allUserOrders.forEach(order => {
                 const dateStr = order.date || order.archivedDate || '';
                 (order.items || []).forEach(item => {
-                    const unit = item.unit || 'Ø¹Ø¯Ø¯';
+                    const unit = item.unit || 'عدد';
                     const requested = item.quantity;
-                    let shippedDisplay = 'â€”',
+                    let shippedDisplay = '—',
                         returnedDisplay = 0,
                         netDisplay = requested,
                         netColor = 'var(--primary-dark)',
-                        statusText = 'Ù‚ÙŠØ¯ Ø§Ù„ØªØ¬Ù‡ÙŠØ²',
+                        statusText = 'قيد التجهيز',
                         statusColor = 'var(--gray-500)';
 
                     if (order._archived) {
@@ -4921,15 +4921,15 @@
                         shippedDisplay = shipped;
                         returnedDisplay = returned;
                         netDisplay = net;
-                        if (returned > 0) { statusText = 'ØªÙ… Ø¥Ø±Ø¬Ø§Ø¹ parte';
+                        if (returned > 0) { statusText = 'تم إرجاع parte';
                             statusColor = 'var(--red)';
-                            netColor = 'var(--red)'; } else { statusText = 'Ù…ÙƒØªÙ…Ù„';
+                            netColor = 'var(--red)'; } else { statusText = 'مكتمل';
                             statusColor = 'var(--primary)'; }
                     }
 
                     html += `
                         <tr>
-                            <td style="font-size:24px; text-align:center;">${item.img || 'ðŸ“¦'}</td>
+                            <td style="font-size:24px; text-align:center;">${item.img || '📦'}</td>
                             <td style="text-align:right; font-weight:bold;">${item.name}</td>
                             <td style="text-align:center; color:var(--gray-600);">${requested}</td>
                             <td style="text-align:center; color:var(--primary);">${shippedDisplay}</td>
@@ -4954,20 +4954,20 @@
             const container = document.getElementById('archive-list-container');
             const archive = await getArchive();
             if (archive.length === 0) {
-                container.innerHTML = '<div class="archive-empty">ðŸ“­ Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ø¨ÙŠØ¹Ø§Øª ÙÙŠ Ø§Ù„Ø£Ø±Ø´ÙŠÙ</div>';
+                container.innerHTML = '<div class="archive-empty">📭 لا توجد مبيعات في الأرشيف</div>';
                 return;
             }
             archive.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
 
             let html = `
             <div class="archive-header-row" style="display:grid;grid-template-columns:1.2fr 0.6fr 0.8fr 0.8fr 0.8fr 0.7fr 0.6fr;gap:8px;padding:6px 10px;background:var(--gray-100);border-radius:var(--radius-sm);margin-bottom:6px;font-weight:bold;font-size:12px;">
-                <div>Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…</div>
-                <div>Ø§Ù„Ù‡Ø§ØªÙ</div>
-                <div>ØªÙƒÙ„ÙØ© Ø§Ù„Ø·Ù„Ø¨</div>
-                <div>ØªÙ… Ø´Ø­Ù†Ù‡</div>
-                <div>Ø§Ù„Ù…ØªØ¨Ù‚ÙŠ</div>
-                <div>Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¯ÙØ¹</div>
-                <div>Ø§Ù„ØªØ§Ø±ÙŠØ®</div>
+                <div>المستخدم</div>
+                <div>الهاتف</div>
+                <div>تكلفة الطلب</div>
+                <div>تم شحنه</div>
+                <div>المتبقي</div>
+                <div>طريقة الدفع</div>
+                <div>التاريخ</div>
             </div>
             `;
             archive.forEach(o => {
@@ -4979,12 +4979,12 @@
                 }, 0);
                 const remainingTotal = orderTotal - netShippedTotal;
                 html += `
-                <div class="archive-card" onclick="openArchiveDetail('${o.id}')" style="cursor:pointer;" title="Ø§Ø¶ØºØ· Ù„Ø¹Ø±Ø¶ ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø·Ù„Ø¨">
+                <div class="archive-card" onclick="openArchiveDetail('${o.id}')" style="cursor:pointer;" title="اضغط لعرض تفاصيل الطلب">
                     <div class="col-user">${o.username}</div>
                     <div class="col-phone">${o.phone}</div>
-                    <div class="col-total">${orderTotal} Ø¬.Ù…</div>
-                    <div style="font-weight:bold; color:var(--primary);">${netShippedTotal} Ø¬.Ù…</div>
-                    <div class="col-remaining">${remainingTotal > 0 ? remainingTotal : 0} Ø¬.Ù…</div>
+                    <div class="col-total">${orderTotal} ج.م</div>
+                    <div style="font-weight:bold; color:var(--primary);">${netShippedTotal} ج.م</div>
+                    <div class="col-remaining">${remainingTotal > 0 ? remainingTotal : 0} ج.م</div>
                     <div class="col-method">${o.paymentMethod}</div>
                     <div class="col-date">${o.archivedDate || o.date}</div>
                 </div>
@@ -5011,14 +5011,14 @@
             const order = archive.find(o => o.id === currentArchiveOrderId);
             if (!order) return;
 
-            document.getElementById('archive-modal-title').textContent = `ðŸ“„ ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø·Ù„Ø¨: ${order.username}`;
+            document.getElementById('archive-modal-title').textContent = `📄 تفاصيل الطلب: ${order.username}`;
             document.getElementById('archive-modal-info').innerHTML = `
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
-                <div><strong>ðŸ‘¤ Ø§Ù„Ù…Ø´ØªØ±ÙŠ:</strong> ${order.username}</div>
-                <div><strong>ðŸ“± Ø§Ù„Ù‡Ø§ØªÙ:</strong> ${order.phone}</div>
-                <div><strong>ðŸ“… Ø§Ù„ØªØ§Ø±ÙŠØ®:</strong> ${order.archivedDate || order.date}</div>
-                <div><strong>ðŸ’³ Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¯ÙØ¹:</strong> ${order.paymentMethod}</div>
-                <div style="grid-column:1/-1;"><strong>ðŸ“ Ø§Ù„Ø¹Ù†ÙˆØ§Ù†:</strong> ${order.deliveryAddress || 'ØºÙŠØ± Ù…Ø­Ø¯Ø¯'}</div>
+                <div><strong>👤 المشتري:</strong> ${order.username}</div>
+                <div><strong>📱 الهاتف:</strong> ${order.phone}</div>
+                <div><strong>📅 التاريخ:</strong> ${order.archivedDate || order.date}</div>
+                <div><strong>💳 طريقة الدفع:</strong> ${order.paymentMethod}</div>
+                <div style="grid-column:1/-1;"><strong>📍 العنوان:</strong> ${order.deliveryAddress || 'غير محدد'}</div>
             </div>
             `;
 
@@ -5029,36 +5029,36 @@
 
             if (archiveModalEditMode) {
                 theadRow.innerHTML = `
-                <th>ðŸ“¦ Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬</th>
-                <th>ðŸ’° Ø§Ù„Ø³Ø¹Ø±</th>
-                <th>ðŸšš ØªÙ… ØªØ³Ù„ÙŠÙ…Ù‡</th>
-                <th>ðŸ”„ Ù…Ø±ØªØ¬Ø¹ Ø³Ø§Ø¨Ù‚Ø§Ù‹</th>
-                <th>âž• Ø¥Ø±Ø¬Ø§Ø¹ Ø¬Ø¯ÙŠØ¯</th>
+                <th>📦 اسم المنتج</th>
+                <th>💰 السعر</th>
+                <th>🚚 تم تسليمه</th>
+                <th>🔄 مرتجع سابقاً</th>
+                <th>➕ إرجاع جديد</th>
                 `;
                 tbody.innerHTML = (order.items || []).map((item, idx) => {
                     const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
                     const alreadyReturned = item.returned || 0;
                     const available = Math.max(0, shipped - alreadyReturned);
-                    const unit = item.unit || 'Ø¹Ø¯Ø¯';
+                    const unit = item.unit || 'عدد';
                     return `<tr>
                     <td style="text-align:right; font-weight:bold;">${item.name}</td>
-                    <td>${item.price} Ø¬.Ù…</td>
+                    <td>${item.price} ج.م</td>
                     <td>${shipped} (${unit})</td>
                     <td style="color:var(--red);">${alreadyReturned} (${unit})</td>
                     <td>
                         <input type="number" id="return-qty-${idx}" min="0" max="${available}" value="0" style="width:70px; text-align:center; padding:6px; border:1px solid var(--gray-300); border-radius:6px;">
-                        <div style="font-size:10px; color:var(--gray-500);">Ø§Ù„Ù…ØªØ§Ø­ Ù„Ù„Ø¥Ø±Ø¬Ø§Ø¹: ${available}</div>
+                        <div style="font-size:10px; color:var(--gray-500);">المتاح للإرجاع: ${available}</div>
                     </td>
                 </tr>`;
                 }).join('');
             } else {
                 theadRow.innerHTML = `
-                <th>ðŸ“¦ Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬</th>
-                <th>ðŸ’° Ø³Ø¹Ø± Ø§Ù„ÙˆØ­Ø¯Ø©</th>
-                <th>ðŸ“ Ø§Ù„Ù…Ø·Ù„ÙˆØ¨</th>
-                <th>ðŸšš ØªÙ… Ø´Ø­Ù†Ù‡</th>
-                <th>ðŸ”„ Ù…Ø±ØªØ¬Ø¹</th>
-                <th>âœ… ØªÙ… Ø§Ù„Ø´Ø­Ù† (ØµØ§ÙÙŠ)</th>
+                <th>📦 اسم المنتج</th>
+                <th>💰 سعر الوحدة</th>
+                <th>📝 المطلوب</th>
+                <th>🚚 تم شحنه</th>
+                <th>🔄 مرتجع</th>
+                <th>✅ تم الشحن (صافي)</th>
                 `;
                 tbody.innerHTML = (order.items || []).map(item => {
                     const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
@@ -5066,14 +5066,14 @@
                     const netItemTotal = (shipped - returned) * item.price;
                     totalShippedAmount += netItemTotal;
                     totalReturnedAmount += returned * item.price;
-                    const unit = item.unit || 'Ø¹Ø¯Ø¯';
+                    const unit = item.unit || 'عدد';
                     return `<tr>
                     <td style="text-align:right; font-weight:bold;">${item.name}</td>
-                    <td>${item.price} Ø¬.Ù…</td>
+                    <td>${item.price} ج.م</td>
                     <td>${item.quantity} (${unit})</td>
                     <td style="color:var(--primary); font-weight:bold;">${shipped} (${unit})</td>
-                    <td style="color:${returned > 0 ? 'var(--red)' : 'var(--gray-400)'}; font-weight:bold;">${returned > 0 ? returned + ' (' + unit + ')' : 'â€”'}</td>
-                    <td style="font-weight:bold; color:var(--primary-dark);">${netItemTotal} Ø¬.Ù…</td>
+                    <td style="color:${returned > 0 ? 'var(--red)' : 'var(--gray-400)'}; font-weight:bold;">${returned > 0 ? returned + ' (' + unit + ')' : '—'}</td>
+                    <td style="font-weight:bold; color:var(--primary-dark);">${netItemTotal} ج.م</td>
                 </tr>`;
                 }).join('');
             }
@@ -5084,22 +5084,22 @@
             const remainingAmount = Math.max(0, orderCostTotal - netShippedTotal);
 
             document.getElementById('archive-modal-summary').innerHTML = archiveModalEditMode ?
-                `<div style="text-align:center; color:var(--gray-600); font-size:12px;">Ø£Ø¯Ø®Ù„ Ø§Ù„ÙƒÙ…ÙŠØ© Ø§Ù„Ù…Ø±ØªØ¬Ø¹Ø© Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø© Ù„ÙƒÙ„ ØµÙ†Ù Ø«Ù… Ø§Ø¶ØºØ· "Ø­ÙØ¸ Ø§Ù„Ù…Ø±ØªØ¬Ø¹Ø§Øª"</div>` :
+                `<div style="text-align:center; color:var(--gray-600); font-size:12px;">أدخل الكمية المرتجعة الجديدة لكل صنف ثم اضغط "حفظ المرتجعات"</div>` :
                 `
             <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:10px; padding:8px; background:var(--gray-50); border-radius:var(--radius-sm);">
                 <div style="text-align:center;">
-                    <div style="font-size:11px; color:var(--gray-500); margin-bottom:2px;">ðŸ“‹ ØªÙƒÙ„ÙØ© Ø§Ù„Ø·Ù„Ø¨</div>
-                    <div style="font-size:16px; font-weight:bold; color:var(--gray-800);">${orderCostTotal} Ø¬.Ù…</div>
+                    <div style="font-size:11px; color:var(--gray-500); margin-bottom:2px;">📋 تكلفة الطلب</div>
+                    <div style="font-size:16px; font-weight:bold; color:var(--gray-800);">${orderCostTotal} ج.م</div>
                 </div>
                 <div style="text-align:center;">
-                    <div style="font-size:11px; color:var(--gray-500); margin-bottom:2px;">âœ… ØªÙ… Ø§Ù„Ø´Ø­Ù† (ØµØ§ÙÙŠ)</div>
-                    <div style="font-size:16px; font-weight:bold; color:var(--primary);">${netShippedTotal} Ø¬.Ù…</div>
-                    ${returnedGrossTotal > 0 ? `<div style="font-size:10px; color:var(--red);">ðŸ”„ Ù…Ø±ØªØ¬Ø¹ Ù…ÙØ­ØªØ³Ø¨: ${returnedGrossTotal} Ø¬.Ù…</div>` : ''}
+                    <div style="font-size:11px; color:var(--gray-500); margin-bottom:2px;">✅ تم الشحن (صافي)</div>
+                    <div style="font-size:16px; font-weight:bold; color:var(--primary);">${netShippedTotal} ج.م</div>
+                    ${returnedGrossTotal > 0 ? `<div style="font-size:10px; color:var(--red);">🔄 مرتجع مُحتسب: ${returnedGrossTotal} ج.م</div>` : ''}
                 </div>
                 <div style="text-align:center;">
-                    <div style="font-size:11px; color:var(--gray-500); margin-bottom:2px;">â³ Ø§Ù„Ù…ØªØ¨Ù‚ÙŠ</div>
-                    <div style="font-size:16px; font-weight:bold; color:${remainingAmount > 0 ? 'var(--red)' : 'var(--primary)'}">${remainingAmount} Ø¬.Ù…</div>
-                    <div style="font-size:10px; color:var(--gray-500);">(ØºÙŠØ± Ù…Ø´Ø­ÙˆÙ† + Ù…Ø±ØªØ¬Ø¹)</div>
+                    <div style="font-size:11px; color:var(--gray-500); margin-bottom:2px;">⏳ المتبقي</div>
+                    <div style="font-size:16px; font-weight:bold; color:${remainingAmount > 0 ? 'var(--red)' : 'var(--primary)'}">${remainingAmount} ج.م</div>
+                    <div style="font-size:10px; color:var(--gray-500);">(غير مشحون + مرتجع)</div>
                 </div>
             </div>
             `;
@@ -5107,12 +5107,12 @@
             const footer = document.getElementById('archive-modal-footer');
             footer.innerHTML = archiveModalEditMode ?
                 `
-            <button class="btn btn-success" onclick="saveReturns()">ðŸ’¾ Ø­ÙØ¸ Ø§Ù„Ù…Ø±ØªØ¬Ø¹Ø§Øª</button>
-            <button class="btn btn-outline" onclick="cancelReturnsEdit()">âœ–ï¸ Ø¥Ù„ØºØ§Ø¡</button>
+            <button class="btn btn-success" onclick="saveReturns()">💾 حفظ المرتجعات</button>
+            <button class="btn btn-outline" onclick="cancelReturnsEdit()">✖️ إلغاء</button>
             ` :
                 `
-            <button class="btn btn-warning" onclick="startReturnsEdit()">ðŸ”„ ØªØ¹Ø¯ÙŠÙ„ Ù…Ø±ØªØ¬Ø¹Ø§Øª</button>
-            <button class="btn btn-primary" onclick="closeModal('archive-detail-modal')">Ø¥ØºÙ„Ø§Ù‚</button>
+            <button class="btn btn-warning" onclick="startReturnsEdit()">🔄 تعديل مرتجعات</button>
+            <button class="btn btn-primary" onclick="closeModal('archive-detail-modal')">إغلاق</button>
             `;
         }
 
@@ -5139,13 +5139,13 @@
                 const shipped = item.shipped !== undefined ? item.shipped : item.quantity;
                 const alreadyReturned = item.returned || 0;
                 const available = Math.max(0, shipped - alreadyReturned);
-                if (updates[idx] < 0) { showToast(`âš ï¸ Ù‚ÙŠÙ…Ø© ØºÙŠØ± ØµØ­ÙŠØ­Ø© Ù„ØµÙ†Ù "${item.name}"`, 'error'); return; }
-                if (updates[idx] > available) { showToast(`âš ï¸ Ù„Ø§ ÙŠÙ…ÙƒÙ† Ø¥Ø±Ø¬Ø§Ø¹ Ø£ÙƒØ«Ø± Ù…Ù† ${available} Ù„ØµÙ†Ù "${item.name}"`,
+                if (updates[idx] < 0) { showToast(`⚠️ قيمة غير صحيحة لصنف "${item.name}"`, 'error'); return; }
+                if (updates[idx] > available) { showToast(`⚠️ لا يمكن إرجاع أكثر من ${available} لصنف "${item.name}"`,
                         'error'); return; }
             }
 
             const anyChange = updates.some(v => v > 0);
-            if (!anyChange) { showToast('âš ï¸ Ù„Ù… ÙŠØªÙ… Ø¥Ø¯Ø®Ø§Ù„ Ø£ÙŠ ÙƒÙ…ÙŠØ© Ù…Ø±ØªØ¬Ø¹Ø©', 'warning'); return; }
+            if (!anyChange) { showToast('⚠️ لم يتم إدخال أي كمية مرتجعة', 'warning'); return; }
 
             items.forEach((item, idx) => {
                 if (updates[idx] > 0) item.returned = (item.returned || 0) + updates[idx];
@@ -5168,7 +5168,7 @@
                 archiveModalEditMode = false;
                 await renderArchiveDetailModal();
                 await renderArchiveList();
-                showToast('âœ… ØªÙ… ØªØ­Ø¯ÙŠØ« Ø§Ù„Ù…Ø±ØªØ¬Ø¹Ø§Øª ÙˆØ§Ù„Ù…Ø¨Ø§Ù„Øº Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                showToast('✅ تم تحديث المرتجعات والمبالغ بنجاح', 'success');
             } finally {
                 showLoading(false);
             }
@@ -5210,25 +5210,25 @@
             const menu = document.getElementById('floating-menu');
             if (!currentUser) return;
             const name = currentUser.username || '';
-            const initial = (name.trim()[0] || 'ØŸ').toUpperCase();
+            const initial = (name.trim()[0] || '؟').toUpperCase();
             let items = [];
-            if (currentUser.type === 'Ù…Ø¯ÙŠØ±') {
+            if (currentUser.type === 'مدير') {
                 items = [
-                    { icon: 'âš™ï¸', label: 'Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª', act: 'openSettings()' },
-                    { icon: 'ðŸ“©', label: 'Ø·Ù„Ø¨Ø§Øª Ø§Ù„ØªØ³Ø¬ÙŠÙ„', act: "openPendingRequests()" },
-                    { icon: 'ðŸ“¦', label: 'ÙƒÙ„ Ø§Ù„Ø·Ù„Ø¨Ø§Øª', act: "showScreen('orders')" },
-                    { icon: 'ðŸ—„ï¸', label: 'Ø£Ø±Ø´ÙŠÙ Ø­Ø±ÙƒØ© Ø§Ù„Ø¨ÙŠØ¹', act: "showScreen('archive')" },
-                    { icon: 'ðŸ“Š', label: 'Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª', act: "showScreen('stats')" },
+                    { icon: '⚙️', label: 'الإعدادات', act: 'openSettings()' },
+                    { icon: '📩', label: 'طلبات التسجيل', act: "openPendingRequests()" },
+                    { icon: '📦', label: 'كل الطلبات', act: "showScreen('orders')" },
+                    { icon: '🗄️', label: 'أرشيف حركة البيع', act: "showScreen('archive')" },
+                    { icon: '📊', label: 'الإحصائيات', act: "showScreen('stats')" },
                 ];
-            } else if (currentUser.type === 'Ø¨Ø§Ø¦Ø¹') {
+            } else if (currentUser.type === 'بائع') {
                 items = [
-                    { icon: 'ðŸ“¦', label: 'Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø´ØªØ±ÙŠØ§Øª', act: "showScreen('orders')" },
-                    { icon: 'ðŸ—„ï¸', label: 'Ø£Ø±Ø´ÙŠÙ Ø­Ø±ÙƒØ© Ø§Ù„Ø¨ÙŠØ¹', act: "showScreen('archive')" },
+                    { icon: '📦', label: 'طلبات المشتريات', act: "showScreen('orders')" },
+                    { icon: '🗄️', label: 'أرشيف حركة البيع', act: "showScreen('archive')" },
                 ];
             } else {
                 items = [
-                    { icon: 'ðŸ›’', label: 'Ø³Ù„Ø© Ø§Ù„Ù…Ø´ØªØ±ÙŠØ§Øª', act: 'toggleCart()' },
-                    { icon: 'ðŸ“‹', label: 'Ø£Ø±Ø´ÙŠÙ Ù…Ø´ØªØ±ÙŠØ§ØªÙŠ', act: "showScreen('buyer-archive')" },
+                    { icon: '🛒', label: 'سلة المشتريات', act: 'toggleCart()' },
+                    { icon: '📋', label: 'أرشيف مشترياتي', act: "showScreen('buyer-archive')" },
                 ];
             }
 
@@ -5241,15 +5241,15 @@
                             <span class="menu-user-role">${currentUser.type}</span>
                         </span>
                     </div>
-                    <button class="menu-close" type="button" onclick="closeFloatingMenu()" aria-label="Ø¥ØºÙ„Ø§Ù‚">Ã—</button>
+                    <button class="menu-close" type="button" onclick="closeFloatingMenu()" aria-label="إغلاق">×</button>
                 </div>
                 <div class="menu-list">`;
             items.forEach(it => {
-                html += `<button type="button" class="menu-item" onclick="menuAction(() => { ${it.act} })"><span class="mi-icon">${it.icon}</span><span class="mi-label">${it.label}</span><span class="mi-arrow">â€¹</span></button>`;
+                html += `<button type="button" class="menu-item" onclick="menuAction(() => { ${it.act} })"><span class="mi-icon">${it.icon}</span><span class="mi-label">${it.label}</span><span class="mi-arrow">‹</span></button>`;
             });
             html += `</div>
                 <div class="menu-foot">
-                    <button type="button" class="menu-item danger" onclick="menuAction(() => { handleLogout() })"><span class="mi-icon">ðŸšª</span><span class="mi-label">ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø®Ø±ÙˆØ¬</span></button>
+                    <button type="button" class="menu-item danger" onclick="menuAction(() => { handleLogout() })"><span class="mi-icon">🚪</span><span class="mi-label">تسجيل الخروج</span></button>
                 </div>`;
             menu.innerHTML = html;
         }
@@ -5263,7 +5263,7 @@
         //  24. SETTINGS
         // ============================================================
         async function openSettings() {
-            if (!currentUser || currentUser.type !== 'Ù…Ø¯ÙŠØ±') { showToast('âš ï¸ Ù…ØªØ§Ø­ Ù„Ù„Ù…Ø¯ÙŠØ± ÙÙ‚Ø·', 'error'); return; }
+            if (!currentUser || currentUser.type !== 'مدير') { showToast('⚠️ متاح للمدير فقط', 'error'); return; }
             closeFloatingMenu();
             showScreen('settings');
             await renderUsersTable();
@@ -5304,18 +5304,18 @@
                 <td><code>${u.password}</code></td>
                 <td>${u.fullname || ''}</td>
                 <td>${u.phone || ''}</td>
-                <td><button class="btn btn-danger btn-sm" onclick="deleteUserDocById('${u.id}')">ðŸ—‘ï¸</button></td>
+                <td><button class="btn btn-danger btn-sm" onclick="deleteUserDocById('${u.id}')">🗑️</button></td>
             </tr>
             `).join('');
         }
 
         async function deleteUserDocById(docId) {
-            if (!confirm('Ø­Ø°Ù Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…ØŸ')) return;
+            if (!confirm('حذف المستخدم؟')) return;
             showLoading(true);
             try {
                 await deleteUserDoc(docId);
                 await renderUsersTable();
-                showToast('ðŸ—‘ï¸ ØªÙ… Ø§Ù„Ø­Ø°Ù', 'success');
+                showToast('🗑️ تم الحذف', 'success');
             } finally { showLoading(false); }
         }
 
@@ -5325,16 +5325,16 @@
             const t = document.getElementById('new-user-type').value;
             const fullname = document.getElementById('new-user-fullname').value.trim();
             const phone = document.getElementById('new-user-phone').value.trim();
-            if (!u || !p) return showToast('âš ï¸ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù…Ø·Ù„ÙˆØ¨', 'error');
+            if (!u || !p) return showToast('⚠️ إدخال البيانات مطلوب', 'error');
             const users = await getUsers();
-            if (users.find(x => x.username === u)) return showToast('âš ï¸ Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ù…ÙˆØ¬ÙˆØ¯', 'error');
+            if (users.find(x => x.username === u)) return showToast('⚠️ اسم المستخدم موجود', 'error');
             showLoading(true);
             try {
                 await addUser({ username: u, password: p, type: t, fullname, phone });
                 document.getElementById('new-user-username').value = '';
                 document.getElementById('new-user-password').value = '';
                 await renderUsersTable();
-                showToast('âœ… ØªÙ…Øª Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…', 'success');
+                showToast('✅ تمت إضافة المستخدم', 'success');
             } finally { showLoading(false); }
         }
 
@@ -5344,7 +5344,7 @@
             const container = document.getElementById('settings-categories-list');
             if (!categories || categories.length === 0) {
                 container.innerHTML =
-                '<div style="text-align:center;padding:30px;color:var(--gray-500);">ðŸ“­ Ù„Ø§ ØªÙˆØ¬Ø¯ Ø£Ù‚Ø³Ø§Ù… Ø­Ø§Ù„ÙŠØ§Ù‹</div>';
+                '<div style="text-align:center;padding:30px;color:var(--gray-500);">📭 لا توجد أقسام حالياً</div>';
                 return;
             }
 
@@ -5353,10 +5353,10 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width:80px;">Ø§Ù„ØµÙˆØ±Ø©</th>
-                            <th style="text-align:right;">Ø§Ø³Ù… Ø§Ù„Ù‚Ø³Ù… (Ø§Ø¶ØºØ· Ù„Ø¹Ø±Ø¶ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª)</th>
-                            <th>Ø¹Ø¯Ø¯ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª</th>
-                            <th style="width:220px;">Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡Ø§Øª</th>
+                            <th style="width:80px;">الصورة</th>
+                            <th style="text-align:right;">اسم القسم (اضغط لعرض المنتجات)</th>
+                            <th>عدد المنتجات</th>
+                            <th style="width:220px;">الإجراءات</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -5369,9 +5369,9 @@
                                 <td><span style="background:var(--gray-200); padding:2px 8px; border-radius:12px; font-weight:bold;">${c.products ? c.products.length : 0}</span></td>
                                 <td>
                                     <div class="action-icons">
-                                        <button class="btn btn-sm btn-outline" onclick="openEditCategoryModal('${c.id}')" title="ØªØ¹Ø¯ÙŠÙ„ Ø§Ø³Ù… ÙˆØµÙˆØ±Ø© Ø§Ù„Ù‚Ø³Ù…">âœï¸ ØªØ¹Ø¯ÙŠÙ„</button>
-                                        <button class="btn btn-sm btn-primary" onclick="openEditProductsOverlay('${c.id}')" title="Ø¥Ø¯Ø§Ø±Ø© Ù…Ù†ØªØ¬Ø§Øª Ø§Ù„Ù‚Ø³Ù…">ðŸ“¦ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª</button>
-                                        <button class="btn btn-sm btn-danger" onclick="deleteCategoryById('${c.id}')" title="Ø­Ø°Ù Ø§Ù„Ù‚Ø³Ù…">ðŸ—‘ï¸ Ø­Ø°Ù</button>
+                                        <button class="btn btn-sm btn-outline" onclick="openEditCategoryModal('${c.id}')" title="تعديل اسم وصورة القسم">✏️ تعديل</button>
+                                        <button class="btn btn-sm btn-primary" onclick="openEditProductsOverlay('${c.id}')" title="إدارة منتجات القسم">📦 المنتجات</button>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteCategoryById('${c.id}')" title="حذف القسم">🗑️ حذف</button>
                                     </div>
                                 </td>
                             </tr>
@@ -5384,9 +5384,9 @@
         function showAddCategoryForm() {
             editingCategoryId = null;
             pendingCategoryImageUrl = null;
-            document.getElementById('edit-category-title').textContent = 'âž• Ø¥Ø¶Ø§ÙØ© Ù‚Ø³Ù… Ø¬Ø¯ÙŠØ¯';
+            document.getElementById('edit-category-title').textContent = '➕ إضافة قسم جديد';
             document.getElementById('edit-category-name').value = '';
-            document.getElementById('edit-category-icon').value = 'ðŸ“‚';
+            document.getElementById('edit-category-icon').value = '📂';
             resetCategoryImagePreview();
             document.getElementById('edit-category-modal').classList.add('show');
         }
@@ -5397,7 +5397,7 @@
             if (!cat) return;
             editingCategoryId = catId;
             pendingCategoryImageUrl = cat.iconUrl || null;
-            document.getElementById('edit-category-title').textContent = 'âœï¸ ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù‚Ø³Ù…';
+            document.getElementById('edit-category-title').textContent = '✏️ تعديل القسم';
             document.getElementById('edit-category-name').value = cat.name;
             document.getElementById('edit-category-icon').value = cat.icon;
             resetCategoryImagePreview();
@@ -5428,16 +5428,16 @@
             const file = input.files[0];
             if (!file) return;
             const statusEl = document.getElementById('category-image-upload-status');
-            statusEl.textContent = 'â³ Ø¬Ø§Ø±ÙŠ Ø±ÙØ¹ Ø§Ù„ØµÙˆØ±Ø© Ø¥Ù„Ù‰ Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ...';
+            statusEl.textContent = '⏳ جاري رفع الصورة إلى جوجل درايف...';
             showLoading(true);
             try {
                 const result = await uploadImageToDrive(file, 'category');
                 pendingCategoryImageUrl = result.url;
                 resetCategoryImagePreview();
-                showToast('âœ… ØªÙ… Ø±ÙØ¹ ØµÙˆØ±Ø© Ø§Ù„Ù‚Ø³Ù… Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                showToast('✅ تم رفع صورة القسم بنجاح', 'success');
             } catch (err) {
                 statusEl.textContent = '';
-                showToast('âŒ ' + err.message, 'error');
+                showToast('❌ ' + err.message, 'error');
             } finally {
                 showLoading(false);
                 input.value = '';
@@ -5468,16 +5468,16 @@
             const file = input.files[0];
             if (!file) return;
             const statusEl = document.getElementById('company-logo-upload-status');
-            statusEl.textContent = 'â³ Ø¬Ø§Ø±ÙŠ Ø±ÙØ¹ Ø§Ù„ØµÙˆØ±Ø© Ø¥Ù„Ù‰ Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ...';
+            statusEl.textContent = '⏳ جاري رفع الصورة إلى جوجل درايف...';
             showLoading(true);
             try {
                 const result = await uploadImageToDrive(file, 'company_logo');
                 pendingCompanyLogoUrl = result.url;
                 resetCompanyLogoPreview();
-                showToast('âœ… ØªÙ… Ø±ÙØ¹ Ù„ÙˆØ¬Ùˆ Ø§Ù„Ø´Ø±ÙƒØ© Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                showToast('✅ تم رفع لوجو الشركة بنجاح', 'success');
             } catch (err) {
                 statusEl.textContent = '';
-                showToast('âŒ ' + err.message, 'error');
+                showToast('❌ ' + err.message, 'error');
             } finally {
                 showLoading(false);
                 input.value = '';
@@ -5486,8 +5486,8 @@
 
         async function saveEditedCategory() {
             const name = document.getElementById('edit-category-name').value.trim();
-            const icon = document.getElementById('edit-category-icon').value.trim() || 'ðŸ“‚';
-            if (!name) return showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ø³Ù… Ø§Ù„Ù‚Ø³Ù…', 'error');
+            const icon = document.getElementById('edit-category-icon').value.trim() || '📂';
+            if (!name) return showToast('⚠️ يرجى إدخال اسم القسم', 'error');
 
             showLoading(true);
             try {
@@ -5500,18 +5500,18 @@
                 closeModal('edit-category-modal');
                 await renderSettingsCategories();
                 await renderCategories();
-                showToast('âœ… ØªÙ… Ø­ÙØ¸ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù‚Ø³Ù… Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                showToast('✅ تم حفظ بيانات القسم بنجاح', 'success');
             } finally { showLoading(false); }
         }
 
         async function deleteCategoryById(catId) {
-            if (!confirm('Ù‡Ù„ Ø£Ù†Øª ØªØ£ÙƒØ¯ Ù…Ù† Ø­Ø°Ù Ù‡Ø°Ø§ Ø§Ù„Ù‚Ø³Ù… Ø¨Ø¬Ù…ÙŠØ¹ Ù…Ù†ØªØ¬Ø§ØªÙ‡ØŸ')) return;
+            if (!confirm('هل أنت تأكد من حذف هذا القسم بجميع منتجاته؟')) return;
             showLoading(true);
             try {
                 await deleteCategoryDoc(catId);
                 await renderSettingsCategories();
                 await renderCategories();
-                showToast('ðŸ—‘ï¸ ØªÙ… Ø­Ø°Ù Ø§Ù„Ù‚Ø³Ù… Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                showToast('🗑️ تم حذف القسم بنجاح', 'success');
             } finally { showLoading(false); }
         }
 
@@ -5534,67 +5534,67 @@
             const cat = categories.find(c => c.id === activeCategoryForProducts);
             if (!cat) return;
 
-            document.getElementById('edit-products-title').innerHTML = `âœï¸ Ø¥Ø¯Ø§Ø±Ø© Ù…Ù†ØªØ¬Ø§Øª: ${cat.icon} ${cat.name}`;
+            document.getElementById('edit-products-title').innerHTML = `✏️ إدارة منتجات: ${cat.icon} ${cat.name}`;
             const body = document.getElementById('edit-products-body');
 
             body.innerHTML = `
             <div style="background:var(--primary-light); border:1px solid var(--primary); padding:16px; border-radius:var(--radius); margin-bottom:20px;">
-                <h4 style="margin-bottom:12px; color:var(--primary-dark); font-size:15px;">âž• Ø¥Ø¶Ø§ÙØ© Ù…Ù†ØªØ¬ Ø¬Ø¯ÙŠØ¯ Ù„Ù‡Ø°Ø§ Ø§Ù„Ù‚Ø³Ù…</h4>
-                <div style="font-size:12px; color:var(--gray-600); margin-bottom:10px;">ðŸ’¡ Ø£Ø¶Ù Ø§Ù„Ù…Ù†ØªØ¬ Ø£ÙˆÙ„Ø§Ù‹ Ø¨Ø¥ÙŠÙ…ÙˆØ¬ÙŠ Ù…Ø¨Ø¯Ø¦ÙŠØŒ Ø«Ù… Ø§Ø±ÙØ¹ Ù„Ù‡ ØµÙˆØ±Ø© Ø­Ù‚ÙŠÙ‚ÙŠØ© Ù…Ù† Ø¬ÙˆØ¬Ù„ Ø¯Ø±Ø§ÙŠÙ Ø¨Ø§Ù„Ø¶ØºØ· Ø¹Ù„Ù‰ ðŸ“¤ ÙÙŠ Ø¬Ø¯ÙˆÙ„ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª Ø£Ø¯Ù†Ø§Ù‡.</div>
+                <h4 style="margin-bottom:12px; color:var(--primary-dark); font-size:15px;">➕ إضافة منتج جديد لهذا القسم</h4>
+                <div style="font-size:12px; color:var(--gray-600); margin-bottom:10px;">💡 أضف المنتج أولاً بإيموجي مبدئي، ثم ارفع له صورة حقيقية من جوجل درايف بالضغط على 📤 في جدول المنتجات أدناه.</div>
                 <div style="display:grid; grid-template-columns: 1fr 80px 100px 100px 110px auto; gap:10px; align-items:end;">
                     <div>
-                        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:4px;">Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬</label>
-                        <input type="text" id="new-prod-name" placeholder="Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬" style="width:100%; padding:8px; border:1px solid var(--gray-300); border-radius:6px;">
+                        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:4px;">اسم المنتج</label>
+                        <input type="text" id="new-prod-name" placeholder="اسم المنتج" style="width:100%; padding:8px; border:1px solid var(--gray-300); border-radius:6px;">
                     </div>
                     <div>
-                        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:4px;">Ø§Ù„ØµÙˆØ±Ø©</label>
-                        <input type="text" id="new-prod-img" placeholder="ðŸ“¦" value="ðŸ“¦" style="width:100%; padding:8px; text-align:center; border:1px solid var(--gray-300); border-radius:6px;">
+                        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:4px;">الصورة</label>
+                        <input type="text" id="new-prod-img" placeholder="📦" value="📦" style="width:100%; padding:8px; text-align:center; border:1px solid var(--gray-300); border-radius:6px;">
                     </div>
                     <div>
-                        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:4px;">Ø§Ù„Ø³Ø¹Ø± (Ø¬.Ù…)</label>
+                        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:4px;">السعر (ج.م)</label>
                         <input type="number" id="new-prod-price" placeholder="0" min="0" style="width:100%; padding:8px; text-align:center; border:1px solid var(--gray-300); border-radius:6px;">
                     </div>
                     <div>
-                        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:4px;">Ø§Ù„ÙƒÙ…ÙŠØ©</label>
+                        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:4px;">الكمية</label>
                         <input type="number" id="new-prod-qty" placeholder="0" min="0" style="width:100%; padding:8px; text-align:center; border:1px solid var(--gray-300); border-radius:6px;">
                     </div>
                     <div>
-                        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:4px;">Ø§Ù„ÙˆØ­Ø¯Ø©</label>
+                        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:4px;">الوحدة</label>
                         <select id="new-prod-unit" style="width:100%; padding:8px; border:1px solid var(--gray-300); border-radius:6px;">
-                            <option value="ÙƒÙŠÙ„Ùˆ Ø¬Ø±Ø§Ù…">ÙƒÙŠÙ„Ùˆ Ø¬Ø±Ø§Ù…</option>
-                            <option value="Ø¬Ø±Ø§Ù…">Ø¬Ø±Ø§Ù…</option>
-                            <option value="Ø¹Ø¯Ø¯">Ø¹Ø¯Ø¯</option>
-                            <option value="Ù„ØªØ±">Ù„ØªØ±</option>
+                            <option value="كيلو جرام">كيلو جرام</option>
+                            <option value="جرام">جرام</option>
+                            <option value="عدد">عدد</option>
+                            <option value="لتر">لتر</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary" onclick="addNewProduct()" style="height:38px; white-space:nowrap;">âž• Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ù…Ù†ØªØ¬</button>
+                    <button class="btn btn-primary" onclick="addNewProduct()" style="height:38px; white-space:nowrap;">➕ إضافة المنتج</button>
                 </div>
             </div>
 
-            <h4 style="margin-bottom:10px; color:var(--gray-800);">ðŸ“‹ Ù…Ù†ØªØ¬Ø§Øª Ø§Ù„Ù‚Ø³Ù… Ø§Ù„Ø­Ø§Ù„ÙŠØ© (${cat.products ? cat.products.length : 0}):</h4>
+            <h4 style="margin-bottom:10px; color:var(--gray-800);">📋 منتجات القسم الحالية (${cat.products ? cat.products.length : 0}):</h4>
             ${(!cat.products || cat.products.length === 0) ?
-                '<div style="text-align:center; padding:30px; color:var(--gray-500); background:var(--gray-50); border-radius:var(--radius);">Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ù†ØªØ¬Ø§Øª ÙÙŠ Ù‡Ø°Ø§ Ø§Ù„Ù‚Ø³Ù… Ø­ØªÙ‰ Ø§Ù„Ø¢Ù†. ÙŠÙ…ÙƒÙ†Ùƒ Ø¥Ø¶Ø§ÙØ© Ù…Ù†ØªØ¬ Ø¬Ø¯ÙŠØ¯ Ù…Ù† Ø§Ù„Ø£Ø¹Ù„Ù‰.</div>' :
+                '<div style="text-align:center; padding:30px; color:var(--gray-500); background:var(--gray-50); border-radius:var(--radius);">لا توجد منتجات في هذا القسم حتى الآن. يمكنك إضافة منتج جديد من الأعلى.</div>' :
                 `<div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
-                                <th style="width:80px;">Ø§Ù„ØµÙˆØ±Ø©</th>
-                                <th>Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬</th>
-                                <th style="width:110px;">Ø§Ù„Ø³Ø¹Ø± (Ø¬.Ù…)</th>
-                                <th style="width:110px;">Ø§Ù„ÙƒÙ…ÙŠØ©</th>
-                                <th style="width:120px;">Ø§Ù„ÙˆØ­Ø¯Ø©</th>
-                                <th style="width:130px;">Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡Ø§Øª</th>
+                                <th style="width:80px;">الصورة</th>
+                                <th>اسم المنتج</th>
+                                <th style="width:110px;">السعر (ج.م)</th>
+                                <th style="width:110px;">الكمية</th>
+                                <th style="width:120px;">الوحدة</th>
+                                <th style="width:130px;">الإجراءات</th>
                             </tr>
                         </thead>
                         <tbody>
                             ${cat.products.map(p => `
                                 <tr>
                                     <td>
-                                        <div class="mini-thumb">${p.imgUrl ? `<img src="${fixImageUrl(p.imgUrl)}" alt="${p.name}" loading="lazy"${imgTagFallback()}>` : (p.img || 'ðŸ“¦')}</div>
-                                        <input type="text" id="prod-img-${p.id}" value="${p.img || 'ðŸ“¦'}" title="Ø¥ÙŠÙ…ÙˆØ¬ÙŠ Ø§Ø­ØªÙŠØ§Ø·ÙŠ" style="width:100%; text-align:center; padding:4px; border:1px solid var(--gray-300); border-radius:6px; font-size:14px; margin-bottom:4px;">
+                                        <div class="mini-thumb">${p.imgUrl ? `<img src="${fixImageUrl(p.imgUrl)}" alt="${p.name}" loading="lazy"${imgTagFallback()}>` : (p.img || '📦')}</div>
+                                        <input type="text" id="prod-img-${p.id}" value="${p.img || '📦'}" title="إيموجي احتياطي" style="width:100%; text-align:center; padding:4px; border:1px solid var(--gray-300); border-radius:6px; font-size:14px; margin-bottom:4px;">
                                         <div style="display:flex; gap:4px; justify-content:center;">
-                                            <button type="button" class="btn btn-sm btn-outline" style="padding:2px 6px; font-size:11px;" title="Ø±ÙØ¹ ØµÙˆØ±Ø© Ø­Ù‚ÙŠÙ‚ÙŠØ©" onclick="document.getElementById('prod-img-file-${p.id}').click()">ðŸ“¤</button>
-                                            ${p.imgUrl ? `<button type="button" class="btn btn-sm btn-danger" style="padding:2px 6px; font-size:11px;" title="Ø¥Ø²Ø§Ù„Ø© Ø§Ù„ØµÙˆØ±Ø©" onclick="removeProductImage('${p.id}')">ðŸ—‘ï¸</button>` : ''}
+                                            <button type="button" class="btn btn-sm btn-outline" style="padding:2px 6px; font-size:11px;" title="رفع صورة حقيقية" onclick="document.getElementById('prod-img-file-${p.id}').click()">📤</button>
+                                            ${p.imgUrl ? `<button type="button" class="btn btn-sm btn-danger" style="padding:2px 6px; font-size:11px;" title="إزالة الصورة" onclick="removeProductImage('${p.id}')">🗑️</button>` : ''}
                                         </div>
                                         <input type="file" id="prod-img-file-${p.id}" accept="image/*" style="display:none;" onchange="handleProductImageUpload(this, '${p.id}')">
                                     </td>
@@ -5609,16 +5609,16 @@
                                     </td>
                                     <td>
                                         <select id="prod-unit-${p.id}" style="width:100%; padding:6px; border:1px solid var(--gray-300); border-radius:6px;">
-                                            <option value="ÙƒÙŠÙ„Ùˆ Ø¬Ø±Ø§Ù…" ${p.unit === 'ÙƒÙŠÙ„Ùˆ Ø¬Ø±Ø§Ù…' ? 'selected' : ''}>ÙƒÙŠÙ„Ùˆ Ø¬Ø±Ø§Ù…</option>
-                                            <option value="Ø¬Ø±Ø§Ù…" ${p.unit === 'Ø¬Ø±Ø§Ù…' ? 'selected' : ''}>Ø¬Ø±Ø§Ù…</option>
-                                            <option value="Ø¹Ø¯Ø¯" ${p.unit === 'Ø¹Ø¯Ø¯' ? 'selected' : ''}>Ø¹Ø¯Ø¯</option>
-                                            <option value="Ù„ØªØ±" ${p.unit === 'Ù„ØªØ±' ? 'selected' : ''}>Ù„ØªØ±</option>
+                                            <option value="كيلو جرام" ${p.unit === 'كيلو جرام' ? 'selected' : ''}>كيلو جرام</option>
+                                            <option value="جرام" ${p.unit === 'جرام' ? 'selected' : ''}>جرام</option>
+                                            <option value="عدد" ${p.unit === 'عدد' ? 'selected' : ''}>عدد</option>
+                                            <option value="لتر" ${p.unit === 'لتر' ? 'selected' : ''}>لتر</option>
                                         </select>
                                     </td>
                                     <td>
                                         <div style="display:flex; gap:6px; justify-content:center;">
-                                            <button class="btn btn-sm btn-success" onclick="saveProductRow('${p.id}')" title="Ø­ÙØ¸ ØªØ¹Ø¯ÙŠÙ„ Ù‡Ø°Ø§ Ø§Ù„Ù…Ù†ØªØ¬">ðŸ’¾ Ø­ÙØ¸</button>
-                                            <button class="btn btn-sm btn-danger" onclick="deleteProductRow('${p.id}')" title="Ø­Ø°Ù Ø§Ù„Ù…Ù†ØªØ¬">ðŸ—‘ï¸ Ø­Ø°Ù</button>
+                                            <button class="btn btn-sm btn-success" onclick="saveProductRow('${p.id}')" title="حفظ تعديل هذا المنتج">💾 حفظ</button>
+                                            <button class="btn btn-sm btn-danger" onclick="deleteProductRow('${p.id}')" title="حذف المنتج">🗑️ حذف</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -5633,12 +5633,12 @@
         async function addNewProduct() {
             if (!activeCategoryForProducts) return;
             const name = document.getElementById('new-prod-name').value.trim();
-            const img = document.getElementById('new-prod-img').value.trim() || 'ðŸ“¦';
+            const img = document.getElementById('new-prod-img').value.trim() || '📦';
             const price = parseFloat(document.getElementById('new-prod-price').value) || 0;
             const quantity = parseInt(document.getElementById('new-prod-qty').value) || 0;
             const unit = document.getElementById('new-prod-unit').value;
 
-            if (!name) return showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬', 'error');
+            if (!name) return showToast('⚠️ يرجى إدخال اسم المنتج', 'error');
 
             showLoading(true);
             try {
@@ -5651,19 +5651,19 @@
                 await saveCategories(categories);
                 await renderEditProductsOverlay();
                 await renderCategories();
-                showToast('âœ… ØªÙ… Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ù…Ù†ØªØ¬ Ø§Ù„Ø¬Ø¯ÙŠØ¯ Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                showToast('✅ تم إضافة المنتج الجديد بنجاح', 'success');
             } finally { showLoading(false); }
         }
 
         async function saveProductRow(prodId) {
             if (!activeCategoryForProducts) return;
             const name = document.getElementById(`prod-name-${prodId}`).value.trim();
-            const img = document.getElementById(`prod-img-${prodId}`).value.trim() || 'ðŸ“¦';
+            const img = document.getElementById(`prod-img-${prodId}`).value.trim() || '📦';
             const price = parseFloat(document.getElementById(`prod-price-${prodId}`).value) || 0;
             const quantity = parseInt(document.getElementById(`prod-qty-${prodId}`).value) || 0;
             const unit = document.getElementById(`prod-unit-${prodId}`).value;
 
-            if (!name) return showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬', 'error');
+            if (!name) return showToast('⚠️ يرجى إدخال اسم المنتج', 'error');
 
             showLoading(true);
             try {
@@ -5679,7 +5679,7 @@
                     await saveCategories(categories);
                     await renderEditProductsOverlay();
                     await renderCategories();
-                    showToast('âœ… ØªÙ… Ø­ÙØ¸ ØªØ¹Ø¯ÙŠÙ„Ø§Øª Ø§Ù„Ù…Ù†ØªØ¬', 'success'); }
+                    showToast('✅ تم حفظ تعديلات المنتج', 'success'); }
             } finally { showLoading(false); }
         }
 
@@ -5699,10 +5699,10 @@
                     await saveCategories(categories);
                     await renderEditProductsOverlay();
                     await renderCategories();
-                    showToast('âœ… ØªÙ… Ø±ÙØ¹ ØµÙˆØ±Ø© Ø§Ù„Ù…Ù†ØªØ¬ Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                    showToast('✅ تم رفع صورة المنتج بنجاح', 'success');
                 }
             } catch (err) {
-                showToast('âŒ ' + err.message, 'error');
+                showToast('❌ ' + err.message, 'error');
             } finally {
                 showLoading(false);
                 input.value = '';
@@ -5710,7 +5710,7 @@
         }
 
         async function removeProductImage(prodId) {
-            if (!confirm('Ø¥Ø²Ø§Ù„Ø© ØµÙˆØ±Ø© Ø§Ù„Ù…Ù†ØªØ¬ ÙˆØ§Ù„Ø±Ø¬ÙˆØ¹ Ù„Ù„Ø¥ÙŠÙ…ÙˆØ¬ÙŠØŸ')) return;
+            if (!confirm('إزالة صورة المنتج والرجوع للإيموجي؟')) return;
             if (!activeCategoryForProducts) return;
             showLoading(true);
             try {
@@ -5723,13 +5723,13 @@
                     await saveCategories(categories);
                     await renderEditProductsOverlay();
                     await renderCategories();
-                    showToast('ðŸ—‘ï¸ ØªÙ… Ø¥Ø²Ø§Ù„Ø© ØµÙˆØ±Ø© Ø§Ù„Ù…Ù†ØªØ¬', 'success');
+                    showToast('🗑️ تم إزالة صورة المنتج', 'success');
                 }
             } finally { showLoading(false); }
         }
 
         async function deleteProductRow(prodId) {
-            if (!confirm('Ù‡Ù„ Ø£Ù†Øª ØªØ£ÙƒØ¯ Ù…Ù† Ø­Ø°Ù Ù‡Ø°Ø§ Ø§Ù„Ù…Ù†ØªØ¬ØŸ')) return;
+            if (!confirm('هل أنت تأكد من حذف هذا المنتج؟')) return;
             if (!activeCategoryForProducts) return;
             showLoading(true);
             try {
@@ -5740,7 +5740,7 @@
                 await saveCategories(categories);
                 await renderEditProductsOverlay();
                 await renderCategories();
-                showToast('ðŸ—‘ï¸ ØªÙ… Ø­Ø°Ù Ø§Ù„Ù…Ù†ØªØ¬', 'success');
+                showToast('🗑️ تم حذف المنتج', 'success');
             } finally { showLoading(false); }
         }
 
@@ -5752,17 +5752,17 @@
             const paymentNum = document.getElementById('company-payment-number').value.trim();
             const workFrom = document.getElementById('work-hours-from-input').value;
             const workTo = document.getElementById('work-hours-to-input').value;
-            if (!name) return showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ø³Ù… Ø§Ù„Ø´Ø±ÙƒØ©', 'error');
-            if (!workFrom || !workTo) return showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ ØªØ­Ø¯ÙŠØ¯ Ù…ÙˆØ§Ø¹ÙŠØ¯ Ø§Ù„Ø¹Ù…Ù„ (Ù…Ù† - Ø¥Ù„Ù‰)', 'error');
+            if (!name) return showToast('⚠️ يرجى إدخال اسم الشركة', 'error');
+            if (!workFrom || !workTo) return showToast('⚠️ يرجى تحديد مواعيد العمل (من - إلى)', 'error');
 
             showLoading(true);
             try {
-                await saveCompanySettingsDoc({ companyName: name, companyLogo: logo || 'ðŸ›’', companyLogoUrl: pendingCompanyLogoUrl ||
+                await saveCompanySettingsDoc({ companyName: name, companyLogo: logo || '🛒', companyLogoUrl: pendingCompanyLogoUrl ||
                         null, adminWhatsapp: whatsapp,
                     paymentNumber: paymentNum, workHoursFrom: workFrom, workHoursTo: workTo });
                 updateHeaderInfo();
                 updateHeaderClock();
-                showToast('âœ… ØªÙ… Ø­ÙØ¸ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø´Ø±ÙƒØ© Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                showToast('✅ تم حفظ إعدادات الشركة بنجاح', 'success');
             } finally { showLoading(false); }
         }
 
@@ -5773,7 +5773,7 @@
             const badge = document.getElementById('pending-header-badge');
             const pending = await getPendingUsers();
             const count = pending.length;
-            if (count > 0 && currentUser && currentUser.type === 'Ù…Ø¯ÙŠØ±') {
+            if (count > 0 && currentUser && currentUser.type === 'مدير') {
                 badge.textContent = count;
                 badge.style.display = 'flex';
             } else {
@@ -5782,7 +5782,7 @@
         }
 
         async function openPendingRequests() {
-            if (!currentUser || currentUser.type !== 'Ù…Ø¯ÙŠØ±') { showToast('âš ï¸ Ù…ØªØ§Ø­ Ù„Ù„Ù…Ø¯ÙŠØ± ÙÙ‚Ø·', 'error'); return; }
+            if (!currentUser || currentUser.type !== 'مدير') { showToast('⚠️ متاح للمدير فقط', 'error'); return; }
             closeFloatingMenu();
             await renderPendingRequests();
             document.getElementById('pending-requests-modal').classList.add('show');
@@ -5796,15 +5796,15 @@
             if (!container) return;
             if (pending.length === 0) {
                 container.innerHTML =
-                '<div style="padding:15px;color:var(--gray-500);text-align:center;">ðŸ“­ Ù„Ø§ ØªÙˆØ¬Ø¯ Ø·Ù„Ø¨Ø§Øª Ù…Ø¹Ù„Ù‚Ø©</div>';
+                '<div style="padding:15px;color:var(--gray-500);text-align:center;">📭 لا توجد طلبات معلقة</div>';
                 return;
             }
             container.innerHTML = pending.map((req, idx) => `
             <div class="pending-item">
-                <div class="info"><strong>${req.fullname}</strong><small>ðŸ“± ${req.phone} | ðŸ•’ ${req.date}</small></div>
+                <div class="info"><strong>${req.fullname}</strong><small>📱 ${req.phone} | 🕒 ${req.date}</small></div>
                 <div class="actions">
-                    <button class="btn btn-success btn-sm" onclick="acceptPendingRequest('${req.id}')">âœ… Ù‚Ø¨ÙˆÙ„</button>
-                    <button class="btn btn-danger btn-sm" onclick="rejectPendingRequest('${req.id}')">âŒ Ø±ÙØ¶</button>
+                    <button class="btn btn-success btn-sm" onclick="acceptPendingRequest('${req.id}')">✅ قبول</button>
+                    <button class="btn btn-danger btn-sm" onclick="rejectPendingRequest('${req.id}')">❌ رفض</button>
                 </div>
             </div>
             `).join('');
@@ -5861,10 +5861,10 @@
             const users = await getUsers();
             const exists = users.find(u => u.username === username);
             if (exists) {
-                suggestionDiv.innerHTML = `âŒ Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… <strong>${username}</strong> ØºÙŠØ± Ù…ØªØ§Ø­ (Ù…Ø³ØªØ®Ø¯Ù… Ù…Ù† Ù‚Ø¨Ù„)`;
+                suggestionDiv.innerHTML = `❌ اسم المستخدم <strong>${username}</strong> غير متاح (مستخدم من قبل)`;
                 suggestionDiv.className = 'username-suggestion username-taken';
             } else {
-                suggestionDiv.innerHTML = `âœ… Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… <strong>${username}</strong> Ù…ØªØ§Ø­`;
+                suggestionDiv.innerHTML = `✅ اسم المستخدم <strong>${username}</strong> متاح`;
                 suggestionDiv.className = 'username-suggestion username-available';
             }
         }
@@ -5878,18 +5878,18 @@
             const username = document.getElementById('set-username-input').value.trim();
             const password = document.getElementById('set-password-input').value.trim();
 
-            if (!username) return showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…', 'error');
-            if (!password) return showToast('âš ï¸ ÙŠØ±Ø¬Ù‰ Ø¥Ø¯Ø®Ø§Ù„ ÙƒÙ„Ù…Ø© Ø§Ù„Ø³Ø±', 'error');
+            if (!username) return showToast('⚠️ يرجى إدخال اسم المستخدم', 'error');
+            if (!password) return showToast('⚠️ يرجى إدخال كلمة السر', 'error');
 
             const users = await getUsers();
             if (users.find(u => u.username === username)) {
-                showToast('âš ï¸ Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ù…ÙˆØ¬ÙˆØ¯ Ø¨Ø§Ù„ÙØ¹Ù„ØŒ Ø§Ø®ØªØ± Ø§Ø³Ù… Ø¢Ø®Ø±', 'error');
+                showToast('⚠️ اسم المستخدم موجود بالفعل، اختر اسم آخر', 'error');
                 return;
             }
 
             showLoading(true);
             try {
-                await addUser({ username, password, type: 'Ù…Ø´ØªØ±ÙŠ', fullname: req.fullname, phone: req.phone });
+                await addUser({ username, password, type: 'مشتري', fullname: req.fullname, phone: req.phone });
                 await deletePendingUser(pendingAcceptIndex);
                 pendingAcceptIndex = null;
                 closeModal('set-password-modal');
@@ -5899,28 +5899,28 @@
 
                 const buyerPhone = req.phone || '';
                 const settings = await getCompanySettings();
-                const companyName = settings.companyName || 'Ø¨Ù‚Ø§Ù„Ø© Ø§Ù„Ø®ÙŠØ±';
+                const companyName = settings.companyName || 'بقالة الخير';
                 if (buyerPhone) {
                     const message =
-                        `ðŸŽ‰ *Ù…Ø±Ø­Ø¨Ø§Ù‹ ${req.fullname}* ðŸŽ‰\n\nØªÙ… Ù‚Ø¨ÙˆÙ„ Ø·Ù„Ø¨ ØªØ³Ø¬ÙŠÙ„Ùƒ ÙÙŠ ØªØ·Ø¨ÙŠÙ‚ *${companyName}* Ø¨Ù†Ø¬Ø§Ø­ âœ…\n\nØ¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø§Ù„Ø®Ø§ØµØ© Ø¨Ùƒ:\nðŸ‘¤ *Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…:* ${username}\nðŸ”‘ *ÙƒÙ„Ù…Ø© Ø§Ù„Ø³Ø±:* ${password}\n\nÙŠÙ…ÙƒÙ†Ùƒ Ø§Ù„Ø¢Ù† ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ù…Ù† Ø®Ù„Ø§Ù„ Ø§Ù„ØªØ·Ø¨ÙŠÙ‚ ÙˆØ§Ù„Ø¨Ø¯Ø¡ ÙÙŠ Ø§Ù„Ø·Ù„Ø¨.\n\nÙ†ØªÙ…Ù†Ù‰ Ù„Ùƒ ØªØ¬Ø±Ø¨Ø© ØªØ³ÙˆÙ‚ Ù…Ù…ØªØ¹Ø© ðŸŒ¿\n${companyName}`;
+                        `🎉 *مرحباً ${req.fullname}* 🎉\n\nتم قبول طلب تسجيلك في تطبيق *${companyName}* بنجاح ✅\n\nبيانات الدخول الخاصة بك:\n👤 *اسم المستخدم:* ${username}\n🔑 *كلمة السر:* ${password}\n\nيمكنك الآن تسجيل الدخول من خلال التطبيق والبدء في الطلب.\n\nنتمنى لك تجربة تسوق ممتعة 🌿\n${companyName}`;
                     const sent = sendWhatsAppMessage(buyerPhone, message);
-                    if (sent) showToast(`âœ… ØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¥Ù„Ù‰ ÙˆØ§ØªØ³Ø§Ø¨ Ø§Ù„Ù…Ø´ØªØ±ÙŠ (${buyerPhone})`, 'success');
-                    else showToast(`âš ï¸ Ù„Ù… Ù†ØªÙ…ÙƒÙ† Ù…Ù† Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø±Ø³Ø§Ù„Ø©ØŒ ØªØ£ÙƒØ¯ Ù…Ù† Ø±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ: ${buyerPhone}`, 'warning');
+                    if (sent) showToast(`✅ تم إرسال بيانات الدخول إلى واتساب المشتري (${buyerPhone})`, 'success');
+                    else showToast(`⚠️ لم نتمكن من إرسال الرسالة، تأكد من رقم الهاتف: ${buyerPhone}`, 'warning');
                 } else {
-                    showToast('âš ï¸ Ø±Ù‚Ù… Ù‡Ø§ØªÙ Ø§Ù„Ù…Ø´ØªØ±ÙŠ ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯ Ù„Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø±Ø³Ø§Ù„Ø©', 'warning');
+                    showToast('⚠️ رقم هاتف المشتري غير موجود لإرسال الرسالة', 'warning');
                 }
-                showToast(`âœ… ØªÙ… Ø¥ÙƒÙ…Ø§Ù„ Ø§Ù„ØªØ³Ø¬ÙŠÙ„ Ø¨Ù†Ø¬Ø§Ø­! Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…: ${username}`, 'success');
+                showToast(`✅ تم إكمال التسجيل بنجاح! اسم المستخدم: ${username}`, 'success');
             } finally { showLoading(false); }
         }
 
         async function rejectPendingRequest(docId) {
-            if (!confirm('Ù‡Ù„ Ø£Ù†Øª ØªØ£ÙƒØ¯ Ù…Ù† Ø±ÙØ¶ Ù‡Ø°Ø§ Ø§Ù„Ø·Ù„Ø¨ØŸ')) return;
+            if (!confirm('هل أنت تأكد من رفض هذا الطلب؟')) return;
             showLoading(true);
             try {
                 await deletePendingUser(docId);
                 await renderPendingRequests();
                 updatePendingBadge();
-                showToast('ðŸ—‘ï¸ ØªÙ… Ø±ÙØ¶ Ø§Ù„Ø·Ù„Ø¨', 'success');
+                showToast('🗑️ تم رفض الطلب', 'success');
             } finally { showLoading(false); }
         }
 
@@ -5928,7 +5928,7 @@
         //  26. STATS SCREEN
         // ============================================================
         function initStatsScreen() {
-            if (!currentUser || currentUser.type !== 'Ù…Ø¯ÙŠØ±') return;
+            if (!currentUser || currentUser.type !== 'مدير') return;
             if (!statsInitialized) {
                 statsInitialized = true;
                 const presets = document.getElementById('stats-presets');
@@ -5976,10 +5976,10 @@
             return null;
         }
 
-        function fmtMoney(n) { return (Math.round(n * 100) / 100).toLocaleString('ar-EG') + ' Ø¬.Ù…'; }
+        function fmtMoney(n) { return (Math.round(n * 100) / 100).toLocaleString('ar-EG') + ' ج.م'; }
 
         async function renderStats() {
-            if (!currentUser || currentUser.type !== 'Ù…Ø¯ÙŠØ±') return;
+            if (!currentUser || currentUser.type !== 'مدير') return;
             const fromVal = document.getElementById('stats-from').value;
             const toVal = document.getElementById('stats-to').value;
             const from = fromVal ? new Date(fromVal + 'T00:00:00') : null;
@@ -5995,7 +5995,7 @@
             });
 
             document.getElementById('stats-range-label').textContent =
-                (fromVal || toVal) ? `Ø§Ù„ÙØªØ±Ø©: ${fromVal || '...'} â† ${toVal || '...'}` : 'ÙƒÙ„ Ø§Ù„ÙØªØ±Ø§Øª';
+                (fromVal || toVal) ? `الفترة: ${fromVal || '...'} ← ${toVal || '...'}` : 'كل الفترات';
 
             let netRevenue = 0,
                 returnedValue = 0,
@@ -6018,7 +6018,7 @@
                     orderReturned += returned * item.price;
                     soldUnits += net;
                     const key = item.name;
-                    if (!products[key]) products[key] = { name: key, unit: item.unit || 'Ø¹Ø¯Ø¯', qty: 0,
+                    if (!products[key]) products[key] = { name: key, unit: item.unit || 'عدد', qty: 0,
                         returned: 0, value: 0, orders: 0 };
                     products[key].qty += net;
                     products[key].returned += returned;
@@ -6029,7 +6029,7 @@
                 returnedValue += orderReturned;
                 unshipped += (o.remainingTotal || 0);
 
-                const u = o.username || 'ØºÙŠØ± Ù…Ø¹Ø±ÙˆÙ';
+                const u = o.username || 'غير معروف';
                 if (!users[u]) users[u] = { username: u, phone: o.phone || '-', orders: 0, units: 0, value: 0,
                     last: null };
                 users[u].orders += 1;
@@ -6041,27 +6041,27 @@
 
                 if (d) { const k = toDateInput(d);
                     daily[k] = (daily[k] || 0) + orderNet; }
-                const pm = o.paymentMethod || 'ØºÙŠØ± Ù…Ø­Ø¯Ø¯';
+                const pm = o.paymentMethod || 'غير محدد';
                 payments[pm] = (payments[pm] || 0) + orderNet;
             });
 
             const avgOrder = orders.length ? netRevenue / orders.length : 0;
 
             document.getElementById('stats-cards').innerHTML = `
-            <div class="stat-card"><span class="lbl">ðŸ’° ØµØ§ÙÙŠ Ø¹Ø§Ø¦Ø¯ Ø§Ù„Ø¨ÙŠØ¹</span><span class="val">${fmtMoney(netRevenue)}</span><span class="sub">Ø®Ù„Ø§Ù„ Ø§Ù„ÙØªØ±Ø© Ø§Ù„Ù…Ø­Ø¯Ø¯Ø©</span></div>
-            <div class="stat-card gold"><span class="lbl">ðŸ§¾ Ø¹Ø¯Ø¯ Ø§Ù„Ø·Ù„Ø¨Ø§Øª</span><span class="val">${orders.length}</span><span class="sub">Ù…ØªÙˆØ³Ø· Ø§Ù„Ø·Ù„Ø¨: ${fmtMoney(avgOrder)}</span></div>
-            <div class="stat-card dark"><span class="lbl">ðŸ›ï¸ Ø§Ù„ÙˆØ­Ø¯Ø§Øª Ø§Ù„Ù…Ø¨Ø§Ø¹Ø©</span><span class="val">${soldUnits}</span><span class="sub">${Object.keys(products).length} ØµÙ†Ù Ù…Ø®ØªÙ„Ù</span></div>
-            <div class="stat-card red"><span class="lbl">ðŸ”„ Ù‚ÙŠÙ…Ø© Ø§Ù„Ù…Ø±ØªØ¬Ø¹Ø§Øª</span><span class="val">${fmtMoney(returnedValue)}</span><span class="sub">ØºÙŠØ± Ù…Ø´Ø­ÙˆÙ†: ${fmtMoney(unshipped)}</span></div>
-            <div class="stat-card"><span class="lbl">ðŸ‘¥ Ø¹Ø¯Ø¯ Ø§Ù„Ù…Ø´ØªØ±ÙŠÙ†</span><span class="val">${Object.keys(users).length}</span><span class="sub">Ù…Ø³ØªØ®Ø¯Ù… Ù†Ø´Ø·</span></div>
+            <div class="stat-card"><span class="lbl">💰 صافي عائد البيع</span><span class="val">${fmtMoney(netRevenue)}</span><span class="sub">خلال الفترة المحددة</span></div>
+            <div class="stat-card gold"><span class="lbl">🧾 عدد الطلبات</span><span class="val">${orders.length}</span><span class="sub">متوسط الطلب: ${fmtMoney(avgOrder)}</span></div>
+            <div class="stat-card dark"><span class="lbl">🛍️ الوحدات المباعة</span><span class="val">${soldUnits}</span><span class="sub">${Object.keys(products).length} صنف مختلف</span></div>
+            <div class="stat-card red"><span class="lbl">🔄 قيمة المرتجعات</span><span class="val">${fmtMoney(returnedValue)}</span><span class="sub">غير مشحون: ${fmtMoney(unshipped)}</span></div>
+            <div class="stat-card"><span class="lbl">👥 عدد المشترين</span><span class="val">${Object.keys(users).length}</span><span class="sub">مستخدم نشط</span></div>
             `;
 
             // Products
             const prodList = Object.values(products).sort((a, b) => b.value - a.value);
             const maxVal = prodList.length ? prodList[0].value : 1;
             document.getElementById('stats-panel-products').innerHTML = prodList.length === 0 ?
-                '<div class="stats-empty">ðŸ“­ Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ø¨ÙŠØ¹Ø§Øª Ø®Ù„Ø§Ù„ Ø§Ù„ÙØªØ±Ø© Ø§Ù„Ù…Ø­Ø¯Ø¯Ø©</div>' :
+                '<div class="stats-empty">📭 لا توجد مبيعات خلال الفترة المحددة</div>' :
                 `<div class="stats-scroll"><table class="stats-table">
-                <thead><tr><th>#</th><th>Ø§Ù„Ù…Ù†ØªØ¬</th><th>Ø§Ù„ÙƒÙ…ÙŠØ© Ø§Ù„Ù…Ø¨Ø§Ø¹Ø©</th><th>Ø§Ù„Ù…Ø±ØªØ¬Ø¹</th><th>Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ù‚ÙŠÙ…Ø©</th><th>Ø§Ù„Ù†Ø³Ø¨Ø©</th></tr></thead>
+                <thead><tr><th>#</th><th>المنتج</th><th>الكمية المباعة</th><th>المرتجع</th><th>إجمالي القيمة</th><th>النسبة</th></tr></thead>
                 <tbody>${prodList.map((p, i) => `
                     <tr>
                         <td>${i + 1}</td>
@@ -6079,29 +6079,29 @@
             const maxDay = days.length ? Math.max(...days.map(d => daily[d])) : 1;
             const payList = Object.entries(payments).sort((a, b) => b[1] - a[1]);
             document.getElementById('stats-panel-revenue').innerHTML = days.length === 0 ?
-                '<div class="stats-empty">ðŸ“­ Ù„Ø§ ÙŠÙˆØ¬Ø¯ Ø¹Ø§Ø¦Ø¯ Ø®Ù„Ø§Ù„ Ø§Ù„ÙØªØ±Ø© Ø§Ù„Ù…Ø­Ø¯Ø¯Ø©</div>' :
+                '<div class="stats-empty">📭 لا يوجد عائد خلال الفترة المحددة</div>' :
                 `
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
               <div>
-                <h4 style="margin-bottom:8px;font-size:14px;color:var(--gray-700);">ðŸ“ˆ Ø§Ù„Ø¹Ø§Ø¦Ø¯ Ø§Ù„ÙŠÙˆÙ…ÙŠ</h4>
+                <h4 style="margin-bottom:8px;font-size:14px;color:var(--gray-700);">📈 العائد اليومي</h4>
                 <div class="stats-scroll"><table class="stats-table">
-                  <thead><tr><th>Ø§Ù„ØªØ§Ø±ÙŠØ®</th><th>Ø§Ù„Ø¹Ø§Ø¦Ø¯</th><th></th></tr></thead>
+                  <thead><tr><th>التاريخ</th><th>العائد</th><th></th></tr></thead>
                   <tbody>${days.map(d => `
                     <tr><td>${d}</td><td style="font-weight:bold;color:var(--primary-dark);">${fmtMoney(daily[d])}</td>
                     <td><div class="bar-wrap"><div class="bar" style="width:${Math.max(4, (daily[d] / maxDay) * 100)}%;"></div></div></td></tr>`).join('')}</tbody>
                 </table></div>
               </div>
               <div>
-                <h4 style="margin-bottom:8px;font-size:14px;color:var(--gray-700);">ðŸ’³ Ø§Ù„Ø¹Ø§Ø¦Ø¯ Ø­Ø³Ø¨ Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¯ÙØ¹</h4>
+                <h4 style="margin-bottom:8px;font-size:14px;color:var(--gray-700);">💳 العائد حسب طريقة الدفع</h4>
                 <table class="stats-table">
-                  <thead><tr><th>Ø§Ù„Ø·Ø±ÙŠÙ‚Ø©</th><th>Ø§Ù„Ø¹Ø§Ø¦Ø¯</th><th>Ø§Ù„Ù†Ø³Ø¨Ø©</th></tr></thead>
+                  <thead><tr><th>الطريقة</th><th>العائد</th><th>النسبة</th></tr></thead>
                   <tbody>${payList.map(([k, v]) => `
                     <tr><td class="name">${k}</td><td style="font-weight:bold;">${fmtMoney(v)}</td>
                     <td>${netRevenue ? Math.round((v / netRevenue) * 100) : 0}%</td></tr>`).join('')}</tbody>
                 </table>
                 <div style="margin-top:14px;background:var(--primary-light);padding:12px;border-radius:var(--radius-sm);font-weight:bold;color:var(--primary-dark);">
-                    âœ… Ø¥Ø¬Ù…Ø§Ù„ÙŠ ØµØ§ÙÙŠ Ø§Ù„Ø¹Ø§Ø¦Ø¯: ${fmtMoney(netRevenue)}<br>
-                    <span style="color:var(--red);font-weight:normal;font-size:12px;">ðŸ”„ Ù…Ø±ØªØ¬Ø¹Ø§Øª: ${fmtMoney(returnedValue)} | â³ ØºÙŠØ± Ù…Ø´Ø­ÙˆÙ†: ${fmtMoney(unshipped)}</span>
+                    ✅ إجمالي صافي العائد: ${fmtMoney(netRevenue)}<br>
+                    <span style="color:var(--red);font-weight:normal;font-size:12px;">🔄 مرتجعات: ${fmtMoney(returnedValue)} | ⏳ غير مشحون: ${fmtMoney(unshipped)}</span>
                 </div>
               </div>
             </div>`;
@@ -6110,9 +6110,9 @@
             const userList = Object.values(users).sort((a, b) => b.value - a.value);
             const maxUser = userList.length ? userList[0].value : 1;
             document.getElementById('stats-panel-users').innerHTML = userList.length === 0 ?
-                '<div class="stats-empty">ðŸ“­ Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ø´ØªØ±ÙŠØ§Øª Ø®Ù„Ø§Ù„ Ø§Ù„ÙØªØ±Ø© Ø§Ù„Ù…Ø­Ø¯Ø¯Ø©</div>' :
+                '<div class="stats-empty">📭 لا توجد مشتريات خلال الفترة المحددة</div>' :
                 `<div class="stats-scroll"><table class="stats-table">
-                <thead><tr><th>#</th><th>Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…</th><th>Ø§Ù„Ù‡Ø§ØªÙ</th><th>Ø§Ù„Ø·Ù„Ø¨Ø§Øª</th><th>Ø§Ù„ÙˆØ­Ø¯Ø§Øª</th><th>Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ù…Ø´ØªØ±ÙŠØ§Øª</th><th>Ø¢Ø®Ø± Ø´Ø±Ø§Ø¡</th><th>Ø§Ù„Ù†Ø³Ø¨Ø©</th></tr></thead>
+                <thead><tr><th>#</th><th>المستخدم</th><th>الهاتف</th><th>الطلبات</th><th>الوحدات</th><th>إجمالي المشتريات</th><th>آخر شراء</th><th>النسبة</th></tr></thead>
                 <tbody>${userList.map((u, i) => `
                     <tr>
                         <td>${i + 1}</td>
@@ -6181,14 +6181,14 @@
                 document.getElementById('toggle-password').addEventListener('click', function() {
                     const pw = document.getElementById('login-password');
                     if (pw.type === 'password') { pw.type = 'text';
-                        this.textContent = 'ðŸ”’'; } else { pw.type = 'password';
-                        this.textContent = 'ðŸ‘ï¸'; }
+                        this.textContent = '🔒'; } else { pw.type = 'password';
+                        this.textContent = '👁️'; }
                 });
 
                 document.getElementById('payment-method').addEventListener('change', function() {
                     const val = this.value;
                     const group = document.getElementById('payment-upload-group');
-                    if (val === 'Ù…Ø­ÙØ¸Ø© Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠØ©' || val === 'Ø§Ù†Ø³ØªØ§Ø¨Ø§ÙŠ') group.style.display = 'block';
+                    if (val === 'محفظة إلكترونية' || val === 'انستاباي') group.style.display = 'block';
                     else group.style.display = 'none';
                 });
 
@@ -6201,11 +6201,11 @@
                 await renderOrdersList();
                 await renderArchiveList();
 
-                showToast('âœ… ØªÙ… Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø¨Ù†Ø¬Ø§Ø­', 'success');
+                showToast('✅ تم الاتصال بقاعدة البيانات بنجاح', 'success');
 
             } catch (err) {
                 console.error(err);
-                showToast('âŒ ÙØ´Ù„ Ø§Ù„Ø§ØªØµØ§Ù„ Ø¨Ù‚Ø§Ø¹Ø¯Ø© Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª: ' + err.message, 'error');
+                showToast('❌ فشل الاتصال بقاعدة البيانات: ' + err.message, 'error');
             } finally {
                 showLoading(false);
             }
