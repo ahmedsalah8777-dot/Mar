@@ -408,6 +408,14 @@
             align-items: center;
             gap: 10px;
         }
+        .login-logo img,
+        .header-logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
         .header-logo {
             width: 44px;
             height: 44px;
@@ -916,85 +924,208 @@
             margin: 0 auto;
             width: 100%;
         }
+        /* ===== PRODUCTS: بطاقة منتج احترافية ===== */
         .products-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             font-size: 14px;
         }
-        .products-table th {
-            background: var(--gray-100);
-            padding: 12px 10px;
-            text-align: center;
-            font-weight: 700;
-            color: var(--gray-700);
-            position: sticky;
-            top: 0;
-            z-index: 1;
-            border-bottom: 2px solid var(--gray-200);
+
+        .products-table thead {
+            display: none;
         }
+
+        .products-table tbody {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 14px;
+        }
+
+        .products-table tr {
+            display: grid;
+            grid-template-columns: 92px minmax(0, 1fr);
+            grid-template-rows: auto auto;
+            column-gap: 14px;
+            row-gap: 4px;
+            align-items: center;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            min-width: 0;
+        }
+
+        .products-table tr:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
         .products-table td {
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid var(--gray-100);
+            padding: 0;
+            text-align: right;
+            border: none;
             vertical-align: middle;
+            min-width: 0;
         }
-        .product-img-cell {
-            width: 80px;
+
+        .products-table .product-img-cell {
+            grid-column: 1;
+            grid-row: 1 / span 2;
+            width: 92px;
+            height: 92px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: var(--radius);
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
         }
+
         .product-img {
-            width: 60px;
-            height: 60px;
-            border-radius: var(--radius-sm);
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius);
             object-fit: cover;
             background: var(--gray-100);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            margin: 0 auto;
+            font-size: 38px;
+            margin: 0;
         }
-        .product-price {
-            font-weight: 700;
-            color: var(--primary-dark);
+
+        .products-table .product-name-cell {
+            grid-column: 2;
+            grid-row: 1;
+            align-self: end;
+            overflow: hidden;
+        }
+
+        .products-table .product-name-cell strong {
+            display: block;
+            color: var(--gray-800);
             font-size: 15px;
+            font-weight: 800;
+            line-height: 1.45;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .products-table .product-meta-cell {
+            grid-column: 2;
+            grid-row: 2;
+            align-self: start;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .product-price {
+            font-weight: 800;
+            color: var(--primary-dark);
+            font-size: 14px;
             white-space: nowrap;
         }
+
         .product-qty {
-            font-weight: 600;
-            color: var(--gray-600);
-            font-size: 13px;
+            display: none;
         }
+
         .product-unit {
-            background: var(--gray-200);
-            padding: 2px 8px;
+            background: var(--gray-100);
+            padding: 3px 8px;
             border-radius: 12px;
             font-size: 11px;
             color: var(--gray-700);
             white-space: nowrap;
-            margin-right: 4px;
+            margin: 0;
             display: inline-block;
         }
+
+        .products-table .product-action-cell {
+            grid-column: 1 / -1;
+            grid-row: 3;
+            padding-top: 8px;
+        }
+
         .btn-add-cart {
+            width: 100%;
+            min-height: 40px;
             background: var(--primary);
             color: white;
             border: none;
-            padding: 8px 14px;
-            border-radius: 20px;
+            padding: 9px 14px;
+            border-radius: 12px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 800;
             font-size: 13px;
             transition: var(--transition);
             font-family: inherit;
             white-space: nowrap;
         }
+
         .btn-add-cart:hover {
             background: var(--primary-dark);
-            transform: scale(1.04);
+            transform: translateY(-1px);
         }
+
+        .btn-add-cart:active {
+            transform: scale(0.98);
+        }
+
         .btn-add-cart:disabled {
             background: var(--gray-400);
             cursor: not-allowed;
             transform: none;
+        }
+
+        @media (max-width: 640px) {
+            .products-screen-body {
+                padding: 10px;
+            }
+
+            .products-table tbody {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .products-table tr {
+                grid-template-columns: 82px minmax(0, 1fr);
+                column-gap: 12px;
+                padding: 10px;
+                border-radius: 14px;
+            }
+
+            .products-table .product-img-cell {
+                width: 82px;
+                height: 82px;
+            }
+
+            .products-table .product-name-cell strong {
+                font-size: 14px;
+            }
+
+            .product-price {
+                font-size: 13px;
+            }
+
+            .btn-add-cart {
+                min-height: 42px;
+                font-size: 13px;
+            }
+        }
+
+        @media (min-width: 641px) {
+            .products-table .product-action-cell {
+                grid-column: 1 / -1;
+            }
         }
 
         /* CART OVERLAY */
@@ -2626,7 +2757,7 @@
         <!-- LOGIN SCREEN -->
         <div class="screen active" id="login-screen">
             <div class="login-card">
-                <div class="login-logo" id="login-logo">🛒</div>
+                <div class="login-logo" id="login-logo" aria-label="شعار الشركة"></div>
                 <h2 class="login-title" id="login-title">بقالة الخير</h2>
                 <p class="login-subtitle">نظام إدارة المبيعات</p>
                 <div class="input-group">
@@ -2953,7 +3084,6 @@
                     <button class="settings-tab active" onclick="switchSettingsTab('users')">👥 المستخدمين</button>
                     <button class="settings-tab" onclick="switchSettingsTab('categories')">📂 الأقسام والمنتجات</button>
                     <button class="settings-tab" onclick="switchSettingsTab('company')">🏢 الشركة</button>
-                    <button class="settings-tab" onclick="switchSettingsTab('gdrive')">🗂️ جوجل درايف</button>
                     <button class="settings-tab" onclick="switchSettingsTab('announcements')">📢 الإعلانات</button>
                 </div>
                 <div class="settings-panel active" id="settings-panel-users">
@@ -2990,7 +3120,17 @@
                     <div class="settings-card">
                         <h3>🏢 إعدادات الشركة</h3>
                         <div class="input-group"><label>🏷️ اسم الشركة</label><input type="text" id="company-name-input" /></div>
-                        <div class="input-group"><label>🖼️ لوجو الشركة (Emoji)</label><input type="text" id="company-logo-input" /></div>
+                        <div class="input-group"><label>🖼️ لوجو الشركة (Emoji احتياطي)</label><input type="text" id="company-logo-input" /></div>
+                        <div class="form-group">
+                            <label>📸 صورة حقيقية للوجو (اختياري - تُرفع على جوجل درايف)</label>
+                            <div style="display:flex; gap:10px; align-items:center;">
+                                <img id="company-logo-image-preview" src="" alt="معاينة" style="width:56px;height:56px;border-radius:50%;object-fit:cover;display:none;background:var(--gray-100);box-shadow:var(--shadow-sm);" />
+                                <button type="button" class="btn btn-sm btn-outline" onclick="document.getElementById('company-logo-image-input').click()">📤 رفع صورة</button>
+                                <button type="button" id="remove-company-logo-btn" class="btn btn-sm btn-danger" style="display:none;" onclick="removeCompanyLogoImage()">🗑️ إزالة</button>
+                            </div>
+                            <input type="file" id="company-logo-image-input" accept="image/*" style="display:none;" onchange="handleCompanyLogoUpload(this)" />
+                            <div id="company-logo-upload-status" style="font-size:12px;color:var(--gray-500);margin-top:4px;"></div>
+                        </div>
                         <div class="input-group"><label>📱 رقم واتساب المدير</label><input type="tel" id="admin-whatsapp-input" placeholder="مثال: 01001234567" /></div>
                         <div class="input-group"><label>📱 رقم التحويل (محفظة/إنستاباي)</label><input type="tel" id="company-payment-number" placeholder="رقم التحويل" /></div>
                         <div class="form-row">
@@ -2999,9 +3139,7 @@
                         </div>
                         <button class="btn btn-primary" onclick="saveCompanySettings()" style="margin-top:12px;">💾 حفظ الإعدادات</button>
                     </div>
-                </div>
 
-                <div class="settings-panel" id="settings-panel-gdrive">
                     <div class="settings-card">
                         <h3>🗂️ ربط قاعدة البيانات بجوجل درايف</h3>
                         <div class="gdrive-steps">
@@ -3164,6 +3302,7 @@
         let announcementAutoCloseTimer = null;
         let announcementCountdownInterval = null;
         let pendingCategoryImageUrl = null;
+        let pendingCompanyLogoUrl = null;
         let googleDriveSettingsCache = null;
 
         // ============================================================
@@ -3345,6 +3484,7 @@
                 const def = {
                     companyName: 'بقالة الخير',
                     companyLogo: '🛒',
+                    companyLogoUrl: null,
                     adminWhatsapp: '',
                     paymentNumber: '',
                     workHoursFrom: '09:00',
@@ -3356,7 +3496,7 @@
             return snap.data();
         }
 
-        async function saveCompanySettings(settings) {
+        async function saveCompanySettingsDoc(settings) {
             await db.collection('settings').doc('company').set(settings, { merge: true });
         }
 
@@ -3491,6 +3631,22 @@
 
         function imgTagFallback() {
             return " onerror=\"this.onerror=null;this.style.display='none';\"";
+        }
+
+        function renderCompanyLogoInto(elId, settings) {
+            const el = document.getElementById(elId);
+            if (!el) return;
+
+            // استخدام نفس صورة اللوجو المحفوظة في الإعدادات
+            // لشاشة تسجيل الدخول والهيدر بدون إنشاء صورة مختلفة.
+            if (settings.companyLogoUrl) {
+                const logoUrl = fixImageUrl(settings.companyLogoUrl);
+                el.innerHTML =
+                    `<img src="${logoUrl}" alt="شعار الشركة" loading="eager"${imgTagFallback()}>`;
+            } else {
+                // في حالة عدم وجود صورة مرفوعة، استخدم الـ Emoji المحفوظ في الإعدادات.
+                el.textContent = settings.companyLogo || '🛒';
+            }
         }
 
         async function uploadImageToDrive(file, prefix = 'img') {
@@ -3916,7 +4072,7 @@
         async function updateHeaderInfo() {
             const settings = await getCompanySettings();
             document.getElementById('header-company-name').textContent = settings.companyName;
-            document.getElementById('header-logo').textContent = settings.companyLogo;
+            renderCompanyLogoInto('header-logo', settings);
 
             const ordersBtn = document.getElementById('header-btn-orders');
             const cartBtn = document.getElementById('header-btn-cart');
@@ -4112,19 +4268,31 @@
             if (cat.products && cat.products.length) {
                 body.innerHTML = `
                 <div class="table-wrapper">
-                <table class="products-table"><thead><tr><th>🖼️ صورة</th><th>📝 اسم المنتج</th><th>💰 السعر</th><th>📦 المتاح</th><th>الوحدة</th><th>⚡ الإجراءات</th></tr></thead>
+                <table class="products-table" aria-label="قائمة المنتجات">
                 <tbody>${cat.products.map(p => {
                     const disabled = p.quantity <= 0;
                     const unit = p.unit || 'عدد';
                     return `<tr>
-                        <td class="product-img-cell">${p.imgUrl ? `<img class="product-img" src="${fixImageUrl(p.imgUrl)}" alt="${p.name}" loading="lazy"${imgTagFallback()}>` : `<div class="product-img">${p.img || '📦'}</div>`}</td>
-                        <td><strong>${p.name}</strong></td>
-                        <td><span class="product-price">${p.price} ج.م</span></td>
-                        <td><span class="product-qty">${p.quantity}</span></td>
-                        <td><span class="product-unit">${unit}</span></td>
-                        <td><button class="btn-add-cart" onclick="openQtyPopup('${catId}','${p.id}')" ${disabled ? 'disabled' : ''}>${disabled ? '❌ نافذ' : '🛒 أضف للسلة'}</button></td>
+                        <td class="product-img-cell">
+                            ${p.imgUrl
+                                ? `<img class="product-img" src="${fixImageUrl(p.imgUrl)}" alt="${p.name}" loading="lazy"${imgTagFallback()}>`
+                                : `<div class="product-img">${p.img || '📦'}</div>`}
+                        </td>
+                        <td class="product-name-cell">
+                            <strong title="${p.name}">${p.name}</strong>
+                        </td>
+                        <td class="product-meta-cell">
+                            <span class="product-price">${p.price} ج.م</span>
+                            <span class="product-unit">${unit}</span>
+                        </td>
+                        <td class="product-action-cell">
+                            <button class="btn-add-cart" onclick="openQtyPopup('${catId}','${p.id}')" ${disabled ? 'disabled' : ''}>
+                                ${disabled ? '❌ نافذ' : '🛒 أضف للسلة'}
+                            </button>
+                        </td>
                     </tr>`;
-                }).join('')}</tbody></table>
+                }).join('')}</tbody>
+                </table>
                 </div>`;
             } else {
                 body.innerHTML = '<div style="text-align:center;padding:30px;">📭 لا توجد منتجات في هذا القسم</div>';
@@ -5102,6 +5270,8 @@
             const settings = await getCompanySettings();
             document.getElementById('company-name-input').value = settings.companyName;
             document.getElementById('company-logo-input').value = settings.companyLogo;
+            pendingCompanyLogoUrl = settings.companyLogoUrl || null;
+            resetCompanyLogoPreview();
             document.getElementById('admin-whatsapp-input').value = settings.adminWhatsapp || '';
             document.getElementById('company-payment-number').value = settings.paymentNumber || '';
             document.getElementById('work-hours-from-input').value = settings.workHoursFrom;
@@ -5265,6 +5435,46 @@
                 pendingCategoryImageUrl = result.url;
                 resetCategoryImagePreview();
                 showToast('✅ تم رفع صورة القسم بنجاح', 'success');
+            } catch (err) {
+                statusEl.textContent = '';
+                showToast('❌ ' + err.message, 'error');
+            } finally {
+                showLoading(false);
+                input.value = '';
+            }
+        }
+
+        function resetCompanyLogoPreview() {
+            const preview = document.getElementById('company-logo-image-preview');
+            const removeBtn = document.getElementById('remove-company-logo-btn');
+            const statusEl = document.getElementById('company-logo-upload-status');
+            if (statusEl) statusEl.textContent = '';
+            if (pendingCompanyLogoUrl) {
+                preview.src = fixImageUrl(pendingCompanyLogoUrl);
+                preview.style.display = 'inline-block';
+                removeBtn.style.display = 'inline-flex';
+            } else {
+                preview.style.display = 'none';
+                removeBtn.style.display = 'none';
+            }
+        }
+
+        function removeCompanyLogoImage() {
+            pendingCompanyLogoUrl = null;
+            resetCompanyLogoPreview();
+        }
+
+        async function handleCompanyLogoUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const statusEl = document.getElementById('company-logo-upload-status');
+            statusEl.textContent = '⏳ جاري رفع الصورة إلى جوجل درايف...';
+            showLoading(true);
+            try {
+                const result = await uploadImageToDrive(file, 'company_logo');
+                pendingCompanyLogoUrl = result.url;
+                resetCompanyLogoPreview();
+                showToast('✅ تم رفع لوجو الشركة بنجاح', 'success');
             } catch (err) {
                 statusEl.textContent = '';
                 showToast('❌ ' + err.message, 'error');
@@ -5547,7 +5757,8 @@
 
             showLoading(true);
             try {
-                await saveCompanySettings({ companyName: name, companyLogo: logo || '🛒', adminWhatsapp: whatsapp,
+                await saveCompanySettingsDoc({ companyName: name, companyLogo: logo || '🛒', companyLogoUrl: pendingCompanyLogoUrl ||
+                        null, adminWhatsapp: whatsapp,
                     paymentNumber: paymentNum, workHoursFrom: workFrom, workHoursTo: workTo });
                 updateHeaderInfo();
                 updateHeaderClock();
@@ -5928,10 +6139,12 @@
 
                 const settings = await getCompanySettings();
                 document.getElementById('header-company-name').textContent = settings.companyName;
-                document.getElementById('login-logo').textContent = settings.companyLogo;
-                document.getElementById('header-logo').textContent = settings.companyLogo;
+                renderCompanyLogoInto('login-logo', settings);
+                renderCompanyLogoInto('header-logo', settings);
                 document.getElementById('company-name-input').value = settings.companyName;
                 document.getElementById('company-logo-input').value = settings.companyLogo;
+                pendingCompanyLogoUrl = settings.companyLogoUrl || null;
+                resetCompanyLogoPreview();
                 document.getElementById('admin-whatsapp-input').value = settings.adminWhatsapp || '';
                 document.getElementById('company-payment-number').value = settings.paymentNumber || '';
                 document.getElementById('work-hours-from-input').value = settings.workHoursFrom;
