@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>بقالة الخير - نظام إدارة المبيعات</title>
 
-    <!-- ===== Firebase SDK (v9 modular via compat) ===== -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js">
     </script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js">
     </script>
 
     <style>
-        /* === الأنماط الأساسية (نفس النسخة الأصلية) === */
+        /* الأنماط الأساسية */
         :root {
             --primary: #1a7a2e;
             --primary-dark: #145a22;
@@ -392,84 +392,85 @@
         .header {
             background: linear-gradient(135deg, var(--primary), #1e8c38);
             color: white;
-            padding: 14px 20px;
-            display: flex;
+            padding: 10px 16px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto auto;
+            grid-template-areas: "left hours right";
             align-items: center;
-            justify-content: space-between;
-            gap: 12px;
+            gap: 10px;
             box-shadow: var(--shadow-lg);
             position: sticky;
             top: 0;
             z-index: 100;
-            flex-wrap: wrap;
         }
         .header-left {
+            grid-area: left;
             display: flex;
             align-items: center;
             gap: 10px;
+            min-width: 0;
         }
         .header-logo {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 21px;
             flex-shrink: 0;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
         }
+        .header-info {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
         .header-info h3 {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             line-height: 1.2;
             margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        .header-info span {
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+        .header-meta .header-user {
             font-size: 11px;
             opacity: 0.85;
             font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
+        }
+        .header-hours {
+            grid-area: hours;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            backdrop-filter: blur(4px);
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
         }
         .header-right {
+            grid-area: right;
             display: flex;
             align-items: center;
             gap: 6px;
-            position: relative;
-        }
-        .header-center {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2px;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 6px 16px;
-            border-radius: var(--radius-sm);
-            backdrop-filter: blur(4px);
-            flex-shrink: 0;
-        }
-        .header-clock {
-            font-weight: 800;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-        .header-hours {
-            font-size: 10.5px;
-            font-weight: 600;
-            opacity: 0.95;
-            white-space: nowrap;
-        }
-        @media (max-width:640px) {
-            .header-center {
-                order: 3;
-                width: 100%;
-                flex-direction: row;
-                justify-content: center;
-                gap: 10px;
-                padding: 6px 10px;
-            }
         }
         .header-btn {
             width: 40px;
@@ -486,10 +487,24 @@
             transition: var(--transition);
             position: relative;
             backdrop-filter: blur(4px);
+            flex-shrink: 0;
         }
         .header-btn:hover {
             background: rgba(255, 255, 255, 0.35);
             transform: scale(1.05);
+        }
+        #menu-btn {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--primary-dark);
+            font-size: 22px;
+            font-weight: 900;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+        }
+        #menu-btn:hover {
+            background: #fff;
+        }
+        #menu-btn.open {
+            transform: rotate(90deg);
         }
         .badge {
             position: absolute;
@@ -509,6 +524,48 @@
         }
         .badge.gold {
             background: var(--gold);
+        }
+        @media (max-width: 640px) {
+            .header {
+                grid-template-columns: minmax(0, 1fr) auto;
+                grid-template-areas: "left right" "hours hours";
+                row-gap: 8px;
+                padding: 10px 12px;
+                gap: 8px;
+            }
+            .header-hours {
+                width: 100%;
+                justify-content: center;
+            }
+            .header-logo {
+                width: 38px;
+                height: 38px;
+                font-size: 19px;
+            }
+            .header-info h3 {
+                font-size: 14px;
+            }
+            .header-meta .header-user {
+                font-size: 10px;
+            }
+            .header-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
+            }
+            .badge {
+                width: 18px;
+                height: 18px;
+                font-size: 9px;
+            }
+        }
+        @media (max-width: 380px) {
+            .header-meta .header-user {
+                display: none;
+            }
+            .db-status span:not(.db-dot) {
+                display: none;
+            }
         }
 
         /* MAIN SCREEN */
@@ -636,87 +693,6 @@
         .floating-menu .divider {
             height: 1px;
             background: var(--gray-200);
-        }
-
-        /* ===== تحسينات الهيدر والقائمة والدخول (نسخة محسّنة) ===== */
-        .header {
-            padding: 10px 16px;
-            gap: 10px;
-            flex-wrap: nowrap;
-        }
-        .header-left {
-            min-width: 0;
-            flex: 1 1 auto;
-        }
-        .header-info {
-            min-width: 0;
-        }
-        .header-info h3 {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .header-right {
-            flex-shrink: 0;
-        }
-        #menu-btn {
-            background: rgba(255, 255, 255, 0.95);
-            color: var(--primary-dark);
-            font-size: 22px;
-            font-weight: 900;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
-        }
-        #menu-btn:hover {
-            background: #fff;
-        }
-        #menu-btn.open {
-            transform: rotate(90deg);
-        }
-
-        @media (max-width: 640px) {
-            .header {
-                display: grid;
-                grid-template-columns: minmax(0, 1fr) auto;
-                grid-template-areas: "left right" "center center";
-                align-items: center;
-                padding: 10px 12px;
-                gap: 8px;
-                row-gap: 8px;
-            }
-            .header-left {
-                grid-area: left;
-                gap: 8px;
-            }
-            .header-right {
-                grid-area: right;
-                gap: 6px;
-            }
-            .header-center {
-                grid-area: center;
-                order: 0;
-                width: 100%;
-            }
-            .header-logo {
-                width: 38px;
-                height: 38px;
-                font-size: 19px;
-            }
-            .header-info h3 {
-                font-size: 14px;
-            }
-            .header-info span {
-                font-size: 10px;
-            }
-            .header-btn {
-                width: 38px;
-                height: 38px;
-                font-size: 18px;
-            }
-            .badge {
-                width: 18px;
-                height: 18px;
-                font-size: 9px;
-            }
         }
 
         /* القائمة كلوحة سفلية أنيقة على الموبايل */
@@ -1478,7 +1454,7 @@
             justify-content: center;
         }
 
-        /* ===== QUANTITY POPUP – تصميم محسّن مع صورة كبيرة ===== */
+        /* QUANTITY POPUP */
         .qty-popup-overlay {
             position: fixed;
             top: 0;
@@ -1508,7 +1484,6 @@
             position: relative;
         }
 
-        /* حاوية الصورة */
         .qty-product-image {
             width: 100%;
             max-height: 240px;
@@ -1538,7 +1513,6 @@
             color: var(--gray-400);
         }
 
-        /* اسم المنتج */
         .qty-popup .qty-product-name {
             font-size: 22px;
             font-weight: 800;
@@ -1547,7 +1521,6 @@
             line-height: 1.3;
         }
 
-        /* السعر والوحدة */
         .qty-product-meta {
             display: flex;
             justify-content: center;
@@ -1571,7 +1544,6 @@
             color: var(--gray-600);
         }
 
-        /* الكمية المتاحة */
         .qty-available-text {
             font-size: 14px;
             color: var(--gray-600);
@@ -1582,7 +1554,6 @@
             color: var(--primary);
         }
 
-        /* أدوات التحكم في الكمية */
         .qty-control {
             display: flex;
             align-items: center;
@@ -1630,7 +1601,6 @@
             background: white;
         }
 
-        /* السعر الإجمالي */
         .qty-total-price {
             font-size: 20px;
             font-weight: 700;
@@ -1641,7 +1611,6 @@
             border-radius: var(--radius-sm);
         }
 
-        /* أزرار الإجراء */
         .qty-actions {
             display: flex;
             gap: 12px;
@@ -1653,7 +1622,6 @@
             border-radius: var(--radius);
         }
 
-        /* ===== نهاية تصميم نافذة الكمية ===== */
 
         /* EDIT PRODUCTS OVERLAY */
         .edit-products-overlay {
@@ -2066,7 +2034,7 @@
             }
         }
 
-        /* ===== مؤشر اتصال قاعدة البيانات ===== */
+        /* مؤشر اتصال قاعدة البيانات */
         .db-status {
             font-size: 11px;
             font-weight: 700;
@@ -2079,6 +2047,7 @@
             color: white;
             width: fit-content;
             white-space: nowrap;
+            flex-shrink: 0;
             transition: var(--transition);
         }
         .db-status.db-online {
@@ -2102,7 +2071,7 @@
             opacity: 1;
         }
 
-        /* ===== إعدادات جوجل درايف ===== */
+        /* إعدادات جوجل درايف */
         .gdrive-steps {
             background: var(--gold-light);
             border: 1px solid var(--gold);
@@ -2141,7 +2110,7 @@
             object-fit: cover;
         }
 
-        /* ===== شاشة الإعلان العائمة ===== */
+        /* شاشة الإعلان العائمة */
         .announcement-overlay {
             display: none;
             position: fixed;
@@ -2228,7 +2197,7 @@
             font-size: 12.5px;
         }
 
-        /* ===== كارت إعدادات الإعلانات ===== */
+        /* كارت إعدادات الإعلانات */
         .announcement-preview-box {
             border: 2px dashed var(--gray-300);
             border-radius: var(--radius);
@@ -2305,7 +2274,7 @@
 
 <body>
 
-    <!-- ===== LOADING OVERLAY ===== -->
+    <!-- LOADING OVERLAY -->
     <div class="loading-overlay" id="loading-overlay">
         <div class="loading-spinner">
             <div class="spinner"></div>
@@ -2361,17 +2330,16 @@
                 <div class="header-logo" id="header-logo">🛒</div>
                 <div class="header-info">
                     <h3 id="header-company-name">بقالة الخير</h3>
-                    <span id="header-user-info">مدير | admin</span>
-                    <div id="db-status-indicator" class="db-status db-online" title="حالة الاتصال بقاعدة البيانات">
-                        <span class="db-dot" id="db-status-icon">🟢</span>
-                        <span id="db-status-text">متصل</span>
+                    <div class="header-meta">
+                        <span class="header-user" id="header-user-info">مدير | admin</span>
+                        <div id="db-status-indicator" class="db-status db-online" title="حالة الاتصال بقاعدة البيانات">
+                            <span class="db-dot" id="db-status-icon">🟢</span>
+                            <span id="db-status-text">متصل</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="header-center" id="header-center">
-                <div class="header-clock" id="header-clock">🕐 --:--</div>
-                <div class="header-hours" id="header-hours">⏰ مواعيد العمل: --</div>
-            </div>
+            <div class="header-hours" id="header-hours">⏰ مواعيد العمل: --</div>
             <div class="header-right">
                 <button class="header-btn" id="header-btn-orders" onclick="toggleOrdersPopup()" title="طلبات المشتريات">📦<span class="badge gold" id="orders-header-badge" style="display:none;">0</span></button>
                 <button class="header-btn" id="header-btn-cart" onclick="toggleCart()" title="سلة المشتريات">🛒<span class="badge" id="cart-badge" style="display:none;">0</span></button>
@@ -2536,32 +2504,25 @@
             </div>
         </div>
 
-        <!-- ===== QUANTITY POPUP – نسخة محسّنة مع صورة كبيرة ===== -->
+        <!-- QUANTITY POPUP -->
         <div class="qty-popup-overlay" id="qty-popup-overlay" onclick="closeQtyPopupOutside(event)">
             <div class="qty-popup" onclick="event.stopPropagation()">
-                <!-- صورة المنتج -->
                 <div class="qty-product-image" id="qty-product-image-container">
                     <img id="qty-product-img" src="" alt="صورة المنتج" style="display:none;" />
                     <span class="qty-emoji-placeholder" id="qty-product-emoji">📦</span>
                 </div>
-                <!-- اسم المنتج -->
                 <div class="qty-product-name" id="qty-popup-name">اسم المنتج</div>
-                <!-- السعر والوحدة -->
                 <div class="qty-product-meta">
                     <span class="meta-price" id="qty-product-price">السعر: 0 ج.م</span>
                     <span class="meta-unit" id="qty-product-unit">الوحدة: عدد</span>
                 </div>
-                <!-- الكمية المتاحة -->
                 <div class="qty-available-text">الكمية المتاحة: <span id="qty-available">0</span></div>
-                <!-- أدوات التحكم في الكمية -->
                 <div class="qty-control">
                     <button type="button" onclick="changeQty(-1)">−</button>
                     <input type="number" id="qty-input" value="1" min="1" step="1" />
                     <button type="button" onclick="changeQty(1)">+</button>
                 </div>
-                <!-- السعر الإجمالي -->
                 <div class="qty-total-price" id="qty-total">السعر الإجمالي: 0 ج.م</div>
-                <!-- أزرار الإجراء -->
                 <div class="qty-actions">
                     <button class="btn btn-primary" onclick="confirmAddToCart()">✅ تأكيد الإضافة</button>
                     <button class="btn btn-outline" onclick="closeQtyPopup()">إلغاء</button>
@@ -2809,13 +2770,9 @@
 
     <div id="toast-container"></div>
 
-    <!-- ========================================================================= -->
-    <!-- ===== JAVASCRIPT – FIREBASE INTEGRATION ===== -->
-    <!-- ========================================================================= -->
+    <!-- JAVASCRIPT – FIREBASE INTEGRATION -->
     <script>
-        // ============================================================
-        //  1.  FIREBASE CONFIG (استبدل بالقيم الخاصة بك)
-        // ============================================================
+        // 1. FIREBASE CONFIG (استبدل بالقيم الخاصة بك)
         const firebaseConfig = {
             apiKey: "AIzasyBH-p_fj6XpG0umkHl_04vETUOM91A1_cg",
             authDomain: "market-889d1.firebaseapp.com",
@@ -2826,15 +2783,11 @@
             measurementId: "G-4PPBCKEMT4"
         };
 
-        // ============================================================
-        //  2.  INIT FIREBASE
-        // ============================================================
+        // 2. INIT FIREBASE
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // ============================================================
-        //  3.  HELPERS & STATE
-        // ============================================================
+        // 3. HELPERS & STATE
         let currentUser = null;
         let qtyPopupData = null;
         let pendingAcceptIndex = null;
@@ -2852,9 +2805,7 @@
         let pendingCategoryImageUrl = null;
         let googleDriveSettingsCache = null;
 
-        // ============================================================
-        //  4.  TOAST & LOADING
-        // ============================================================
+        // 4. TOAST & LOADING
         function showToast(msg, type = 'info') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -2871,11 +2822,8 @@
             document.getElementById('loading-overlay').classList.toggle('show', show);
         }
 
-        // ============================================================
-        //  5.  FIREBASE CRUD OPERATIONS
-        // ============================================================
+        // 5. FIREBASE CRUD OPERATIONS
 
-        // ----- 5.1 Users -----
         async function getUsers() {
             const snap = await db.collection('users').get();
             return snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -2900,7 +2848,6 @@
             await db.collection('users').doc(docId).delete();
         }
 
-        // ----- 5.2 Categories -----
         async function getCategories() {
             const snap = await db.collection('categories').get();
             return snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -2929,7 +2876,6 @@
             await db.collection('categories').doc(docId).delete();
         }
 
-        // ----- 5.3 Cart (per user) -----
         async function getCartForUser(username) {
             const snap = await db.collection('carts').where('username', '==', username).get();
             if (snap.empty) return [];
@@ -2945,7 +2891,6 @@
             await batch.commit();
         }
 
-        // ----- 5.4 Pending Users -----
         async function getPendingUsers() {
             const snap = await db.collection('pendingUsers').get();
             return snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -2970,7 +2915,6 @@
             await db.collection('pendingUsers').doc(docId).delete();
         }
 
-        // ----- 5.5 Orders -----
         async function getOrders() {
             const snap = await db.collection('orders').get();
             return snap.docs.map(d => ({ docId: d.id, ...d.data() }));
@@ -2999,7 +2943,6 @@
             await db.collection('orders').doc(docId).delete();
         }
 
-        // ----- 5.6 Archive -----
         async function getArchive() {
             const snap = await db.collection('archive').get();
             return snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -3024,7 +2967,6 @@
             await db.collection('archive').doc(docId).update(updates);
         }
 
-        // ----- 5.7 Company Settings -----
         async function getCompanySettings() {
             const snap = await db.collection('settings').doc('company').get();
             if (!snap.exists) {
@@ -3046,7 +2988,6 @@
             await db.collection('settings').doc('company').set(settings, { merge: true });
         }
 
-        // ----- 5.8 Announcement Settings -----
         async function getAnnouncementSettingsDoc() {
             const snap = await db.collection('settings').doc('announcement').get();
             if (!snap.exists) {
@@ -3061,7 +3002,6 @@
             await db.collection('settings').doc('announcement').set(settings, { merge: true });
         }
 
-        // ----- 5.9 Google Drive Settings -----
         async function getGoogleDriveSettingsDoc() {
             const snap = await db.collection('settings').doc('googleDrive').get();
             if (!snap.exists) {
@@ -3077,7 +3017,6 @@
             googleDriveSettingsCache = settings;
         }
 
-        // ----- 5.10 DB Connection Monitor -----
         function initDbConnectionMonitor() {
             window.addEventListener('online', () => { dbConnectionRetries = 0;
                 updateDbConnectionStatus(); });
@@ -3136,7 +3075,6 @@
             }
         }
 
-        // ----- 5.11 Google Drive Upload -----
         function compressImageGeneric(file, maxDim = 1280, quality = 0.8) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -3280,7 +3218,6 @@
             }
         }
 
-        // ----- 5.11 Announcement UI -----
         async function loadAnnouncementSettingsUI() {
             showLoading(true);
             try {
@@ -3463,9 +3400,7 @@
             }
         }
 
-        // ============================================================
-        //  6.  DATA LOADER
-        // ============================================================
+        // 6. DATA LOADER
         async function loadAllData() {
             showLoading(true);
             try {
@@ -3483,9 +3418,7 @@
             }
         }
 
-        // ============================================================
-        //  7.  UI HELPERS
-        // ============================================================
+        // 7. UI HELPERS
         function closeModal(id) {
             const el = document.getElementById(id);
             if (el) el.classList.remove('show');
@@ -3524,7 +3457,7 @@
             if (targetScreen) targetScreen.classList.add('active');
 
             const appHeader = document.getElementById('app-header');
-            if (appHeader) appHeader.style.display = (id === 'login') ? 'none' : 'flex';
+            if (appHeader) appHeader.style.display = (id === 'login') ? 'none' : 'grid';
 
             closeFloatingMenu();
             document.getElementById('cart-overlay').classList.remove('show');
@@ -3540,7 +3473,6 @@
             }
         }
 
-        // ===== التحكم في زر الرجوع بالمتصفح =====
         let currentScreenId = 'login';
         let __navFromHistory = false;
 
@@ -3596,9 +3528,7 @@
             updateOrdersBadge();
         }
 
-        // ============================================================
-        //  8.  HEADER & CLOCK
-        // ============================================================
+        // 8. HEADER
         async function updateHeaderInfo() {
             const settings = await getCompanySettings();
             document.getElementById('header-company-name').textContent = settings.companyName;
@@ -3636,7 +3566,7 @@
                 if (pendingBtn) pendingBtn.style.display = 'none';
                 if (menuBtn) menuBtn.style.display = 'none';
             }
-            updateHeaderClock();
+            updateWorkHours();
         }
 
         function formatHourLabel(hhmm) {
@@ -3660,13 +3590,10 @@
             return nowMinutes >= fromMinutes || nowMinutes < toMinutes;
         }
 
-        async function updateHeaderClock() {
-            const clockEl = document.getElementById('header-clock');
+        async function updateWorkHours() {
             const hoursEl = document.getElementById('header-hours');
-            if (!clockEl || !hoursEl) return;
+            if (!hoursEl) return;
             const now = new Date();
-            const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true });
-            clockEl.textContent = `🕐 ${timeStr}`;
 
             const settings = await getCompanySettings();
             const { workHoursFrom, workHoursTo } = settings;
@@ -3675,9 +3602,7 @@
                 `⏰ ${formatHourLabel(workHoursFrom)} - ${formatHourLabel(workHoursTo)} <strong style="color:${open ? '#c8ffd4' : '#ffd9a0'};">(${open ? 'مفتوح الآن' : 'مغلق الآن'})</strong>`;
         }
 
-        // ============================================================
-        //  9.  LOGIN / LOGOUT
-        // ============================================================
+        // 9. LOGIN / LOGOUT
         async function handleLogin() {
             const u = document.getElementById('login-username').value.trim();
             const p = document.getElementById('login-password').value.trim();
@@ -3730,9 +3655,7 @@
             showToast('👋 تم تسجيل الخروج بنجاح', 'success');
         }
 
-        // ============================================================
-        //  10. REGISTER REQUESTS
-        // ============================================================
+        // 10. REGISTER REQUESTS
         async function requestRegistration() {
             const fullname = document.getElementById('reg-fullname').value.trim();
             const phone = document.getElementById('reg-phone').value.trim();
@@ -3757,9 +3680,7 @@
             }
         }
 
-        // ============================================================
-        //  11. CATEGORIES & PRODUCTS (MAIN)
-        // ============================================================
+        // 11. CATEGORIES & PRODUCTS (MAIN)
         async function renderCategories() {
             const categories = await getCategories();
             const grid = document.getElementById('categories-grid');
@@ -3798,9 +3719,7 @@
             showScreen('products');
         }
 
-        // ============================================================
-        //  12. QUANTITY POPUP – نسخة محسّنة مع صورة كبيرة
-        // ============================================================
+        // 12. QUANTITY POPUP – نسخة محسّنة مع صورة كبيرة
         async function openQtyPopup(categoryId, productId) {
             const categories = await getCategories();
             const cat = categories.find(c => c.id === categoryId);
@@ -3814,7 +3733,6 @@
 
             qtyPopupData = { categoryId, productId, product: prod, maxQty: prod.quantity };
 
-            // تعيين الصورة
             const imgEl = document.getElementById('qty-product-img');
             const emojiEl = document.getElementById('qty-product-emoji');
             const container = document.getElementById('qty-product-image-container');
@@ -3829,17 +3747,14 @@
                 emojiEl.style.display = 'block';
             }
 
-            // تعيين الاسم والسعر والوحدة
             document.getElementById('qty-popup-name').textContent = prod.name;
             document.getElementById('qty-product-price').textContent = `السعر: ${prod.price} ج.م`;
             document.getElementById('qty-product-unit').textContent = `الوحدة: ${prod.unit || 'عدد'}`;
             document.getElementById('qty-available').textContent = prod.quantity;
 
-            // إعادة ضبط الكمية
             document.getElementById('qty-input').value = 1;
             updateQtyTotal();
 
-            // إظهار النافذة
             document.getElementById('qty-popup-overlay').classList.add('show');
         }
 
@@ -3919,9 +3834,7 @@
             }
         }
 
-        // ============================================================
-        //  13. CART UI
-        // ============================================================
+        // 13. CART UI
         async function toggleCart() {
             const overlay = document.getElementById('cart-overlay');
             if (overlay.classList.contains('show')) {
@@ -4041,9 +3954,7 @@
             badge.style.display = total > 0 ? 'flex' : 'none';
         }
 
-        // ============================================================
-        //  14. SUBMIT ORDER
-        // ============================================================
+        // 14. SUBMIT ORDER
         let isSubmittingOrder = false;
         async function submitOrder() {
             if (isSubmittingOrder) return;
@@ -4094,9 +4005,7 @@
             }
         }
 
-        // ============================================================
-        //  15. ORDERS
-        // ============================================================
+        // 15. ORDERS
         async function updateOrdersBadge() {
             const badge = document.getElementById('orders-header-badge');
             const orders = await getOrders();
@@ -4144,9 +4053,7 @@
             showScreen('orders', orderId);
         }
 
-        // ============================================================
-        //  16. ORDERS LIST (with shipping controls)
-        // ============================================================
+        // 16. ORDERS LIST (with shipping controls)
         let ordersCache = [];
 
         async function changeShipQty(orderId, itemIdx, delta) {
@@ -4263,9 +4170,7 @@
             }).join('');
         }
 
-        // ============================================================
-        //  17. COMPLETE ORDER → ARCHIVE
-        // ============================================================
+        // 17. COMPLETE ORDER → ARCHIVE
         async function completeOrder(orderId) {
             if (!confirm('تأكيد تجهيز هذا الطلب ونقله للأرشيف؟')) return;
             showLoading(true);
@@ -4303,9 +4208,7 @@
             }
         }
 
-        // ============================================================
-        //  18. WHATSAPP SENDER
-        // ============================================================
+        // 18. WHATSAPP SENDER
         function sendOrderPreparedWhatsApp(order, shippedTotal) {
             const companyName = localStorage.getItem('bakala_company_name') || 'بقالة الخير';
             const remaining = order.total - shippedTotal;
@@ -4342,9 +4245,7 @@
             return true;
         }
 
-        // ============================================================
-        //  19. DELETE ORDER
-        // ============================================================
+        // 19. DELETE ORDER
         async function deleteOrder(orderId) {
             if (!confirm('حذف هذا الطلب نهائياً؟')) return;
             showLoading(true);
@@ -4361,9 +4262,7 @@
             }
         }
 
-        // ============================================================
-        //  20. BUYER ARCHIVE
-        // ============================================================
+        // 20. BUYER ARCHIVE
         async function renderBuyerArchive() {
             if (!currentUser) return;
             const container = document.getElementById('buyer-archive-list-container');
@@ -4445,9 +4344,7 @@
             container.innerHTML = html;
         }
 
-        // ============================================================
-        //  21. ARCHIVE SCREEN
-        // ============================================================
+        // 21. ARCHIVE SCREEN
         async function renderArchiveList() {
             const container = document.getElementById('archive-list-container');
             const archive = await getArchive();
@@ -4491,9 +4388,7 @@
             container.innerHTML = html;
         }
 
-        // ============================================================
-        //  22. ARCHIVE DETAIL MODAL
-        // ============================================================
+        // 22. ARCHIVE DETAIL MODAL
         let currentArchiveOrderId = null;
         let archiveModalEditMode = false;
 
@@ -4672,9 +4567,7 @@
             }
         }
 
-        // ============================================================
-        //  23. FLOATING MENU
-        // ============================================================
+        // 23. FLOATING MENU
         function toggleFloatingMenu() {
             const menu = document.getElementById('floating-menu');
             const overlay = document.getElementById('floating-overlay');
@@ -4726,9 +4619,7 @@
             menu.innerHTML = html;
         }
 
-        // ============================================================
-        //  24. SETTINGS
-        // ============================================================
+        // 24. SETTINGS
         async function openSettings() {
             if (!currentUser || currentUser.type !== 'مدير') { showToast('⚠️ متاح للمدير فقط', 'error'); return; }
             closeFloatingMenu();
@@ -4757,7 +4648,6 @@
             if (tab === 'announcements') loadAnnouncementSettingsUI();
         }
 
-        // ---- Users ----
         async function renderUsersTable() {
             const users = await getUsers();
             const tbody = document.getElementById('users-table-body');
@@ -4803,7 +4693,6 @@
             } finally { showLoading(false); }
         }
 
-        // ---- Categories & Products ----
         async function renderSettingsCategories() {
             const categories = await getCategories();
             const container = document.getElementById('settings-categories-list');
@@ -4940,7 +4829,6 @@
             } finally { showLoading(false); }
         }
 
-        // ---- Edit Products Overlay ----
         async function openEditProductsOverlay(catId) {
             activeCategoryForProducts = catId;
             await renderEditProductsOverlay();
@@ -5169,7 +5057,6 @@
             } finally { showLoading(false); }
         }
 
-        // ---- Company Settings ----
         async function saveCompanySettings() {
             const name = document.getElementById('company-name-input').value.trim();
             const logo = document.getElementById('company-logo-input').value.trim();
@@ -5185,14 +5072,12 @@
                 await saveCompanySettings({ companyName: name, companyLogo: logo || '🛒', adminWhatsapp: whatsapp,
                     paymentNumber: paymentNum, workHoursFrom: workFrom, workHoursTo: workTo });
                 updateHeaderInfo();
-                updateHeaderClock();
+                updateWorkHours();
                 showToast('✅ تم حفظ إعدادات الشركة بنجاح', 'success');
             } finally { showLoading(false); }
         }
 
-        // ============================================================
-        //  25. PENDING REQUESTS
-        // ============================================================
+        // 25. PENDING REQUESTS
         async function updatePendingBadge() {
             const badge = document.getElementById('pending-header-badge');
             const pending = await getPendingUsers();
@@ -5348,9 +5233,7 @@
             } finally { showLoading(false); }
         }
 
-        // ============================================================
-        //  26. STATS SCREEN
-        // ============================================================
+        // 26. STATS SCREEN
         function initStatsScreen() {
             if (!currentUser || currentUser.type !== 'مدير') return;
             if (!statsInitialized) {
@@ -5479,7 +5362,6 @@
             <div class="stat-card"><span class="lbl">👥 عدد المشترين</span><span class="val">${Object.keys(users).length}</span><span class="sub">مستخدم نشط</span></div>
             `;
 
-            // Products
             const prodList = Object.values(products).sort((a, b) => b.value - a.value);
             const maxVal = prodList.length ? prodList[0].value : 1;
             document.getElementById('stats-panel-products').innerHTML = prodList.length === 0 ?
@@ -5498,7 +5380,6 @@
                     </tr>`).join('')}</tbody>
               </table></div>`;
 
-            // Revenue
             const days = Object.keys(daily).sort();
             const maxDay = days.length ? Math.max(...days.map(d => daily[d])) : 1;
             const payList = Object.entries(payments).sort((a, b) => b[1] - a[1]);
@@ -5530,7 +5411,6 @@
               </div>
             </div>`;
 
-            // Users
             const userList = Object.values(users).sort((a, b) => b.value - a.value);
             const maxUser = userList.length ? userList[0].value : 1;
             document.getElementById('stats-panel-users').innerHTML = userList.length === 0 ?
@@ -5551,9 +5431,7 @@
               </table></div>`;
         }
 
-        // ============================================================
-        //  27. APP INIT
-        // ============================================================
+        // 27. APP INIT
         window.onload = async function() {
             try {
                 showLoading(true);
@@ -5618,7 +5496,7 @@
                     checkUsernameAvailability(this.value);
                 });
 
-                setInterval(updateHeaderClock, 1000);
+                setInterval(updateWorkHours, 60000);
 
                 await renderOrdersList();
                 await renderArchiveList();
