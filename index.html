@@ -2537,50 +2537,79 @@
             }
         }
 
-        /* فصل صفوف الهيدر على الشاشات الصغيرة لمنع التداخل */
-        @media (max-width: 640px) {
-            .header {
-                grid-template-columns: minmax(0, 1fr);
-                grid-template-areas:
-                    "left"
-                    "right"
-                    "center";
-                gap: 9px;
-                padding: 10px 12px 12px;
-            }
-            .header-left {
-                width: 100%;
-                min-width: 0;
-                min-height: 73px;
-                align-items: center;
-            }
-            .header-info {
-                flex: 1 1 auto;
-                min-width: 0;
-                gap: 4px;
-                overflow: hidden;
-            }
-            .header-info h3 {
-                height: 18px;
-                line-height: 18px;
-            }
-            .user-chip,
-            .db-status {
-                flex-shrink: 0;
-            }
-            .header-right {
-                width: 100%;
-                min-width: 0;
-                min-height: 38px;
-                padding-top: 8px;
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
-                justify-content: flex-start;
-            }
-            .header-center {
-                margin-top: 0;
-                min-height: 36px;
-            }
-        }
+        /* التنسيق الاحترافي للهيدر على الموبايل والشاشات الصغيرة */
+@media (max-width: 640px) {
+    .header {
+        display: flex !important;
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px 16px;
+        height: auto;
+    }
+    
+    /* الصف الأول: اللوجو ومعلومات المستخدم */
+    .header-left {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+    
+    .header-info {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .header-info h3, .user-chip-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    /* الصف الثاني: أيقونات التحكم (تم تنسيقها بمسافات متساوية) */
+    .header-right {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly; /* توزيع المسافات بالتساوي بين الأيقونات */
+        align-items: center;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        gap: 8px;
+        order: 2; /* ترتيبها لتكون أسفل معلومات المستخدم مباشرة */
+    }
+    
+    /* تنسيق حجم الأيقونات لمنع التداخل */
+    .header-btn {
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* الصف الثالث: التوقيت ومواعيد العمل */
+    .header-center {
+        width: 100%;
+        order: 3; /* ترتيبه ليكون في نهاية الهيدر */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin-top: 4px;
+        padding: 8px 10px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius-sm);
+    }
+}
     </style>
 </head>
 
