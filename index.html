@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>توشكانا ماركت - نظام إدارة المبيعات</title>
+    <title>بقالة الخير - نظام إدارة المبيعات</title>
 
     <!-- ===== Firebase SDK (v9 modular via compat) ===== -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js">
@@ -3633,6 +3633,13 @@
             return " onerror=\"this.onerror=null;this.style.display='none';\"";
         }
 
+        // تحديث اسم الشركة في شاشة تسجيل الدخول والهيدر من إعدادات الشركة
+        function renderCompanyNameIntoLogin(settings) {
+            const loginTitle = document.getElementById('login-title');
+            if (!loginTitle) return;
+            loginTitle.textContent = (settings && settings.companyName) ? settings.companyName : 'بقالة الخير';
+        }
+
         function renderCompanyLogoInto(elId, settings) {
             const el = document.getElementById(elId);
             if (!el) return;
@@ -4207,6 +4214,15 @@
             currentUser = null;
             closeFloatingMenu();
             showScreen('login');
+
+            // إعادة تحميل اسم الشركة من الإعدادات عند العودة لشاشة الدخول
+            getCompanySettings().then(function(settings) {
+                renderCompanyNameIntoLogin(settings);
+                renderCompanyLogoInto('login-logo', settings);
+            }).catch(function(err) {
+                console.error('تعذر تحديث اسم الشركة في شاشة الدخول:', err);
+            });
+
             const remU = localStorage.getItem('bakala_remembered_user');
             const remP = localStorage.getItem('bakala_remembered_pass');
             if (remU) {
@@ -5757,11 +5773,23 @@
 
             showLoading(true);
             try {
-                await saveCompanySettingsDoc({ companyName: name, companyLogo: logo || '🛒', companyLogoUrl: pendingCompanyLogoUrl ||
-                        null, adminWhatsapp: whatsapp,
-                    paymentNumber: paymentNum, workHoursFrom: workFrom, workHoursTo: workTo });
+                const savedSettings = {
+                    companyName: name,
+                    companyLogo: logo || '🛒',
+                    companyLogoUrl: pendingCompanyLogoUrl || null,
+                    adminWhatsapp: whatsapp,
+                    paymentNumber: paymentNum,
+                    workHoursFrom: workFrom,
+                    workHoursTo: workTo
+                };
+
+                await saveCompanySettingsDoc(savedSettings);
+
+                // تحديث الاسم فوراً في شاشة تسجيل الدخول والهيدر
+                renderCompanyNameIntoLogin(savedSettings);
                 updateHeaderInfo();
                 updateHeaderClock();
+
                 showToast('✅ تم حفظ إعدادات الشركة بنجاح', 'success');
             } finally { showLoading(false); }
         }
@@ -6138,6 +6166,10 @@
                 initHistoryGuard();
 
                 const settings = await getCompanySettings();
+
+                // نفس اسم الشركة المحفوظ في إعدادات الشركة يظهر في تسجيل الدخول
+                renderCompanyNameIntoLogin(settings);
+
                 document.getElementById('header-company-name').textContent = settings.companyName;
                 renderCompanyLogoInto('login-logo', settings);
                 renderCompanyLogoInto('header-logo', settings);
