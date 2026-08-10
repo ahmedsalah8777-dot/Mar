@@ -419,12 +419,30 @@
             font-size: 22px;
             flex-shrink: 0;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .header-logo:hover,
+        .header-logo:focus-visible {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.26);
+            outline: 2px solid rgba(255, 255, 255, 0.9);
+            outline-offset: 2px;
         }
         .header-info h3 {
             font-size: 16px;
             font-weight: 700;
             line-height: 1.2;
             margin: 0;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: opacity 0.2s ease;
+        }
+        .header-info h3:hover,
+        .header-info h3:focus-visible {
+            opacity: 0.82;
+            outline: 2px solid rgba(255, 255, 255, 0.9);
+            outline-offset: 3px;
         }
         .header-info span {
             font-size: 11px;
@@ -680,29 +698,42 @@
                 grid-template-areas: "left right" "center center";
                 align-items: center;
                 padding: 10px 12px;
-                gap: 8px;
-                row-gap: 8px;
+                gap: 8px 10px;
+                row-gap: 10px;
             }
             .header-left {
                 grid-area: left;
+                min-width: 0;
+                width: 100%;
                 gap: 8px;
+                align-items: center;
             }
             .header-right {
                 grid-area: right;
+                min-width: 0;
                 gap: 6px;
+                justify-content: flex-start;
             }
             .header-center {
                 grid-area: center;
                 order: 0;
                 width: 100%;
+                min-width: 0;
+                min-height: 36px;
             }
             .header-logo {
                 width: 38px;
                 height: 38px;
                 font-size: 19px;
             }
+            .header-info {
+                min-width: 0;
+                flex: 1 1 auto;
+                overflow: hidden;
+            }
             .header-info h3 {
                 font-size: 14px;
+                max-width: 100%;
             }
             .header-info span {
                 font-size: 10px;
@@ -2488,6 +2519,51 @@
                 flex: 0 0 auto;
             }
         }
+
+        /* فصل صفوف الهيدر على الشاشات الصغيرة لمنع التداخل */
+        @media (max-width: 640px) {
+            .header {
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-areas:
+                    "left"
+                    "right"
+                    "center";
+                gap: 9px;
+                padding: 10px 12px 12px;
+            }
+            .header-left {
+                width: 100%;
+                min-width: 0;
+                min-height: 73px;
+                align-items: center;
+            }
+            .header-info {
+                flex: 1 1 auto;
+                min-width: 0;
+                gap: 4px;
+                overflow: hidden;
+            }
+            .header-info h3 {
+                height: 18px;
+                line-height: 18px;
+            }
+            .user-chip,
+            .db-status {
+                flex-shrink: 0;
+            }
+            .header-right {
+                width: 100%;
+                min-width: 0;
+                min-height: 38px;
+                padding-top: 8px;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                justify-content: flex-start;
+            }
+            .header-center {
+                margin-top: 0;
+                min-height: 36px;
+            }
+        }
     </style>
 </head>
 
@@ -2546,9 +2622,9 @@
         <!-- HEADER -->
         <header class="header" id="app-header" style="display:none;">
             <div class="header-left">
-                <div class="header-logo" id="header-logo">🛒</div>
+                <div class="header-logo" id="header-logo" role="button" tabindex="0" aria-label="العودة إلى الشاشة الرئيسية" title="الشاشة الرئيسية" onclick="backToMain()" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); backToMain(); }">🛒</div>
                 <div class="header-info">
-                    <h3 id="header-company-name">بقالة الخير</h3>
+                    <h3 id="header-company-name" role="button" tabindex="0" aria-label="العودة إلى الشاشة الرئيسية" title="الشاشة الرئيسية" onclick="backToMain()" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); backToMain(); }">بقالة الخير</h3>
                     <div class="user-chip" id="header-user-info">
                         <span class="user-chip-avatar" id="header-user-avatar">م</span>
                         <span class="user-chip-meta">
