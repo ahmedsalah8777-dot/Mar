@@ -414,7 +414,6 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            display: block;
         }
         .header-logo {
             width: 44px;
@@ -924,208 +923,85 @@
             margin: 0 auto;
             width: 100%;
         }
-        /* ===== PRODUCTS: بطاقة منتج احترافية ===== */
         .products-table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
+            border-collapse: collapse;
             font-size: 14px;
         }
-
-        .products-table thead {
-            display: none;
+        .products-table th {
+            background: var(--gray-100);
+            padding: 12px 10px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--gray-700);
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            border-bottom: 2px solid var(--gray-200);
         }
-
-        .products-table tbody {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 14px;
-        }
-
-        .products-table tr {
-            display: grid;
-            grid-template-columns: 92px minmax(0, 1fr);
-            grid-template-rows: auto auto;
-            column-gap: 14px;
-            row-gap: 4px;
-            align-items: center;
-            background: white;
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius-lg);
-            padding: 12px;
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-            min-width: 0;
-        }
-
-        .products-table tr:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary-light);
-        }
-
         .products-table td {
-            padding: 0;
-            text-align: right;
-            border: none;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid var(--gray-100);
             vertical-align: middle;
-            min-width: 0;
         }
-
-        .products-table .product-img-cell {
-            grid-column: 1;
-            grid-row: 1 / span 2;
-            width: 92px;
-            height: 92px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border-radius: var(--radius);
-            background: var(--gray-50);
-            border: 1px solid var(--gray-200);
+        .product-img-cell {
+            width: 80px;
         }
-
         .product-img {
-            width: 100%;
-            height: 100%;
-            border-radius: var(--radius);
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-sm);
             object-fit: cover;
             background: var(--gray-100);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 38px;
-            margin: 0;
+            font-size: 32px;
+            margin: 0 auto;
         }
-
-        .products-table .product-name-cell {
-            grid-column: 2;
-            grid-row: 1;
-            align-self: end;
-            overflow: hidden;
-        }
-
-        .products-table .product-name-cell strong {
-            display: block;
-            color: var(--gray-800);
-            font-size: 15px;
-            font-weight: 800;
-            line-height: 1.45;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .products-table .product-meta-cell {
-            grid-column: 2;
-            grid-row: 2;
-            align-self: start;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            flex-wrap: wrap;
-        }
-
         .product-price {
-            font-weight: 800;
+            font-weight: 700;
             color: var(--primary-dark);
-            font-size: 14px;
+            font-size: 15px;
             white-space: nowrap;
         }
-
         .product-qty {
-            display: none;
+            font-weight: 600;
+            color: var(--gray-600);
+            font-size: 13px;
         }
-
         .product-unit {
-            background: var(--gray-100);
-            padding: 3px 8px;
+            background: var(--gray-200);
+            padding: 2px 8px;
             border-radius: 12px;
             font-size: 11px;
             color: var(--gray-700);
             white-space: nowrap;
-            margin: 0;
+            margin-right: 4px;
             display: inline-block;
         }
-
-        .products-table .product-action-cell {
-            grid-column: 1 / -1;
-            grid-row: 3;
-            padding-top: 8px;
-        }
-
         .btn-add-cart {
-            width: 100%;
-            min-height: 40px;
             background: var(--primary);
             color: white;
             border: none;
-            padding: 9px 14px;
-            border-radius: 12px;
+            padding: 8px 14px;
+            border-radius: 20px;
             cursor: pointer;
-            font-weight: 800;
+            font-weight: 600;
             font-size: 13px;
             transition: var(--transition);
             font-family: inherit;
             white-space: nowrap;
         }
-
         .btn-add-cart:hover {
             background: var(--primary-dark);
-            transform: translateY(-1px);
+            transform: scale(1.04);
         }
-
-        .btn-add-cart:active {
-            transform: scale(0.98);
-        }
-
         .btn-add-cart:disabled {
             background: var(--gray-400);
             cursor: not-allowed;
             transform: none;
-        }
-
-        @media (max-width: 640px) {
-            .products-screen-body {
-                padding: 10px;
-            }
-
-            .products-table tbody {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .products-table tr {
-                grid-template-columns: 82px minmax(0, 1fr);
-                column-gap: 12px;
-                padding: 10px;
-                border-radius: 14px;
-            }
-
-            .products-table .product-img-cell {
-                width: 82px;
-                height: 82px;
-            }
-
-            .products-table .product-name-cell strong {
-                font-size: 14px;
-            }
-
-            .product-price {
-                font-size: 13px;
-            }
-
-            .btn-add-cart {
-                min-height: 42px;
-                font-size: 13px;
-            }
-        }
-
-        @media (min-width: 641px) {
-            .products-table .product-action-cell {
-                grid-column: 1 / -1;
-            }
         }
 
         /* CART OVERLAY */
@@ -2757,7 +2633,7 @@
         <!-- LOGIN SCREEN -->
         <div class="screen active" id="login-screen">
             <div class="login-card">
-                <div class="login-logo" id="login-logo" aria-label="شعار الشركة"></div>
+                <div class="login-logo" id="login-logo">🛒</div>
                 <h2 class="login-title" id="login-title">بقالة الخير</h2>
                 <p class="login-subtitle">نظام إدارة المبيعات</p>
                 <div class="input-group">
@@ -2783,9 +2659,9 @@
 
         <!-- REGISTER SCREEN -->
         <div class="screen" id="register-screen">
-            <div class="register-card">
-                <h2>📝 طلب تسجيل جديد</h2>
-                <p class="subtitle">سيتم إرسال طلبك للمدير للموافقة</p>
+    <div class="register-card">
+        <h2>📝 طلب تسجيل جديد</h2>
+        <p class="subtitle">سيتم إرسال طلبك إلى <span id="register-company-name">بقالة الخير</span> للموافقة</p>
                 <div class="input-group"><label>👤 الاسم الثلاثي</label><input type="text" id="reg-fullname" placeholder="مثال: محمد أحمد علي" /></div>
                 <div class="input-group"><label>📱 رقم واتساب</label><input type="tel" id="reg-phone" placeholder="مثال: 01001234567" /></div>
                 <button class="btn btn-primary" onclick="requestRegistration()">📨 طلب تسجيل</button>
@@ -3636,15 +3512,10 @@
         function renderCompanyLogoInto(elId, settings) {
             const el = document.getElementById(elId);
             if (!el) return;
-
-            // استخدام نفس صورة اللوجو المحفوظة في الإعدادات
-            // لشاشة تسجيل الدخول والهيدر بدون إنشاء صورة مختلفة.
             if (settings.companyLogoUrl) {
-                const logoUrl = fixImageUrl(settings.companyLogoUrl);
                 el.innerHTML =
-                    `<img src="${logoUrl}" alt="شعار الشركة" loading="eager"${imgTagFallback()}>`;
+                    `<img src="${fixImageUrl(settings.companyLogoUrl)}" alt="logo" loading="lazy"${imgTagFallback()}>`;
             } else {
-                // في حالة عدم وجود صورة مرفوعة، استخدم الـ Emoji المحفوظ في الإعدادات.
                 el.textContent = settings.companyLogo || '🛒';
             }
         }
@@ -4268,31 +4139,19 @@
             if (cat.products && cat.products.length) {
                 body.innerHTML = `
                 <div class="table-wrapper">
-                <table class="products-table" aria-label="قائمة المنتجات">
+                <table class="products-table"><thead><tr><th>🖼️ صورة</th><th>📝 اسم المنتج</th><th>💰 السعر</th><th>📦 المتاح</th><th>الوحدة</th><th>⚡ الإجراءات</th></tr></thead>
                 <tbody>${cat.products.map(p => {
                     const disabled = p.quantity <= 0;
                     const unit = p.unit || 'عدد';
                     return `<tr>
-                        <td class="product-img-cell">
-                            ${p.imgUrl
-                                ? `<img class="product-img" src="${fixImageUrl(p.imgUrl)}" alt="${p.name}" loading="lazy"${imgTagFallback()}>`
-                                : `<div class="product-img">${p.img || '📦'}</div>`}
-                        </td>
-                        <td class="product-name-cell">
-                            <strong title="${p.name}">${p.name}</strong>
-                        </td>
-                        <td class="product-meta-cell">
-                            <span class="product-price">${p.price} ج.م</span>
-                            <span class="product-unit">${unit}</span>
-                        </td>
-                        <td class="product-action-cell">
-                            <button class="btn-add-cart" onclick="openQtyPopup('${catId}','${p.id}')" ${disabled ? 'disabled' : ''}>
-                                ${disabled ? '❌ نافذ' : '🛒 أضف للسلة'}
-                            </button>
-                        </td>
+                        <td class="product-img-cell">${p.imgUrl ? `<img class="product-img" src="${fixImageUrl(p.imgUrl)}" alt="${p.name}" loading="lazy"${imgTagFallback()}>` : `<div class="product-img">${p.img || '📦'}</div>`}</td>
+                        <td><strong>${p.name}</strong></td>
+                        <td><span class="product-price">${p.price} ج.م</span></td>
+                        <td><span class="product-qty">${p.quantity}</span></td>
+                        <td><span class="product-unit">${unit}</span></td>
+                        <td><button class="btn-add-cart" onclick="openQtyPopup('${catId}','${p.id}')" ${disabled ? 'disabled' : ''}>${disabled ? '❌ نافذ' : '🛒 أضف للسلة'}</button></td>
                     </tr>`;
-                }).join('')}</tbody>
-                </table>
+                }).join('')}</tbody></table>
                 </div>`;
             } else {
                 body.innerHTML = '<div style="text-align:center;padding:30px;">📭 لا توجد منتجات في هذا القسم</div>';
@@ -6210,6 +6069,13 @@
                 showLoading(false);
             }
         };
+async function updateRegisterCompanyName() {
+    const settings = await getCompanySettings();
+    const nameSpan = document.getElementById('register-company-name');
+    if (nameSpan) {
+        nameSpan.textContent = settings.companyName || 'بقالة الخير';
+    }
+};
     </script>
 
 </body>
